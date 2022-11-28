@@ -45,7 +45,7 @@ userRouter.get("/accessToken", async (req, res) => {
   }
 });
 
-// /api/users/signin
+// /api/users/login
 userRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -70,7 +70,7 @@ userRouter.post("/login", async (req, res) => {
     let userInfo;
 
     if (user.role === "company") {
-      userInfo = await Company.findById({ company_id: user._id });
+      userInfo = await Company.findOne({ company_id: user._id });
     }
 
     if (user.role === "student") {
@@ -80,6 +80,7 @@ userRouter.post("/login", async (req, res) => {
     res.json({
       refresh_token,
       access_token,
+      role: user.role,
       userInfo,
     });
   } catch (error) {
@@ -88,19 +89,35 @@ userRouter.post("/login", async (req, res) => {
 });
 
 // /api/users/register
-userRouter.post("/register/student", async (req, res) => {
+userRouter.post("/register", async (req, res) => {
   try {
     const user = await Users.findOne({ email: req.body.email });
     if (user) return res.status(400).json({ err: "Email đã tồn tại." });
 
     const passwordHash = await bcrypt.hash(req.body.password, 12);
 
-    if (req.body.role == "admin") {
-      const newUser = new Users({
-        email,
-        password: passwordHash,
+    const newUser = new Users({
+      email: req.body.email,
+      password: passwordHash,
+      role: req.body.role,
+    });
+    const data = await newUser.save();
+
+    if (req.body.role === "student") {
+      const newStudent = new Students({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        userId: data._id,
       });
-      await newUser.save();
+      await newStudent.save();
+    }
+    if (req.body.role === "company") {
+      const newCompany = new Company({
+        full_name: req.body.fullName,
+        short_name: req.body.shortName,
+        user_id: data._id,
+      });
+      await newCompany.save();
     }
 
     res.json({

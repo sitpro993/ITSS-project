@@ -3,30 +3,6 @@ import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import { useStyles } from "./index.css";
 import StudentRegisterForm from "./form/student";
 import CompanyRegisterForm from "./form/company";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && { children }}
-    </div>
-  );
-}
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
 function Register() {
   const classes = useStyles({});
   const [tabIndex, setTabIndex] = useState(0);

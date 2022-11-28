@@ -29,15 +29,16 @@ function StudentRegisterForm() {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    // const response = await apiStudentRegister({
-    //   firstname: data.firstname,
-    //   lastname: data.lastname,
-    //   email: data.email,
-    //   password: data.password,
-    // });
-    // if (response) {
-    //   navigate("/login");
-    // }
+    const response = await apiStudentRegister({
+      firstName: data.firstname,
+      lastName: data.lastname,
+      email: data.email,
+      password: data.password,
+      role: "student",
+    });
+    if (response && response.msg) {
+      navigate("/login");
+    }
   };
   return (
     <Box

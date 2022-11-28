@@ -36,12 +36,13 @@ function Login() {
   const onSubmit = async (data) => {
     const response = await apiLogin(data);
 
-    if (response && response.user) {
+    if (response && response.userInfo) {
       dispatch(
         loginAction({
           accessToken: response.access_token,
-          user: response.user,
           refreshToken: response.refresh_token,
+          userInfo: response.userInfo,
+          role: response.role,
         })
       );
       navigate("/");

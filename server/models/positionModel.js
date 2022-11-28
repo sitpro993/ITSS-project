@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const positionSchema = new mongoose.Schema(
   {
@@ -9,7 +9,7 @@ const positionSchema = new mongoose.Schema(
     field: {
       type: String,
     },
-    salary:{
+    salary: {
       type: String,
     },
     type: {
@@ -29,13 +29,14 @@ const positionSchema = new mongoose.Schema(
     },
     company: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Company"
-    }
+      ref: "Company",
+    },
   },
   {
     timestamps: true,
   }
 );
 
-let Position = mongoose.models.position || mongoose.model("position", positionSchema)
-module.exports = Position
+let Position =
+  mongoose.models.position || mongoose.model("position", positionSchema);
+module.exports = Position;

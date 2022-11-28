@@ -29,15 +29,16 @@ function CompanyRegisterForm() {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    // const response = await apiStudentRegister({
-    //   firstname: data.firstname,
-    //   lastname: data.lastname,
-    //   email: data.email,
-    //   password: data.password,
-    // });
-    // if (response) {
-    //   navigate("/login");
-    // }
+    const response = await apiStudentRegister({
+      fullName: data.fullName,
+      shortName: data.shortName,
+      email: data.email,
+      password: data.password,
+      role: "company",
+    });
+    if (response) {
+      navigate("/login");
+    }
   };
   return (
     <Box
@@ -52,7 +53,7 @@ function CompanyRegisterForm() {
 
         <OutlinedInput
           id="register-fullname"
-          {...register("fullname", {
+          {...register("fullName", {
             required: "Fullname is required",
           })}
           label="Fullname"
@@ -67,7 +68,7 @@ function CompanyRegisterForm() {
 
         <OutlinedInput
           id="register-shortname"
-          {...register("shortname", {
+          {...register("shortName", {
             required: "Shortname is required",
           })}
           label="Shortname"

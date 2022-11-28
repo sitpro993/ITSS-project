@@ -13,7 +13,6 @@ const PrivateRoute = function PrivateRoute(props) {
   }, [props.title]);
 
   useEffect(() => {
-    console.log("a", typeof userInfo);
     if (!userInfo) {
       navigate(ROUTE.LOGIN);
     }
