@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Users = require("../models/userModel.js");
+const Company = require("../models/companyModel.js");
+const Students = require("../models/studentModel.js");
 const createToken = require("../utils/generateToken.js");
 const auth = require("../auth.js");
 
@@ -65,15 +67,20 @@ userRouter.post("/login", async (req, res) => {
       "365d"
     );
 
+    let userInfo;
+
+    if (user.role === "company") {
+      userInfo = await Company.findById({ company_id: user._id });
+    }
+
+    if (user.role === "student") {
+      userInfo = await Students.findOne({ userId: user._id });
+    }
+
     res.json({
-      msg: "Chào, " + user.firstName + " quay trở lại",
       refresh_token,
       access_token,
-      user: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      },
+      userInfo,
     });
   } catch (error) {
     return res.status(500).json({ err: error.message });
@@ -81,22 +88,21 @@ userRouter.post("/login", async (req, res) => {
 });
 
 // /api/users/register
-userRouter.post("/register", async (req, res) => {
+userRouter.post("/register/student", async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
-
-    const user = await Users.findOne({ email });
+    const user = await Users.findOne({ email: req.body.email });
     if (user) return res.status(400).json({ err: "Email đã tồn tại." });
 
-    const passwordHash = await bcrypt.hash(password, 12);
+    const passwordHash = await bcrypt.hash(req.body.password, 12);
 
-    const newUser = new Users({
-      firstName,
-      lastName,
-      email,
-      password: passwordHash,
-    });
-    await newUser.save();
+    if (req.body.role == "admin") {
+      const newUser = new Users({
+        email,
+        password: passwordHash,
+      });
+      await newUser.save();
+    }
+
     res.json({
       msg: "Đăng ký thành công",
     });

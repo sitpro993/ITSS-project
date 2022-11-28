@@ -10,6 +10,7 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Typography,
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import React, { useState } from "react";
@@ -19,9 +20,7 @@ import { useStyles } from "./index.css";
 import { apiLogin } from "../../apis/auth";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../../redux/slices/authSlice";
-
-const REGEX_EMAIL =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+import { REGEX_EMAIL } from "../../constant/regex";
 
 function Login() {
   const classes = useStyles({});
@@ -50,8 +49,14 @@ function Login() {
   };
   return (
     <Grid container className={classes.loginPage}>
-      <Grid item xs={8}>
-        <Grid container>
+      <Grid item lg={6} md={10} sx={{ margin: "auto" }}>
+        <Grid
+          container
+          style={{
+            background: "#fff",
+            boxShadow: "0 10px 34px -15px rgb(0 0 0 / 24%)",
+          }}
+        >
           <Grid item xs={6} className={classes.intro}></Grid>
           <Grid item xs={6}>
             <Box
@@ -59,8 +64,9 @@ function Login() {
               onSubmit={handleSubmit(onSubmit)}
               noValidate
               className={classes.form}
+              sx={{ px: 4, py: 6 }}
             >
-              <FormControl fullWidth required sx={{ mb: 2 }}>
+              <FormControl fullWidth required sx={{ mb: 3 }}>
                 <InputLabel htmlFor="login-email">Email</InputLabel>
 
                 <OutlinedInput
@@ -82,7 +88,7 @@ function Login() {
                   {errors["email"] ? errors["email"].message : ""}
                 </FormHelperText>
               </FormControl>
-              <FormControl fullWidth required>
+              <FormControl fullWidth required sx={{ mb: 3 }}>
                 <InputLabel htmlFor="login-password">Password</InputLabel>
                 <OutlinedInput
                   id="login-password"
@@ -123,13 +129,10 @@ function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                  <Link>
+                    <Typography variant="body1">
+                      Don't have an account? Sign Up
+                    </Typography>
                   </Link>
                 </Grid>
               </Grid>

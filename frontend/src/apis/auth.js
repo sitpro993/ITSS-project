@@ -5,7 +5,7 @@ export const apiLogin = async (post) => {
   return result;
 };
 
-export const apiRegister = async (post) => {
+export const apiStudentRegister = async (post) => {
   const result = await postData("users/register", post);
   return result;
 };

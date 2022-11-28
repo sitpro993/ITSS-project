@@ -2,43 +2,52 @@ const mongoose = require("mongoose");
 
 const companySchema = new mongoose.Schema(
   {
+    company_id: { type: String, required: true },
     short_name: {
       type: String,
       required: true,
     },
-    full_name: { 
+    full_name: {
       type: String,
-      required: true, 
+      required: true,
     },
     website: {
       type: String,
       require: true,
+      default: "",
     },
     created_time: {
       type: Number,
       require: true,
+      default: "",
     },
     field: {
       type: String,
       require: true,
+      default: "",
     },
-    number_of_employee:{
+    number_of_employee: {
       type: Number,
       require: true,
+      default: 0,
     },
     description: {
       type: String,
       require: true,
+      default: "",
     },
-    position: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Position"
-    }]
+    position: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Position",
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-let Company = mongoose.models.company || mongoose.model("company", companySchema);
+let Company =
+  mongoose.models.company || mongoose.model("company", companySchema);
 module.exports = Company;

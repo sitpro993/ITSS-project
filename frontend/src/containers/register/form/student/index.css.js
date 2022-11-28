@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles((theme) => {
   return {
-    registerPage: (props) => {
+    loginPage: (props) => {
       return {
         height: "100vh",
         justifyContent: "center",
