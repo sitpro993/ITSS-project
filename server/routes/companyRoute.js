@@ -55,4 +55,20 @@ companyRouter.post("", async (req, res) => {
   }
 })
 
+// api/company/:id
+companyRouter.get("/:id", async (req, res) => {
+  try {
+    const authResutl = await auth(req, res);
+    const { id } = req.params
+    const company = await Company.findById(id)
+    if (!company) return res.status(400).json({err: "Company does not exist,"});
+
+    res.json({
+      data: company,
+    })
+  } catch (error) {
+    return res.status(500).json({ err: error.message });
+  }
+});
+
 module.exports = companyRouter
