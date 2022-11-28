@@ -1,4 +1,3 @@
-
 import React from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -72,13 +71,13 @@ function CompanyDetails() {
       <section className="py-8 px-24 bg-slate-100 flex justify-start space-x-2">
         <div className="w-[850px] flex space-x-[24px]">
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/fptu-grabwork.appspot.com/o/vercel%2Fenterprise%2FlogoUrls%2F23_thucdevxom4%40gmail.com?alt=media&amp;token=b8ef821e-9206-4950-b49c-379822a50c5e"
+            src="https://brademar.com/wp-content/uploads/2022/09/Shopee-Logo-PNG-2.png"
             alt="LogoUrl"
             className="w-[110px] h-[110px] object-contain rounded-lg bg-white"
           />
           <div className="flex flex-col justify-between space-y-4">
             <h1 class="font-medium text-[26px]" title="Công ty TNHH Tien Lam">
-              Công ty TNHH Tien Lam
+              Công ty Shopee
             </h1>
             <div className="text-slate-800 space-x-4 flex items-center">
               <div class="space-x-2 flex items-center">
@@ -156,7 +155,15 @@ function CompanyDetails() {
                 <div className="space-y-4">
                   <h2 className="text-xl font-medium">Mô tả chi tiết</h2>
                   <p className="text-gray-700 leading-7 whitespace-pre-line">
-                    mô tả
+                    Shopee là nền tảng thương mại điện tử hàng đầu tại Đông Nam
+                    Á và Đài Loan. Ra mắt năm 2015, nền tảng thương mại Shopee
+                    được xây dựng nhằm cung cấp cho người dùng những trải nghiệm
+                    dễ dàng, an toàn và nhanh chóng khi mua sắm trực tuyến thông
+                    qua hệ thống hỗ trợ thanh toán và vận hành vững mạnh. Chúng
+                    tôi có niềm tin mạnh mẽ rằng trải nghiệm mua sắm trực tuyến
+                    phải đơn giản, dễ dàng và mang đến cảm xúc vui thích. Niềm
+                    tin này truyền cảm hứng và thúc đẩy chúng tôi mỗi ngày tại
+                    Shopee.
                   </p>
                   <div className="flex flex-wrap py-2"></div>
                 </div>
@@ -165,9 +172,7 @@ function CompanyDetails() {
                 <div className="bg-slate-100 p-6 space-y-4 rounded-lg">
                   <div className="grid grid-cols-2 gap-4">
                     <span className="font-semibold">Tên viết tắt:</span>
-                    <span className="text-slate-800 text-right">
-                      Tien Lam Ltd
-                    </span>
+                    <span className="text-slate-800 text-right">Shopee</span>
                     <span className="font-semibold">Số lượng nhân sự:</span>
                     <span className="text-slate-800 text-right">
                       Từ 10-50 người
@@ -199,9 +204,7 @@ function CompanyDetails() {
                 class="p-4 border-[1px] border-[#ECEDF2] rounded-lg shadow-sm block space-y-4"
                 href=""
               >
-                <h3 class="text-18 font-semibold">
-                  Thực tập front end
-                </h3>
+                <h3 class="text-18 font-semibold">Thực tập front end</h3>
                 <div class="text-grey space-x-4 flex items-center">
                   <div class="space-x-4 flex items-center">
                     <svg
@@ -277,9 +280,7 @@ function CompanyDetails() {
                 class="p-4 border-[1px] border-[#ECEDF2] rounded-lg shadow-sm block space-y-4"
                 href=""
               >
-                <h3 class="text-18 font-semibold">
-                  Thực tập front end
-                </h3>
+                <h3 class="text-18 font-semibold">Thực tập front end</h3>
                 <div class="text-grey space-x-4 flex items-center">
                   <div class="space-x-4 flex items-center">
                     <svg
