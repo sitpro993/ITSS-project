@@ -8,25 +8,25 @@ import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import { ROUTE } from '../../../constant/route';
 
-export const JobItem = ({ job, loading }) => {
+export const CompanyItem = ({ company, loading }) => {
   const handleClick = () => {
-    window.location.href = `${ROUTE.JOBS}/${job.id}`;
+    window.location.href = `${ROUTE.COMPANYS}/${company.id}`;
   };
 
   return !loading ? (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
        component="img"
-       image={job.logo}
+       image={company.logo}
        alt="Company logo"
        height="140"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {job.title}
+          {company.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {job.description}
+          {company.description}
         </Typography>
       </CardContent>
       <CardActions>

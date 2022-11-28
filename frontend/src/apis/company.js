@@ -4,15 +4,15 @@ const logoList = [
   'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
 ];
 
-export const JobApi = {
-  getJobs: async ({ page, size }) => {
+export const CompanyApi = {
+  getCompanys: async ({ page, size }) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return [...Array(size)].map((_, index) => ({
       id: index + (page - 1) * size + 1,
-      title: `Job ${index + (page - 1) * size + 1}`,
-      description: `This is the best Job description in the world`,
-      logo: logoList[Math.floor(Math.random() * logoList.length)],
+      title: `Company ${index + (page - 1) * size + 1}`,
+      description: `This is the best company description in the world`,
+      logo: logoList[index % logoList.length],
     }));
   },
 };

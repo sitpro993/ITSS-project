@@ -1,0 +1,1 @@
+export const selectCompanyList = (state) => state.company?.list;
