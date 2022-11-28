@@ -4,6 +4,7 @@ import { ROUTE } from "../constant/route";
 import HomePage from "../pages/home";
 import LoginPage from "../pages/login";
 import NotFoundPage from "../pages/notFound";
+import RegisterPage from "../pages/register";
 
 export const routes = [
   {
@@ -16,6 +17,11 @@ export const routes = [
     path: ROUTE.LOGIN,
     element: LoginPage,
     title: "Login",
+  },
+  {
+    path: ROUTE.REGISTER,
+    element: RegisterPage,
+    title: "Register",
   },
   {
     path: "*",

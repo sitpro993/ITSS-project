@@ -44,7 +44,7 @@ userRouter.get("/accessToken", async (req, res) => {
 });
 
 // /api/users/signin
-userRouter.post("/signin", async (req, res) => {
+userRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 

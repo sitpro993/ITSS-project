@@ -4,7 +4,7 @@ import { ROUTE } from "../../constant/route";
 import { useSelector } from "react-redux";
 
 const PrivateRoute = function PrivateRoute(props) {
-  const userInfo = useSelector((s) => s.auth);
+  const userInfo = useSelector((s) => s.auth.userInfo);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,6 +13,7 @@ const PrivateRoute = function PrivateRoute(props) {
   }, [props.title]);
 
   useEffect(() => {
+    console.log("a", typeof userInfo);
     if (!userInfo) {
       navigate(ROUTE.LOGIN);
     }

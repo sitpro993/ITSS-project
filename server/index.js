@@ -15,7 +15,7 @@ connectDB();
 app.use(cors());
 
 //port
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
 app.use("/api/users", userRouter);
 
