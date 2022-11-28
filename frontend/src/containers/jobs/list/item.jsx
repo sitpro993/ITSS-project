@@ -4,21 +4,22 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import { ROUTE } from '../../../constant/route';
 
-export const JobItem = ({ job }) => {
+export const JobItem = ({ job, loading }) => {
   const handleClick = () => {
     window.location.href = `${ROUTE.JOBS}/${job.id}`;
   };
 
-  return (
+  return !loading ? (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
-        component="img"
-        height="140"
-        image="/public/logo192.png"
-        alt="company logo"
+       component="img"
+       image={job.logo}
+       alt="Company logo"
+       height="140"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -35,5 +36,7 @@ export const JobItem = ({ job }) => {
         </Button>
       </CardActions>
     </Card>
+  ) : (
+    <Skeleton variant="rectangular" animation="wave" width='15vw' height='25vh' />
   );
 };
