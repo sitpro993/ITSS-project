@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const companySchema = new mongoose.Schema(
   {
-    name: {
+    short_name: {
       type: String,
       required: true,
     },
@@ -14,27 +14,15 @@ const companySchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    address: {
-      type: String,
-      require: true,
-    },
-    year: {
+    created_time: {
       type: Number,
       require: true,
     },
-    company_type: {
+    field: {
       type: String,
       require: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    image: {
-      type: String,
-    },
-    number_intern:{
+    number_of_employee:{
       type: Number,
       require: true,
     },
@@ -42,10 +30,10 @@ const companySchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    status: {
-      type: String,
-      require: true,
-    }
+    position: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Position"
+    }]
   },
   {
     timestamps: true,
