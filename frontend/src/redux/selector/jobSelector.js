@@ -1,1 +1,0 @@
-export const selectJobList = (state) => state.job?.list;

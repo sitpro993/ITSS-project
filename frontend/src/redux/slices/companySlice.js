@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchJobs } from '../thunks/jobThunk';
+import { fetchCompanys } from '../thunks/companyThunk';
 
 const INIT_STATE = {
   list: {
@@ -8,30 +8,30 @@ const INIT_STATE = {
   },
 };
 
-export const jobSlice = createSlice({
-  name: 'job',
+export const companySlice = createSlice({
+  name: 'company',
   initialState: INIT_STATE,
   reducers: {
-    setJobs: (state, action) => {
+    setCompanys: (state, action) => {
       state.list.data = action.payload;
     },
-    setJobsLoading: (state, action) => {
+    setCompanysLoading: (state, action) => {
       state.list.loading = action.payload;
     },
   },
   extraReducers: {
-    [fetchJobs.pending]: (state, _) => {
+    [fetchCompanys.pending]: (state, _) => {
       state.list.loading = true;
     },
-    [fetchJobs.fulfilled]: (state, action) => {
+    [fetchCompanys.fulfilled]: (state, action) => {
       state.list.loading = false;
       state.list.data = action.payload;
     },
-    [fetchJobs.rejected]: (state, _) => {
+    [fetchCompanys.rejected]: (state, _) => {
       state.list.loading = false;
     },
   },
 });
 
-export const { setJobs, setJobsLoading } = jobSlice.actions;
-export default jobSlice.reducer;
+export const { setCompanys, setCompanysLoading } = companySlice.actions;
+export default companySlice.reducer;
