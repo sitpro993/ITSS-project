@@ -5,6 +5,7 @@ import HomePage from "../pages/home";
 import LoginPage from "../pages/login";
 import NotFoundPage from "../pages/notFound";
 import RegisterPage from "../pages/register";
+import { JobsListPage, JobDetailsPage } from "../pages/jobs";
 
 export const routes = [
   {
@@ -22,6 +23,16 @@ export const routes = [
     path: ROUTE.REGISTER,
     element: RegisterPage,
     title: "Register",
+  },
+  {
+    path: ROUTE.JOBS,
+    element: JobsListPage,
+    title: "List Jobs",
+  },
+  {
+    path: `${ROUTE.JOBS}/:id`,
+    element: JobDetailsPage,
+    title: "Detail Job",
   },
   {
     path: "*",
