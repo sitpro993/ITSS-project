@@ -6,6 +6,7 @@ import LoginPage from "../pages/login";
 import NotFoundPage from "../pages/notFound";
 import RegisterPage from "../pages/register";
 import { CompanysListPage, CompanyDetailsPage } from "../pages/companys";
+import ApplyJob from "../pages/applyJob";
 
 export const routes = [
   {
@@ -40,6 +41,11 @@ export const routes = [
     is404: true,
     element: NotFoundPage,
   },
+  {
+    path: ROUTE.APPLYJOB,
+    element: ApplyJob,
+    title: "Apply for Job",
+  }
 ].map((route) => {
   if (route.isPrivate) {
     return {
