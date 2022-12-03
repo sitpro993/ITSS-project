@@ -47,15 +47,15 @@ export const custormTheme = {
     MuiButton: {
       styleOverrides: {
         root: {
-          color: "#fff",
-          backgroundColor: "#5A26ED",
+          // color: "#fff",
+          // backgroundColor: "#5A26ED",
           borderRadius: 6,
           paddingBottom: "10px",
           paddingTop: "10px",
           textTransform: "capitalize",
 
           "&:hover": {
-            backgroundColor: "#6F7CF3",
+            // backgroundColor: "#6F7CF3",
           },
         },
       },
