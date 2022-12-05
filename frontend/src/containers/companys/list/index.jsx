@@ -6,6 +6,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCompanyList } from '../../../redux/selector/companySelector';
 import { fetchCompanys } from '../../../redux/thunks/companyThunk';
+import ResponsiveAppBar from './app-bar';
 
 export const CompanysList = () => {
   const dispatch = useDispatch();
@@ -26,13 +27,14 @@ export const CompanysList = () => {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        backgroundColor: '#f5f5f5',
+        height: '110vh'
       }}
     >
-      <div style={{ padding: '20px 0px' }}>
-        <h1>Companys List</h1>
-      </div>
+      <ResponsiveAppBar />
 
       <Box sx={{ flexGrow: 1, maxWidth: '1280px', padding: '20px' }}>
+        <h1>Top Company</h1>
         <Grid
           container
           spacing={{ xs: 1, md: 2 }}
@@ -44,10 +46,10 @@ export const CompanysList = () => {
             </Grid>
           ))}
         </Grid>
+        <div style={{display: 'flex', justifyContent: 'center', marginTop: '30px'}}>
+          <Pagination count={10} color="primary" onChange={handleChangePage} />
+        </div>
       </Box>
-      <div style={{ paddingTop: '10px' }}>
-        <Pagination count={10} color="primary" onChange={handleChangePage} />
-      </div>
     </div>
   );
 };

@@ -1,0 +1,1 @@
+export const selectRequestList = (state) => state.request?.list;

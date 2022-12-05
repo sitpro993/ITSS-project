@@ -5,6 +5,7 @@ import HomePage from "../pages/home";
 import LoginPage from "../pages/login";
 import NotFoundPage from "../pages/notFound";
 import RegisterPage from "../pages/register";
+import { RequestsListPage } from "../pages/requests/list";
 import { CompanysListPage, CompanyDetailsPage } from "../pages/companys";
 
 export const routes = [
@@ -33,6 +34,11 @@ export const routes = [
     path: `${ROUTE.COMPANYS}/:id`,
     element: CompanyDetailsPage,
     title: "Detail Company",
+  },
+  {
+    path: ROUTE.REQUESTS,
+    element: RequestsListPage,
+    title: "List Requests",
   },
   {
     path: "*",

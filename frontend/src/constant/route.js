@@ -3,4 +3,5 @@ export const ROUTE = {
   LOGIN: "/login",
   REGISTER: "/register",
   COMPANYS: "/companys",
+  REQUESTS: "/requests",
 };
