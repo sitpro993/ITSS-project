@@ -39,6 +39,7 @@ export const routes = [
     path: ROUTE.REQUESTS,
     element: RequestsListPage,
     title: "List Requests",
+    isPrivate: true,
   },
   {
     path: "*",

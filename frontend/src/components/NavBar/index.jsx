@@ -71,9 +71,9 @@ function NavBar() {
             <Button
               variant="text"
               style={{ color: "#fff", fontSize: "17px" }}
-              onClick={() => navigate(ROUTE.COMPANY)}
+              onClick={() => navigate(ROUTE.REQUESTS)}
             >
-              Applied Internship
+              Requests
             </Button>
           </Stack>
 
