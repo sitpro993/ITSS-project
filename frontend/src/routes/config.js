@@ -5,10 +5,14 @@ import HomePage from "../pages/home";
 import LoginPage from "../pages/login";
 import NotFoundPage from "../pages/notFound";
 import RegisterPage from "../pages/register";
-import { RequestsListPage } from "../pages/requests/list";
-import { CompanysListPage, CompanyDetailsPage } from "../pages/companys";
+import ApplyInternshipPage from "../pages/applyInternship";
+import ProfilePage from "../pages/profile";
+import { CompanyPage } from "../pages/company";
+import { CompanyDetailsPage } from "../pages/companyDetails";
+import { RequestsListPage } from "../pages/requests";
 
 export const routes = [
+  // route chung
   {
     path: ROUTE.HOMEPAGE,
     element: HomePage,
@@ -26,14 +30,10 @@ export const routes = [
     title: "Register",
   },
   {
-    path: ROUTE.COMPANYS,
-    element: CompanysListPage,
-    title: "List Companys",
-  },
-  {
-    path: `${ROUTE.COMPANYS}/:id`,
-    element: CompanyDetailsPage,
-    title: "Detail Company",
+    path: ROUTE.PROFILE,
+    title: "Profile",
+    element: ProfilePage,
+    isPrivate: true,
   },
   {
     path: ROUTE.REQUESTS,
@@ -46,6 +46,27 @@ export const routes = [
     is404: true,
     element: NotFoundPage,
   },
+
+  // route student
+  {
+    path: ROUTE.COMPANY,
+    element: CompanyPage,
+    title: "Company",
+    isPrivate: true,
+  },
+  {
+    path: ROUTE.COMPANY_DETAIL,
+    element: CompanyDetailsPage,
+    title: "Detail Company",
+    isPrivate: true,
+  },
+  {
+    path: ROUTE.APPLY_INTERNSHIP,
+    element: ApplyInternshipPage,
+    title: "Apply Internship",
+    isPrivate: true,
+  },
+  // route company
 ].map((route) => {
   if (route.isPrivate) {
     return {

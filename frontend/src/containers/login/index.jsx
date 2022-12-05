@@ -21,6 +21,7 @@ import { apiLogin } from "../../apis/auth";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../../redux/slices/authSlice";
 import { REGEX_EMAIL } from "../../constant/regex";
+import { toast } from "react-toastify";
 
 function Login() {
   const classes = useStyles({});
@@ -37,6 +38,16 @@ function Login() {
     const response = await apiLogin(data);
 
     if (response && response.userInfo) {
+      toast.success("Login success", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       dispatch(
         loginAction({
           accessToken: response.access_token,
@@ -46,6 +57,18 @@ function Login() {
         })
       );
       navigate("/");
+    }
+    if (response && response.err) {
+      toast.error(response.err, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   return (
