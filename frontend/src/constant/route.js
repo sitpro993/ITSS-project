@@ -7,4 +7,5 @@ export const ROUTE = {
   COMPANY: "/company",
   COMPANY_DETAIL: "/company/:id",
   APPLY_INTERNSHIP: "/apply-internship",
+  POST_JOB: "/post-job"
 };
