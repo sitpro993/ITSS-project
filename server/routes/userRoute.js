@@ -52,13 +52,11 @@ userRouter.post("/login", async (req, res) => {
 
     const user = await Users.findOne({ email });
     if (!user)
-      return res
-        .status(400)
-        .json({ err: "Tài khoản không tồn tại.", errCode: 1 });
+      return res.status(400).json({ err: "User does not exist.", errCode: 1 });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
-      return res.status(400).json({ err: "Mật khẩu không đúng.", errCode: 2 });
+      return res.status(400).json({ err: "Password not true.", errCode: 2 });
 
     const access_token = createToken({ id: user._id }, userAcessToken, "30d");
     const refresh_token = createToken(

@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
-import { CompanyItem } from './item';
-import Pagination from '@mui/material/Pagination';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Unstable_Grid2';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectCompanyList } from '../../../redux/selector/companySelector';
-import { fetchCompanys } from '../../../redux/thunks/companyThunk';
+import { useEffect } from "react";
+import { CompanyItem } from "./companyItem";
+import Pagination from "@mui/material/Pagination";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Unstable_Grid2";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCompanyList } from "../../redux/selector/companySelector";
+import { fetchCompanys } from "../../redux/thunks/companyThunk";
 
-export const CompanysList = () => {
+export const Company = () => {
   const dispatch = useDispatch();
   const { data, loading } = useSelector(selectCompanyList);
 
@@ -22,17 +22,17 @@ export const CompanysList = () => {
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
       }}
     >
-      <div style={{ padding: '20px 0px' }}>
-        <h1>Companys List</h1>
+      <div style={{ padding: "20px 0px" }}>
+        <h1>Company List</h1>
       </div>
 
-      <Box sx={{ flexGrow: 1, maxWidth: '1280px', padding: '20px' }}>
+      <Box sx={{ flexGrow: 1, maxWidth: "1280px", padding: "20px" }}>
         <Grid
           container
           spacing={{ xs: 1, md: 2 }}
@@ -45,7 +45,7 @@ export const CompanysList = () => {
           ))}
         </Grid>
       </Box>
-      <div style={{ paddingTop: '10px' }}>
+      <div style={{ paddingTop: "10px" }}>
         <Pagination count={10} color="primary" onChange={handleChangePage} />
       </div>
     </div>
