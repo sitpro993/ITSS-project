@@ -28,7 +28,7 @@ export const CompanysList = () => {
         alignItems: 'center',
         flexDirection: 'column',
         backgroundColor: '#f5f5f5',
-        height: '100vh',
+        height: '110vh'
       }}
     >
       <ResponsiveAppBar />
@@ -46,7 +46,7 @@ export const CompanysList = () => {
             </Grid>
           ))}
         </Grid>
-        <div style={{display: 'flex', justifyContent: 'center', margin: '30px'}}>
+        <div style={{display: 'flex', justifyContent: 'center', marginTop: '30px'}}>
           <Pagination count={10} color="primary" onChange={handleChangePage} />
         </div>
       </Box>
