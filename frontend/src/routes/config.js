@@ -10,6 +10,7 @@ import ProfilePage from "../pages/profile";
 import { CompanyPage } from "../pages/company";
 import { CompanyDetailsPage } from "../pages/companyDetails";
 import { RequestsListPage } from "../pages/requests";
+import PostJobPage from "../pages/postJob";
 
 export const routes = [
   // route chung
@@ -65,9 +66,15 @@ export const routes = [
     path: ROUTE.APPLY_INTERNSHIP,
     element: ApplyInternshipPage,
     title: "Apply Internship",
-    isPrivate: true,
+    isPrivate: false,
   },
   // route company
+  {
+    path: ROUTE.POST_JOB,
+    element: PostJobPage,
+    title: "Apply Internship",
+    isPrivate: false,
+  },
 ].map((route) => {
   if (route.isPrivate) {
     return {
