@@ -4,7 +4,7 @@ import Requests from "./list";
 import { selectRequestList } from "../../redux/selector/requestSelector";
 import { fetchRequests } from "../../redux/thunks/requestThunk";
 
-export const RequestsList = () => {
+export const CompanyRequestsList = () => {
   const dispatch = useDispatch();
   const { data, loading } = useSelector(selectRequestList);
 

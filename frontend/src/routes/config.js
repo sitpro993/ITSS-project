@@ -9,8 +9,11 @@ import ApplyInternshipPage from "../pages/applyInternship";
 import ProfilePage from "../pages/profile";
 import { CompanyPage } from "../pages/company";
 import { CompanyDetailsPage } from "../pages/companyDetails";
-import { RequestsListPage } from "../pages/requests";
 import PostJobPage from "../pages/postJob";
+import { ROLE } from "../constant/role";
+import { CompanyRequestsListPage } from "../pages/companyRequests";
+import StudentRequestPage from "../pages/studentRequests";
+import StudentRequestDetailPage from "../pages/studentRequestDetail";
 
 export const routes = [
   // route chung
@@ -19,6 +22,7 @@ export const routes = [
     element: HomePage,
     title: "Home",
     isPrivate: true,
+    role: [ROLE.ADMIN, ROLE.STUDENT, ROLE.COMPANY]
   },
   {
     path: ROUTE.LOGIN,
@@ -35,12 +39,8 @@ export const routes = [
     title: "Profile",
     element: ProfilePage,
     isPrivate: true,
-  },
-  {
-    path: ROUTE.REQUESTS,
-    element: RequestsListPage,
-    title: "List Requests",
-    isPrivate: true,
+    role: [ROLE.ADMIN, ROLE.STUDENT, ROLE.COMPANY]
+    
   },
   {
     path: "*",
@@ -55,18 +55,29 @@ export const routes = [
     element: CompanyPage,
     title: "Company",
     isPrivate: true,
+    role: [ROLE.STUDENT]
   },
   {
     path: ROUTE.COMPANY_DETAIL,
     element: CompanyDetailsPage,
     title: "Detail Company",
-    isPrivate: true,
+    isPrivate: true,  
+    role: [ROLE.STUDENT]
   },
   {
     path: ROUTE.APPLY_INTERNSHIP,
     element: ApplyInternshipPage,
     title: "Apply Internship",
-    isPrivate: false,
+    isPrivate: true,
+    role: [ROLE.STUDENT]
+  },
+  {
+    path: ROUTE.COMPANY_REQUESTS,
+    element: CompanyRequestsListPage,
+    title: "Company Requests",
+    isPrivate: true,
+    role: [ROLE.STUDENT]
+
   },
   // route company
   {
@@ -74,7 +85,22 @@ export const routes = [
     element: PostJobPage,
     title: "Apply Internship",
     isPrivate: false,
+    role: [ROLE.COMPANY]
   },
+  {
+    path: ROUTE.STUDENT_REQUESTS,
+    element: StudentRequestPage,
+    title: "Student Requests",
+    isPrivate: false,
+    role: [ROLE.COMPANY]
+  },
+  {
+    path: ROUTE.STUDENT_REQUESTS_DETAIL,
+    element: StudentRequestDetailPage,
+    title: "Student Request Detail",
+    isPrivate: false,
+    role: [ROLE.COMPANY]
+  }
 ].map((route) => {
   if (route.isPrivate) {
     return {

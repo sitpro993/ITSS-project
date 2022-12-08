@@ -3,26 +3,31 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route";
 import { useSelector } from "react-redux";
 import NavBar from "../NavBar";
+import { Container } from "@mui/material";
 
 const PrivateRoute = function PrivateRoute(props) {
-  const userInfo = useSelector((s) => s.auth.userInfo);
+  const userInfo = useSelector((s) => s.auth.user);
+  
+  console.log(useSelector((s) => s.auth))
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     // set title
     document.title = props.title;
   }, [props.title]);
 
-  useEffect(() => {
-    if (!userInfo) {
-      navigate(ROUTE.LOGIN);
-    }
-  }, [navigate, userInfo]);
+  // useEffect(() => {
+  //   if (!userInfo) {
+  //     navigate(ROUTE.LOGIN);
+  //   }
+  // }, [navigate, userInfo]);
 
   return (
     <>
       <NavBar />
+      <Container>
       {props.children}
+      </Container>
     </>
   );
 };

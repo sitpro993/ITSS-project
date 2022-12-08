@@ -17,7 +17,8 @@ import { Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route";
 import { useDispatch } from "react-redux";
-import { logoutAction } from "../../redux/slices/authSlice";
+import { clearData } from "../../redux/slices/authSlice";
+import { removeLocalStorageItem } from "../../config/localStorage";
 
 const settings = ["Account", "Logout"];
 
@@ -71,7 +72,7 @@ function NavBar() {
             <Button
               variant="text"
               style={{ color: "#fff", fontSize: "17px" }}
-              onClick={() => navigate(ROUTE.REQUESTS)}
+              onClick={() => navigate(ROUTE.COMPANY_REQUESTS)}
             >
               Requests
             </Button>
@@ -109,7 +110,8 @@ function NavBar() {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  dispatch(logoutAction());
+                  removeLocalStorageItem("accessToken")
+                  dispatch(clearData());
                   handleCloseUserMenu();
                 }}
               >

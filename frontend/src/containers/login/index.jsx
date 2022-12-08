@@ -17,11 +17,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useStyles } from "./index.css";
-import { apiLogin } from "../../apis/auth";
+import { apiGetUserInfo, apiLogin } from "../../apis/auth";
 import { useDispatch } from "react-redux";
-import { loginAction } from "../../redux/slices/authSlice";
 import { REGEX_EMAIL } from "../../constant/regex";
 import { toast } from "react-toastify";
+import {  saveAccessToken, saveUserInfo } from "../../redux/slices/authSlice";
+import { setLocalStorageItem } from "../../config/localStorage";
 
 function Login() {
   const classes = useStyles({});
@@ -36,27 +37,27 @@ function Login() {
   } = useForm();
   const onSubmit = async (data) => {
     const response = await apiLogin(data);
+    
+    if (response && response.access_token) {
+      dispatch(saveAccessToken(response.access_token));
+      await setLocalStorageItem("accessToken", response.access_token)
+      const userInfo = await apiGetUserInfo(response.access_token);
 
-    if (response && response.userInfo) {
-      toast.success("Login success", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      dispatch(
-        loginAction({
-          accessToken: response.access_token,
-          refreshToken: response.refresh_token,
-          userInfo: response.userInfo,
-          role: response.role,
-        })
-      );
-      navigate("/");
+      if(userInfo){  
+        dispatch(saveUserInfo(userInfo))
+        toast.success("Login success", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        navigate("/");
+      }
+
     }
     if (response && response.err) {
       toast.error(response.err, {
