@@ -8,24 +8,31 @@ const positionSchema = new mongoose.Schema(
     },
     field: {
       type: String,
+      require: true,
     },
     salary: {
       type: String,
+      require: true,
     },
     type: {
       type: String,
+      require: true,
     },
     deadline: {
       type: Date,
+      require: true,
     },
     benefit: {
       type: String,
+      require: true,
     },
     required_skills: {
       type: [String],
+      require: true,
     },
     required_employees: {
       type: Number,
+      require: true,
     },
     company: {
       type: mongoose.Schema.Types.ObjectId,
