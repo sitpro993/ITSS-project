@@ -41,6 +41,8 @@ companyRouter.get("", async (req, res) => {
       .limit(limit)
       .exec()
     
+    result.data.forEach(v => { v['positions'] = [] });
+
     result.rowsPerPage = limit
     return res.json({
       msg: "Success",
@@ -90,6 +92,9 @@ companyRouter.get("/:id", async (req, res) => {
     const company = await Company.findById(id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
 
+    if (authResutl != "company" && authResutl.id != company.user_id) {
+      company.forEach(v => { v['positions'] = [] })
+    }
     res.json({
       data: company,
     })
@@ -128,6 +133,10 @@ companyRouter.post("/:id/position", async (req, res) => {
       company: company._id,
     })
     await newPosition.save();
+    await Company.findByIdAndUpdate(
+      id,
+      { $push: { positions: newPosition._id }}
+    )
     res.json({
       msg: "Đăng ký công việc mới thành công",
     })

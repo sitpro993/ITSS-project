@@ -36,7 +36,7 @@ const companySchema = new mongoose.Schema(
       require: true,
       default: "",
     },
-    position: [
+    positions: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Position",
