@@ -66,7 +66,7 @@ export const routes = [
     path: ROUTE.APPLY_INTERNSHIP,
     element: ApplyInternshipPage,
     title: "Apply Internship",
-    isPrivate: false,
+    isPrivate: true,
   },
   // route company
   {
