@@ -15,6 +15,12 @@ const studentSchema = new mongoose.Schema(
     achievement: { type: String },
     strength: { type: String },
     weekness: { type: String },
+    jobs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+    ]
   },
   {
     timestamps: true,

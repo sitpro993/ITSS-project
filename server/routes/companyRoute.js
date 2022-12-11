@@ -108,13 +108,13 @@ companyRouter.post("/:id/position", async (req, res) => {
   try {
     const authResult = await auth(req, res)
     if (authResult.role != "company") {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
     const {id} = req.params
     const company = await Company.findById(id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
     if (company.user_id != authResult.id) {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
 
     const {name, field, salary, type, deadline, benefit, required_skills, required_employees} = req.body
@@ -150,13 +150,13 @@ companyRouter.put("/:com_id/position/:pos_id", async (req, res) => {
   try {
     const authResult = await auth(req, res)
     if (authResult.role != "company") {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
     const {com_id, pos_id} = req.params
     const company = await Company.findById(com_id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
     if (company.user_id != authResult.id) {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
 
     const {name, field, salary, type, deadline, benefit, required_skills, required_employees} = req.body
@@ -192,13 +192,13 @@ companyRouter.delete("/:com_id/position/:pos_id", async (req, res) => {
   try {
     const authResult = await auth(req, res)
     if (authResult.role != "company") {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
     const {com_id, pos_id} = req.params
     const company = await Company.findById(com_id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
     if (company.user_id != authResult.id) {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
 
     const {name, field, salary, type, deadline, benefit, required_skills, required_employees} = req.body

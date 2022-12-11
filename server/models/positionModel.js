@@ -38,6 +38,12 @@ const positionSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
     },
+    jobs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      }
+    ]
   },
   {
     timestamps: true,
