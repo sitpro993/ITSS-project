@@ -1,8 +1,12 @@
 const express = require("express");
 const { connectDB } = require("./connectDB.js");
 const cors = require("cors");
+const dotenv = require('dotenv');
 const userRouter = require("./routes/userRoute.js");
 const companyRouter = require("./routes/companyRoute.js")
+
+dotenv.config({ path: './server/.env' });
+
 
 //config express
 const app = express();
@@ -16,7 +20,8 @@ connectDB();
 app.use(cors());
 
 //port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
+console.log(process.env.USER_ACCESS_TOKEN_SECRET)
 
 app.use("/api/users", userRouter);
 app.use("/api/company", companyRouter)
@@ -26,7 +31,7 @@ app.get("/", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).send({ messsage: err.message });
+  res.status(500).send({ message: err.message });
 });
 
 app.listen(port, () => {

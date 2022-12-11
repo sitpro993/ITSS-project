@@ -1,33 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { apiGetUserInfo } from "../../apis/auth";
 
 const initialState = {
-  accessToken: JSON.parse(localStorage.getItem("accessToken")),
-  refreshToken: JSON.parse(localStorage.getItem("refreshToken")),
-  role: JSON.parse(localStorage.getItem("role")),
-  userInfo: JSON.parse(localStorage.getItem("userInfo")),
+  accessToken: null,
+  user: null,
 };
+
+export const getUserInfo = createAsyncThunk(
+  'auth/getUserInfo',
+  async (accessToken) => {
+    const result = await apiGetUserInfo(accessToken)
+    //console.log(result)
+    return result;
+  },
+);
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginAction: (state, action) => {
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-      state.role = action.payload.role;
-      state.userInfo = { ...action.payload.userInfo };
-      localStorage.setItem("userInfo", JSON.stringify(state.userInfo));
-      localStorage.setItem("accessToken", JSON.stringify(state.accessToken));
-      localStorage.setItem("refreshToken", JSON.stringify(state.refreshToken));
-      localStorage.setItem("role", JSON.stringify(state.role));
+    saveUserInfo: (state, action)=> {
+      state.user = action.payload;
     },
-    logoutAction: (state) => {
-      state = { accessToken: undefined, refreshToken: undefined };
+    saveAccessToken: (state, action) => {
+      state.accessToken = action.payload;
+    },
+    clearData: (state) => {
+        state.user = null;
+        state.accessToken = null;
+    },
+    extraReducers: (builder) => {
+      builder.addCase(getUserInfo.fulfilled, (state, action) => {   
+        if(action.payload){
+          console.log(action.payload)
+          state.user = {...action.payload}
+        }
+      });
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { loginAction, logoutAction } = authSlice.actions;
+export const { saveUserInfo, saveAccessToken,clearData  } = authSlice.actions;
 
 export default authSlice.reducer;

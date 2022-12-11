@@ -1,4 +1,4 @@
-export const custormTheme = {
+export const customTheme = {
   components: {
     MuiFormLabel: {
       styleOverrides: {

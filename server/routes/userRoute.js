@@ -9,17 +9,17 @@ const auth = require("../auth.js");
 
 const userRouter = express.Router();
 
-const userAcessToken = process.env.USER_ACCESS_TOKEN_SECRET;
-const userRefreshToken = process.env.USER_REFRESH_TOKEN_SECRET;
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 // api/users/accessToken
 userRouter.get("/accessToken", async (req, res) => {
   try {
-    const rf_token = req.headers.authorization;
+    const token = req.headers.authorization;
+    console.log(token)
 
-    if (!rf_token) return res.status(400).json({ err: "Please login now!" });
+    if (!token) return res.status(400).json({ err: "Please login now!" });
 
-    const result = jwt.verify(rf_token, userRefreshToken);
+    const result = jwt.verify(token, accessTokenSecret);
 
     if (!result)
       return res
@@ -29,16 +29,21 @@ userRouter.get("/accessToken", async (req, res) => {
     const user = await Users.findById(result.id);
     if (!user) return res.status(400).json({ err: "User does not exist." });
 
-    const access_token = createToken({ id: user._id }, userAcessToken, "30d");
+    
+    let userInfo;
+
+    if (user.role === "company") {
+      userInfo = await Company.findOne({ company_id: user._id });
+      if(userInfo){}
+    }
+
+    if (user.role === "student") {
+      userInfo = await Students.findOne({ userId: user._id });
+    }
+
     res.json({
-      access_token,
-      user: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        address: user.address,
-      },
+    
+      ...userInfo._doc, email: user.email, role: user.role,
     });
   } catch (error) {
     return res.status(500).json({ err: error.message });
@@ -58,28 +63,10 @@ userRouter.post("/login", async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ err: "Password not true.", errCode: 2 });
 
-    const access_token = createToken({ id: user._id }, userAcessToken, "30d");
-    const refresh_token = createToken(
-      { id: user._id },
-      userRefreshToken,
-      "365d"
-    );
-
-    let userInfo;
-
-    if (user.role === "company") {
-      userInfo = await Company.findOne({ company_id: user._id });
-    }
-
-    if (user.role === "student") {
-      userInfo = await Students.findOne({ userId: user._id });
-    }
+    const access_token = createToken({ id: user._id }, accessTokenSecret, "30d");
 
     res.json({
-      refresh_token,
       access_token,
-      role: user.role,
-      userInfo,
     });
   } catch (error) {
     return res.status(500).json({ err: error.message });
