@@ -3,7 +3,9 @@ const { connectDB } = require("./connectDB.js");
 const cors = require("cors");
 const dotenv = require('dotenv');
 const userRouter = require("./routes/userRoute.js");
-const companyRouter = require("./routes/companyRoute.js")
+const companyRouter = require("./routes/companyRoute.js");
+const positionRouter = require("./routes/positionRoute.js");
+const jobRouter = require("./routes/jobRoute.js");
 
 dotenv.config({ path: './server/.env' });
 
@@ -25,6 +27,8 @@ console.log(process.env.USER_ACCESS_TOKEN_SECRET)
 
 app.use("/api/users", userRouter);
 app.use("/api/company", companyRouter)
+app.use("/api/position", positionRouter)
+app.use("/api/job", jobRouter)
 
 app.get("/", (req, res) => {
   res.send("This is server");
