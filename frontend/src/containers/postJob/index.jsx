@@ -16,10 +16,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { isFuture } from "date-fns";
+// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import { isFuture } from "date-fns";
 
 function PostJob() {
   const {
@@ -174,7 +174,7 @@ function PostJob() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Controller
                   control={control}
@@ -206,7 +206,7 @@ function PostJob() {
                   )}
                 />
               </LocalizationProvider>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={3}>
               <FormControl fullWidth>
