@@ -41,6 +41,8 @@ companyRouter.get("", async (req, res) => {
       .limit(limit)
       .exec()
     
+    result.data.forEach(v => { v['positions'] = [] });
+
     result.rowsPerPage = limit
     return res.json({
       msg: "Success",
@@ -90,6 +92,9 @@ companyRouter.get("/:id", async (req, res) => {
     const company = await Company.findById(id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
 
+    if (authResutl != "company" && authResutl.id != company.user_id) {
+      company.forEach(v => { v['positions'] = [] })
+    }
     res.json({
       data: company,
     })
@@ -103,13 +108,13 @@ companyRouter.post("/:id/position", async (req, res) => {
   try {
     const authResult = await auth(req, res)
     if (authResult.role != "company") {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
     const {id} = req.params
     const company = await Company.findById(id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
     if (company.user_id != authResult.id) {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
 
     const {name, field, salary, type, deadline, benefit, required_skills, required_employees} = req.body
@@ -128,6 +133,10 @@ companyRouter.post("/:id/position", async (req, res) => {
       company: company._id,
     })
     await newPosition.save();
+    await Company.findByIdAndUpdate(
+      id,
+      { $push: { positions: newPosition._id }}
+    )
     res.json({
       msg: "Đăng ký công việc mới thành công",
     })
@@ -141,13 +150,13 @@ companyRouter.put("/:com_id/position/:pos_id", async (req, res) => {
   try {
     const authResult = await auth(req, res)
     if (authResult.role != "company") {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
     const {com_id, pos_id} = req.params
     const company = await Company.findById(com_id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
     if (company.user_id != authResult.id) {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
 
     const {name, field, salary, type, deadline, benefit, required_skills, required_employees} = req.body
@@ -183,13 +192,13 @@ companyRouter.delete("/:com_id/position/:pos_id", async (req, res) => {
   try {
     const authResult = await auth(req, res)
     if (authResult.role != "company") {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
     const {com_id, pos_id} = req.params
     const company = await Company.findById(com_id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
     if (company.user_id != authResult.id) {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
 
     const {name, field, salary, type, deadline, benefit, required_skills, required_employees} = req.body
