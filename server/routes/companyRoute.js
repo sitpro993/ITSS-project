@@ -1,6 +1,8 @@
 const express = require("express")
 const Company = require("../models/companyModel.js")
 const Position = require("../models/positionModel.js")
+const Job = require("../models/jobModel.js")
+const Student = require("../models/studentModel.js")
 const auth = require("../auth.js")
 
 const companyRouter = express.Router()
@@ -83,6 +85,47 @@ companyRouter.get("", async (req, res) => {
 //     return res.status(500).json({err: error.message});
 //   }
 // })
+
+// api/company/allApplications
+companyRouter.get("/applications/all", async (req,res) =>{
+  try {
+    // need login to see job
+    const authResult = await auth(req, res);
+    if (authResult.role != "company") {
+      res.status(403).send({message: "Bạn không có quyền"});
+    }
+    // const { id } = req.params
+
+    const company = await Company.findOne({user_id: authResult.id})
+    const positionList = company.positions
+    let positions = []
+    for (let positionID of positionList){
+      console.log(positionID)
+      let position = await Position.findById(positionID).populate({
+        path: 'jobs', 
+        model: Job,
+        populate: {
+          path: 'student',
+          model: Student
+        },
+      }
+        )
+      if (!company._id.equals(position.company)) {
+        res.status(403).send({message: "Bạn không có quyền"});
+      }
+      if (!position) return res.status(400).json({err: "position does not exist"});
+
+      positions.push(position)
+    }
+      
+    res.json({
+      data: positions,
+    })
+  } catch (error) {
+    return res.status(500).json({ err: error.message });
+  }
+})
+
 
 // api/company/:id
 companyRouter.get("/:id", async (req, res) => {
@@ -213,6 +256,7 @@ companyRouter.delete("/:com_id/position/:pos_id", async (req, res) => {
     return res.status(500).json({err: error.message});
   }
 })
+
 
 
 
