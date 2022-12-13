@@ -1,9 +1,9 @@
+import { useSelector } from "react-redux";
 import { useRoutes } from "react-router-dom";
-import { ROLE } from "../constant/role";
 import { routes } from "./config";
 
 const AppRouter = function AppRouter() {
-  const user = ROLE.STUDENT
+  const user = useSelector((s)=> s.auth.user);
 
   const filterRoutes = routes.filter((route) => {
     if (route.is404) {
@@ -11,7 +11,7 @@ const AppRouter = function AppRouter() {
     }
     if (user) {
       if (route.role) {
-        if (route.role.includes(user)) {
+        if (route.role.includes(user.role)) {
           return true;
         }
         return false;
@@ -21,6 +21,8 @@ const AppRouter = function AppRouter() {
 
     return !route.isPrivate;
   });
+
+
   const appRoutes = useRoutes(filterRoutes);
   return appRoutes;
 };
