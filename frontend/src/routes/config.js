@@ -14,6 +14,7 @@ import { ROLE } from "../constant/role";
 import { CompanyRequestsListPage } from "../pages/companyRequests";
 import StudentRequestPage from "../pages/studentRequests";
 import StudentRequestDetailPage from "../pages/studentRequestDetail";
+import RegisteredStudentsPage from "../pages/registeredStudents";
 
 export const routes = [
   // route chung
@@ -100,6 +101,11 @@ export const routes = [
     title: "Student Request Detail",
     isPrivate: true,
     role: [ROLE.COMPANY]
+  },
+  {
+    path: ROUTE.REGISTERED_STUDENTS,
+    element: RegisteredStudentsPage,
+    title: "List registered students",
   }
 ].map((route) => {
   if (route.isPrivate) {
