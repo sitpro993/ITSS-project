@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useStyles } from "./index.css";
@@ -21,7 +21,7 @@ import { apiGetUserInfo, apiLogin } from "../../apis/auth";
 import { useDispatch } from "react-redux";
 import { REGEX_EMAIL } from "../../constant/regex";
 import { toast } from "react-toastify";
-import {  saveAccessToken, saveUserInfo } from "../../redux/slices/authSlice";
+import {  clearData, saveAccessToken, saveUserInfo } from "../../redux/slices/authSlice";
 import { setLocalStorageItem } from "../../config/localStorage";
 
 function Login() {
@@ -29,6 +29,12 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+
+useEffect(()=>{
+  dispatch(clearData());
+
+},[])
 
   const {
     register,

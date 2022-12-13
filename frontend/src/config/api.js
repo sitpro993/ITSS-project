@@ -1,4 +1,4 @@
-const apiUrl = process.env.API_URL || "http://localhost:5000";
+const apiUrl = process.env.API_URL || "http://localhost:5001";
 
 export const getData = async (url, token) => {
   const res = await fetch(`${apiUrl}/api/${url}`, {

@@ -16,9 +16,10 @@ import Logo from "../Logo";
 import { Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearData } from "../../redux/slices/authSlice";
 import { removeLocalStorageItem } from "../../config/localStorage";
+import { mainMenu } from "../../config/menu";
 
 const settings = ["Account", "Logout"];
 
@@ -27,6 +28,20 @@ function NavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((s) => s.auth.user);
+
+  const filterMenu = mainMenu.filter((item) => {
+    if (user.role) {
+      if (item.role) {
+        if (item.role.includes(user.role)) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    }
+    return false;
+  });
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -55,27 +70,27 @@ function NavBar() {
             spacing={4}
             sx={{ flexGrow: 1, ml: 2 }}
           >
-            <Button
-              variant="text"
-              style={{ color: "#fff", fontSize: "17px" }}
-              onClick={() => navigate(ROUTE.COMPANY)}
-            >
-              Company Info
-            </Button>
-            <Button
-              variant="text"
-              style={{ color: "#fff", fontSize: "17px" }}
-              onClick={() => navigate(ROUTE.APPLY_INTERNSHIP)}
-            >
-              Apply Internship
-            </Button>
-            <Button
-              variant="text"
-              style={{ color: "#fff", fontSize: "17px" }}
-              onClick={() => navigate(ROUTE.COMPANY_REQUESTS)}
-            >
-              Requests
-            </Button>
+            {user &&
+              mainMenu
+                .filter((item) => {
+                  if (item.role) {
+                    if (item.role.includes("company")) {
+                      return true;
+                    }
+                    return false;
+                  }
+                  return true;
+                })
+                .map((item, i) => (
+                  <Button
+                    key={i}
+                    variant="text"
+                    style={{ color: "#fff", fontSize: "17px" }}
+                    onClick={() => navigate(item.link)}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
           </Stack>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -110,9 +125,8 @@ function NavBar() {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  removeLocalStorageItem("accessToken")
-                  dispatch(clearData());
                   handleCloseUserMenu();
+                  navigate(ROUTE.LOGIN);
                 }}
               >
                 <Typography textAlign="center">Logout</Typography>

@@ -84,21 +84,21 @@ export const routes = [
     path: ROUTE.POST_JOB,
     element: PostJobPage,
     title: "Apply Internship",
-    isPrivate: false,
+    isPrivate: true,
     role: [ROLE.COMPANY]
   },
   {
     path: ROUTE.STUDENT_REQUESTS,
     element: StudentRequestPage,
     title: "Student Requests",
-    isPrivate: false,
+    isPrivate: true,
     role: [ROLE.COMPANY]
   },
   {
     path: ROUTE.STUDENT_REQUESTS_DETAIL,
     element: StudentRequestDetailPage,
     title: "Student Request Detail",
-    isPrivate: false,
+    isPrivate: true,
     role: [ROLE.COMPANY]
   }
 ].map((route) => {
