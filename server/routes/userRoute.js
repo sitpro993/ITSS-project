@@ -15,7 +15,6 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 userRouter.get("/accessToken", async (req, res) => {
   try {
     const token = req.headers.authorization;
-    console.log(token)
 
     if (!token) return res.status(400).json({ err: "Please login now!" });
 

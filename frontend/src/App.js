@@ -7,7 +7,7 @@ import { customTheme } from "./config/theme";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { getLocalStorageItem } from "./config/localStorage";
-import { clearData, getUserInfo, saveAccessToken, saveUserInfo } from "./redux/slices/authSlice";
+import { saveAccessToken, saveUserInfo } from "./redux/slices/authSlice";
 import { apiGetUserInfo } from "./apis/auth";
 function App() {
   
@@ -57,7 +57,6 @@ function App() {
           const u = await apiGetUserInfo(access_token)
         
           if(u){
-            console.log(u)
             dispatch(saveUserInfo(u))
           }
         }

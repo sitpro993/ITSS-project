@@ -1,29 +1,30 @@
 import { ROLE } from "../constant/role";
+import { ROUTE } from "../constant/route";
 
-export const menu = [
+export const mainMenu = [
     {
         label: "Subscriber List",
-        link: "",
+        link: ROUTE.STUDENT_REQUESTS,
         role: [ROLE.COMPANY]
     },
     {
-        label: "Post internship",
-        link: "",
+        label: "Post job",
+        link: ROUTE.POST_JOB,
         role: [ROLE.COMPANY]
     },
     {
         label: "Company information",
-        link: "",
+        link: ROUTE.COMPANY,
         role: [ROLE.STUDENT]
     },
     {
         label: "Apply internship",
-        link: "",
+        link: ROUTE.APPLY_INTERNSHIP,
         role: [ROLE.STUDENT]
     },
     {
         label: "Request",
-        link: "",
+        link: ROUTE.COMPANY_REQUESTS,
         role: [ROLE.STUDENT]
     },
     

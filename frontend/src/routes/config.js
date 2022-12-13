@@ -14,6 +14,7 @@ import { ROLE } from "../constant/role";
 import { CompanyRequestsListPage } from "../pages/companyRequests";
 import StudentRequestPage from "../pages/studentRequests";
 import StudentRequestDetailPage from "../pages/studentRequestDetail";
+import RegisteredStudentsPage from "../pages/registeredStudents";
 
 export const routes = [
   // route chung
@@ -84,22 +85,27 @@ export const routes = [
     path: ROUTE.POST_JOB,
     element: PostJobPage,
     title: "Apply Internship",
-    isPrivate: false,
+    isPrivate: true,
     role: [ROLE.COMPANY]
   },
   {
     path: ROUTE.STUDENT_REQUESTS,
     element: StudentRequestPage,
     title: "Student Requests",
-    isPrivate: false,
+    isPrivate: true,
     role: [ROLE.COMPANY]
   },
   {
     path: ROUTE.STUDENT_REQUESTS_DETAIL,
     element: StudentRequestDetailPage,
     title: "Student Request Detail",
-    isPrivate: false,
+    isPrivate: true,
     role: [ROLE.COMPANY]
+  },
+  {
+    path: ROUTE.REGISTERED_STUDENTS,
+    element: RegisteredStudentsPage,
+    title: "List registered students",
   }
 ].map((route) => {
   if (route.isPrivate) {

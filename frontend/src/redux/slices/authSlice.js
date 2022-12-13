@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiGetUserInfo } from "../../apis/auth";
+import { removeLocalStorageItem } from "../../config/localStorage";
 
 const initialState = {
   accessToken: null,
@@ -10,7 +11,6 @@ export const getUserInfo = createAsyncThunk(
   'auth/getUserInfo',
   async (accessToken) => {
     const result = await apiGetUserInfo(accessToken)
-    //console.log(result)
     return result;
   },
 );
@@ -28,11 +28,11 @@ export const authSlice = createSlice({
     clearData: (state) => {
         state.user = null;
         state.accessToken = null;
+        removeLocalStorageItem('accessToken')
     },
     extraReducers: (builder) => {
       builder.addCase(getUserInfo.fulfilled, (state, action) => {   
         if(action.payload){
-          console.log(action.payload)
           state.user = {...action.payload}
         }
       });
