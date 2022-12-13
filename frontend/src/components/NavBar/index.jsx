@@ -11,17 +11,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import Logo from "../Logo";
 import { Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route";
 import { useDispatch, useSelector } from "react-redux";
-import { clearData } from "../../redux/slices/authSlice";
-import { removeLocalStorageItem } from "../../config/localStorage";
 import { mainMenu } from "../../config/menu";
-
-const settings = ["Account", "Logout"];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -29,19 +24,6 @@ function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((s) => s.auth.user);
-
-  const filterMenu = mainMenu.filter((item) => {
-    if (user.role) {
-      if (item.role) {
-        if (item.role.includes(user.role)) {
-          return true;
-        }
-        return false;
-      }
-      return true;
-    }
-    return false;
-  });
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

@@ -100,7 +100,7 @@ companyRouter.get("/applications/all", async (req,res) =>{
     const positionList = company.positions
     let positions = []
     for (let positionID of positionList){
-      console.log(positionID)
+      
       let position = await Position.findById(positionID).populate({
         path: 'jobs', 
         model: Job,

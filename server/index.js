@@ -23,7 +23,6 @@ app.use(cors());
 
 //port
 const port = process.env.PORT || 5001;
-console.log(process.env.USER_ACCESS_TOKEN_SECRET)
 
 app.use("/api/users", userRouter);
 app.use("/api/company", companyRouter)

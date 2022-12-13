@@ -56,6 +56,7 @@ jobRouter.get("", async (req, res) => {
 jobRouter.post("/accept", async (req, res) => {
   try {
     const authResult = await auth(req, res);
+    console.log()
     const { id } = req.params
     const job = await Job.findById(id)
     if (!job) {

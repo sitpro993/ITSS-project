@@ -22,7 +22,6 @@ const AppRouter = function AppRouter() {
     return !route.isPrivate;
   });
 
-  console.log(filterRoutes)
 
   const appRoutes = useRoutes(filterRoutes);
   return appRoutes;

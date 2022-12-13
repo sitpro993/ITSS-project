@@ -11,7 +11,6 @@ export const getUserInfo = createAsyncThunk(
   'auth/getUserInfo',
   async (accessToken) => {
     const result = await apiGetUserInfo(accessToken)
-    //console.log(result)
     return result;
   },
 );
@@ -34,7 +33,6 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {
       builder.addCase(getUserInfo.fulfilled, (state, action) => {   
         if(action.payload){
-          console.log(action.payload)
           state.user = {...action.payload}
         }
       });

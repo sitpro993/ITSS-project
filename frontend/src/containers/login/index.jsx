@@ -21,7 +21,11 @@ import { apiGetUserInfo, apiLogin } from "../../apis/auth";
 import { useDispatch } from "react-redux";
 import { REGEX_EMAIL } from "../../constant/regex";
 import { toast } from "react-toastify";
-import {  clearData, saveAccessToken, saveUserInfo } from "../../redux/slices/authSlice";
+import {
+  clearData,
+  saveAccessToken,
+  saveUserInfo,
+} from "../../redux/slices/authSlice";
 import { setLocalStorageItem } from "../../config/localStorage";
 
 function Login() {
@@ -30,11 +34,9 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-useEffect(()=>{
-  dispatch(clearData());
-
-},[])
+  useEffect(() => {
+    dispatch(clearData());
+  }, []);
 
   const {
     register,
@@ -43,14 +45,14 @@ useEffect(()=>{
   } = useForm();
   const onSubmit = async (data) => {
     const response = await apiLogin(data);
-    
+
     if (response && response.access_token) {
       dispatch(saveAccessToken(response.access_token));
-      await setLocalStorageItem("accessToken", response.access_token)
+      await setLocalStorageItem("accessToken", response.access_token);
       const userInfo = await apiGetUserInfo(response.access_token);
 
-      if(userInfo){  
-        dispatch(saveUserInfo(userInfo))
+      if (userInfo) {
+        dispatch(saveUserInfo(userInfo));
         toast.success("Login success", {
           position: "top-center",
           autoClose: 3000,
@@ -63,7 +65,6 @@ useEffect(()=>{
         });
         navigate("/");
       }
-
     }
     if (response && response.err) {
       toast.error(response.err, {

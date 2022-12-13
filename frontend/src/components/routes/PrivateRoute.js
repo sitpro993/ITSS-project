@@ -8,7 +8,6 @@ import { Container } from "@mui/material";
 const PrivateRoute = function PrivateRoute(props) {
   const userInfo = useSelector((s) => s.auth.user);
   
-  console.log(useSelector((s) => s.auth))
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -16,11 +15,11 @@ const PrivateRoute = function PrivateRoute(props) {
     document.title = props.title;
   }, [props.title]);
 
-  // useEffect(() => {
-  //   if (!userInfo) {
-  //     navigate(ROUTE.LOGIN);
-  //   }
-  // }, [navigate, userInfo]);
+  useEffect(() => {
+    if (userInfo === null) {
+      navigate(ROUTE.LOGIN);
+    }
+  }, [navigate, userInfo]);
 
   return (
     <>
