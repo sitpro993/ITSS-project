@@ -12,6 +12,8 @@ export const getData = async (url, token) => {
   return data;
 };
 
+
+
 export const postData = async (url, post, token) => {
   const res = await fetch(`${apiUrl}/api/${url}`, {
     method: "POST",

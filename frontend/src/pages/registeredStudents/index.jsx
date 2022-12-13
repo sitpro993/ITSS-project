@@ -6,7 +6,6 @@ import RegisteredStudentList from '../../containers/registeredStudents'
 export default function RegisteredStudentsPage() {
   return (
     <div>
-        <NavBar />
         <Toolbar />
         <RegisteredStudentList />
     </div>

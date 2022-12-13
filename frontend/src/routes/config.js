@@ -90,8 +90,8 @@ export const routes = [
   },
   {
     path: ROUTE.STUDENT_REQUESTS,
-    element: StudentRequestPage,
-    title: "Student Requests",
+    element: RegisteredStudentsPage,
+    title: "List registered students",
     isPrivate: true,
     role: [ROLE.COMPANY]
   },
@@ -106,6 +106,8 @@ export const routes = [
     path: ROUTE.REGISTERED_STUDENTS,
     element: RegisteredStudentsPage,
     title: "List registered students",
+    isPrivate: true,
+    role: [ROLE.COMPANY]
   }
 ].map((route) => {
   if (route.isPrivate) {

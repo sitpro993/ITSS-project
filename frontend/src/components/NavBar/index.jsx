@@ -56,7 +56,7 @@ function NavBar() {
               mainMenu
                 .filter((item) => {
                   if (item.role) {
-                    if (item.role.includes("company")) {
+                    if (item.role.includes(user.role)) {
                       return true;
                     }
                     return false;
