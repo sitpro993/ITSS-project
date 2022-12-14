@@ -12,4 +12,6 @@ export const ROUTE = {
   APPLY_INTERNSHIP: "/apply-internship",
   POST_JOB: "/post-job",
   REGISTERED_STUDENTS: "/registered-students",
+  MANAGE_OCCUPATION: "manage-occupation",
+  OCCUPATION: "occupation"
 };
