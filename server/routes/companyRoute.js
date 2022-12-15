@@ -160,9 +160,10 @@ companyRouter.get("/:id", async (req, res) => {
     const company = await Company.findById(id)
     if (!company) return res.status(400).json({err: "Company does not exist."});
 
-    if (authResutl != "company" && authResutl.id != company.user_id) {
-      company.forEach(v => { v['positions'] = [] })
-    }
+    // if (authResutl != "company" && authResutl.id != company.user_id) {
+    //   company.forEach(v => { v['positions'] = [] })
+    // }
+
     res.json({
       data: company,
     })
