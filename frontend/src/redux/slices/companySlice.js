@@ -5,6 +5,7 @@ const INIT_STATE = {
   list: {
     data: [],
     loading: false,
+    total: 0,
   },
 };
 
@@ -25,7 +26,8 @@ export const companySlice = createSlice({
     },
     [fetchCompanys.fulfilled]: (state, action) => {
       state.list.loading = false;
-      state.list.data = action.payload;
+      state.list.data = action.payload.data;
+      state.list.total = action.payload.total;
     },
     [fetchCompanys.rejected]: (state, _) => {
       state.list.loading = false;
