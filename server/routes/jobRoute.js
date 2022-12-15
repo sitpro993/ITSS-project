@@ -18,7 +18,6 @@ jobRouter.get("", async (req, res) => {
       return res.status(403).send({message: "Bạn không có quyền"});
     }
     const studentID = await Student.findOne({userID: authResult.ID}).select('_id')
-    console.log(authResult, studentID)
     const pageNumber = parseInt(req.query.pageNumber) || 0;
     const limit = parseInt(req.query.limit) || 12;
     const result = {};
@@ -56,6 +55,41 @@ jobRouter.get("", async (req, res) => {
       msg: "Success",
       data: result,
     });
+  } catch (error) {
+    return res.status(500).json({err: error.message});
+  }
+})
+
+// api/job/:id
+jobRouter.get("/:id", async (req, res) => {
+  try {
+    const authResult = await auth(req, res);
+    const { id } = req.params
+
+    const studentID = await Student.findOne({userId: authResult.id}).select('_id')
+
+    const job = await Job.findById(id).populate({
+      path: 'position',
+      model: Position,
+      populate: {
+        path: 'company',
+        model: Company
+      },
+    }).populate({
+      path: "student",
+      model: Student
+    })
+    if (!job) return res.status(400).json({err: "job does not exist"});
+    const position = await Position.findById(job.position)
+    if (!position) return res.status(400).json({err: "job info have wrong position"});
+
+    if (!studentID.equals(job.student) && !position.company.equals(job.company)) {
+      return res.status(403).send({message: "Bạn không có quyền"});
+    }
+
+    res.json({
+      data: job,
+    })
   } catch (error) {
     return res.status(500).json({err: error.message});
   }
