@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { CompanyItem } from "./companyItem";
 import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
@@ -6,29 +6,35 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCompanyList } from "../../redux/selector/companySelector";
 import { fetchCompanys } from "../../redux/thunks/companyThunk";
+import { PAGINATION_SIZE } from './const';
 
 export const Company = () => {
   const dispatch = useDispatch();
-  const { data, loading } = useSelector(selectCompanyList);
+  const { data, loading, total } = useSelector(selectCompanyList);
 
-  useEffect(() => {
-    dispatch(fetchCompanys({ page: 1, size: 8 }));
-  }, [dispatch]);
+  const totalPage = useMemo(() => {
+    return Math.ceil(total / PAGINATION_SIZE);
+  }, [total])
 
   const handleChangePage = (_, value) => {
-    dispatch(fetchCompanys({ page: value, size: 8 }));
+    dispatch(fetchCompanys({ page: value, size: PAGINATION_SIZE }));
   };
+
+  useEffect(() => {
+    dispatch(fetchCompanys({ page: 1, size: PAGINATION_SIZE }));
+  }, [dispatch]);
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: "1280px", padding: "20px" }}>
-      <h1>Top Company</h1>
+      <h1 style={{fontWeight: 'bold', fontSize: '20px'}} >Top Company</h1>
+      <br />
       <Grid
         container
         spacing={{ xs: 1, md: 2 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {data?.map((company) => (
-          <Grid xs={2} sm={4} md={3} key={company.id}>
+          <Grid xs={2} sm={4} md={3} key={company._id}>
             <CompanyItem company={company} loading={loading} />
           </Grid>
         ))}
@@ -36,7 +42,7 @@ export const Company = () => {
       <div
         style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}
       >
-        <Pagination count={10} color="primary" onChange={handleChangePage} />
+        <Pagination count={totalPage} color="primary" onChange={handleChangePage} />
       </div>
     </Box>
   );

@@ -126,6 +126,31 @@ companyRouter.get("/applications/all", async (req,res) =>{
   }
 })
 
+// api/company/applied-job
+companyRouter.get("/applied-job", async (req, res) => {
+  try {
+    const authResult = await auth(req, res);
+    if (authResult.role != "company") {
+      return res.status(403).send({message: "Bạn không có quyền"});
+    }
+    const companyID = await Company.findOne({ user_id: authResult.id}).select('_id')
+    const position = await Position.find({ company: companyID}).populate({
+      path: 'jobs',
+      model: Job,
+      populate: {
+        path: 'student',
+        model: Student
+      }
+    })
+
+    return res.json({
+      msg: "Success",
+      data: position,
+    })
+  } catch (error) {
+    return res.status(500).json({err: error.message});
+  }
+})
 
 // api/company/:id
 companyRouter.get("/:id", async (req, res) => {
@@ -230,6 +255,8 @@ companyRouter.put("/:com_id/position/:pos_id", async (req, res) => {
   }
 })
 
+
+
 // api/company/:com_id/position/:pos_id
 companyRouter.delete("/:com_id/position/:pos_id", async (req, res) => {
   try {
@@ -256,8 +283,6 @@ companyRouter.delete("/:com_id/position/:pos_id", async (req, res) => {
     return res.status(500).json({err: error.message});
   }
 })
-
-
 
 
 module.exports = companyRouter

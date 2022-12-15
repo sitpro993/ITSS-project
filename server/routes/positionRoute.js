@@ -116,7 +116,7 @@ positionRouter.get("/:id/applied", async (req, res) => {
     // need login to see job
     const authResult = await auth(req, res);
     if (authResult.role != "company") {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
     const { id } = req.params
 
@@ -128,15 +128,16 @@ positionRouter.get("/:id/applied", async (req, res) => {
         path: 'student',
         model: Student
       },
-    }
-      )
+    })
+
+    const job = await Job.find({ position: position._id })
     if (!company._id.equals(position.company)) {
-      res.status(403).send({message: "Bạn không có quyền"});
+      return res.status(403).send({message: "Bạn không có quyền"});
     }
     if (!position) return res.status(400).json({err: "position does not exist"});
 
     res.json({
-      data: position,
+      data: job,
     })
   } catch (error) {
     return res.status(500).json({ err: error.message });

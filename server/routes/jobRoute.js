@@ -2,6 +2,7 @@ const express = require("express")
 const Job = require("../models/jobModel.js")
 const Position = require("../models/positionModel.js")
 const Student = require("../models/studentModel.js")
+const Company = require("../models/companyModel.js")
 
 const jobRouter = express.Router()
 
@@ -37,7 +38,14 @@ jobRouter.get("", async (req, res) => {
       };
     }
 
-    result.data = await Job.find({student: studentID})
+    result.data = await Job.find({student: studentID}).populate({
+      path: 'position',
+      model: Position,
+      populate: {
+        path: 'company',
+        model: Company
+      },
+    })
     .skip(startIndex)
     .limit(limit)
     .exec()
@@ -47,6 +55,41 @@ jobRouter.get("", async (req, res) => {
       msg: "Success",
       data: result,
     });
+  } catch (error) {
+    return res.status(500).json({err: error.message});
+  }
+})
+
+// api/job/:id
+jobRouter.get("/:id", async (req, res) => {
+  try {
+    const authResult = await auth(req, res);
+    const { id } = req.params
+
+    const studentID = await Student.findOne({userId: authResult.id}).select('_id')
+
+    const job = await Job.findById(id).populate({
+      path: 'position',
+      model: Position,
+      populate: {
+        path: 'company',
+        model: Company
+      },
+    }).populate({
+      path: "student",
+      model: Student
+    })
+    if (!job) return res.status(400).json({err: "job does not exist"});
+    const position = await Position.findById(job.position)
+    if (!position) return res.status(400).json({err: "job info have wrong position"});
+
+    if (!studentID.equals(job.student) && !position.company.equals(job.company)) {
+      return res.status(403).send({message: "Bạn không có quyền"});
+    }
+
+    res.json({
+      data: job,
+    })
   } catch (error) {
     return res.status(500).json({err: error.message});
   }
