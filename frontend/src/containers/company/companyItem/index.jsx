@@ -33,7 +33,7 @@ export const CompanyItem = ({ company, loading }) => {
             {company?.description || 'No description'}
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            {`${company?.address|| 'No address'}\n`}
+            {`${company?.address|| 'No address'} `}
             {company?.email || 'No email'}
           </Typography>
         </CardContent>
