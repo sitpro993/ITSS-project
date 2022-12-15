@@ -2,6 +2,7 @@ const express = require("express")
 const Job = require("../models/jobModel.js")
 const Position = require("../models/positionModel.js")
 const Student = require("../models/studentModel.js")
+const Company = require("../models/companyModel.js")
 
 const jobRouter = express.Router()
 
@@ -17,6 +18,7 @@ jobRouter.get("", async (req, res) => {
       return res.status(403).send({message: "Bạn không có quyền"});
     }
     const studentID = await Student.findOne({userID: authResult.ID}).select('_id')
+    console.log(authResult, studentID)
     const pageNumber = parseInt(req.query.pageNumber) || 0;
     const limit = parseInt(req.query.limit) || 12;
     const result = {};
@@ -37,7 +39,14 @@ jobRouter.get("", async (req, res) => {
       };
     }
 
-    result.data = await Job.find({student: studentID})
+    result.data = await Job.find({student: studentID}).populate({
+      path: 'position',
+      model: Position,
+      populate: {
+        path: 'company',
+        model: Company
+      },
+    })
     .skip(startIndex)
     .limit(limit)
     .exec()
