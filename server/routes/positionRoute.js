@@ -60,7 +60,7 @@ positionRouter.get("/:id", async (req, res) => {
     const authResult = await auth(req, res);
     const { id } = req.params
 
-    const position = await position.findById(id)
+    const position = await Position.findById(id)
     if (!position) return res.status(400).json({err: "position does not exist,"});
 
     res.json({

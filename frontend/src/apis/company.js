@@ -18,3 +18,8 @@ export const CompanyApi = {
     }
   },
 };
+
+export const apiGetCompanyInfo = async (accessToken) => {
+  const result = await getData("company",accessToken);
+  return result;
+};
