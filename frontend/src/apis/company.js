@@ -1,3 +1,5 @@
+import { getData } from "../config/api";
+
 const logoList = [
   'https://assets.stickpng.com/thumbs/6102dc563de48b00044eb5b3.png',
   'https://icons.iconarchive.com/icons/paomedia/small-n-flat/512/social-facebook-icon.png',
@@ -15,4 +17,9 @@ export const CompanyApi = {
       logo: logoList[index % logoList.length],
     }));
   },
+};
+
+export const apiGetCompanyInfo = async (accessToken) => {
+  const result = await getData("company",accessToken);
+  return result;
 };
