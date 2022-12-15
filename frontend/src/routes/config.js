@@ -15,6 +15,8 @@ import { CompanyRequestsListPage } from "../pages/companyRequests";
 import StudentRequestPage from "../pages/studentRequests";
 import StudentRequestDetailPage from "../pages/studentRequestDetail";
 import RegisteredStudentsPage from "../pages/registeredStudents";
+import ManageOccupationPage from "../pages/manageOccupation";
+import OccupationPage from "../pages/occupations";
 
 export const routes = [
   // route chung
@@ -78,7 +80,13 @@ export const routes = [
     title: "Company Requests",
     isPrivate: true,
     role: [ROLE.STUDENT]
-
+  },
+  {
+    path: ROUTE.OCCUPATION,
+    element: OccupationPage,
+    title: "View Occupation",
+    isPrivate: false
+    // role: [ROLE.STUDENT]
   },
   // route company
   {
@@ -108,6 +116,13 @@ export const routes = [
     title: "List registered students",
     isPrivate: true,
     role: [ROLE.COMPANY]
+  },
+  //route admin 
+  {
+    path: ROUTE.MANAGE_OCCUPATION,
+    element: ManageOccupationPage,
+    title: "Manage occupation",
+    isPrivate: false
   }
 ].map((route) => {
   if (route.isPrivate) {
