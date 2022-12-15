@@ -6,21 +6,22 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCompanyList } from "../../redux/selector/companySelector";
 import { fetchCompanys } from "../../redux/thunks/companyThunk";
+import { PAGINATION_SIZE } from './const';
 
 export const Company = () => {
   const dispatch = useDispatch();
   const { data, loading, total } = useSelector(selectCompanyList);
 
   const totalPage = useMemo(() => {
-    return Math.ceil(total / 8);
+    return Math.ceil(total / PAGINATION_SIZE);
   }, [total])
 
   const handleChangePage = (_, value) => {
-    dispatch(fetchCompanys({ page: value, size: 8 }));
+    dispatch(fetchCompanys({ page: value, size: PAGINATION_SIZE }));
   };
 
   useEffect(() => {
-    dispatch(fetchCompanys({ page: 1, size: 8 }));
+    dispatch(fetchCompanys({ page: 1, size: PAGINATION_SIZE }));
   }, [dispatch]);
 
   return (

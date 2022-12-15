@@ -6,7 +6,7 @@ const logoList =
 export const CompanyApi = {
   getCompanys: async ({ page, size }) => {
     const accessToken = `Bearer ${localStorage.getItem('accessToken')}`;
-    const result = await getData(`company?pageNumber=${page-1}?limit=${size}`, accessToken);
+    const result = await getData(`company?pageNumber=${page-1}&limit=${size}`, accessToken);
 
     return {
       total: result?.data?.totalCompanys || 0,
