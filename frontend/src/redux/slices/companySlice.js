@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCompanys } from '../thunks/companyThunk';
+import { fetchCompanyDetail, fetchCompanys } from '../thunks/companyThunk';
 
 const INIT_STATE = {
   list: {
     data: [],
     loading: false,
     total: 0,
+  },
+  selected: {
+    data: [],
+    loading: false,
   },
 };
 
@@ -32,6 +36,16 @@ export const companySlice = createSlice({
     [fetchCompanys.rejected]: (state, _) => {
       state.list.loading = false;
     },
+    [fetchCompanyDetail.pending]: (state, _) => {
+      state.selected.loading = true;
+    },
+    [fetchCompanyDetail.fulfilled]: (state, action) => {
+      state.selected.loading = false;
+      state.selected.data = action.payload.data;
+    },
+    [fetchCompanyDetail.rejected]: (state, _) => {
+      state.selected.loading = false;
+    }
   },
 });
 

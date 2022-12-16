@@ -1,7 +1,7 @@
 import { getData } from '../config/api';
 
-const logoList =
-  'https://icons.iconarchive.com/icons/paomedia/small-n-flat/512/social-facebook-icon.png';
+// const logoList =
+//   'https://icons.iconarchive.com/icons/paomedia/small-n-flat/512/social-facebook-icon.png';
 
 export const CompanyApi = {
   getCompanys: async ({ page, size }) => {
@@ -13,13 +13,19 @@ export const CompanyApi = {
       rowsPerPage: result?.data?.rowsPerPage || 0,
       data: result?.data?.data?.map((company) => ({
         ...company,
-        logo: logoList,
+        // logo: logoList,
       })),
     }
   },
+
+  getCompanyDetail: async ({id}) => {
+    const accessToken = `Bearer ${localStorage.getItem('accessToken')}`;
+    const result = await getData(`company/${id}`, accessToken);
+    return result
+  }
 };
 
-export const apiGetCompanyInfo = async (accessToken) => {
+export const getCompanyDetail = async (accessToken) => {
   const result = await getData("company",accessToken);
   return result;
 };

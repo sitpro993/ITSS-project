@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+
+import { selectCompanyDetail } from "../../redux/selector/companySelector.js";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchCompanyDetail } from "../../redux/thunks/companyThunk.js";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -39,24 +45,39 @@ function a11yProps(index) {
 }
 
 function CompanyDetails() {
+  const {data, loading} = useSelector(selectCompanyDetail);
   const [value, setValue] = React.useState(0);
+  const dispatch = useDispatch();
+
+  const companyID = useParams();
+  console.log(companyID.id)
+
+  useEffect(() => {
+    dispatch(fetchCompanyDetail({ id: companyID.id }));
+  },[]);
+
+
+  console.log(data)
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+ // console.log(selectedCompany)
 
   return (
     <div className="min-h-screen flex flex-col">
       <section className="py-8 px-24 bg-slate-100 flex justify-start space-x-2">
         <div className="w-[850px] flex space-x-[24px]">
           <img
-            src="https://brademar.com/wp-content/uploads/2022/09/Shopee-Logo-PNG-2.png"
+            src={data?.logo}
             alt="LogoUrl"
             className="w-[110px] h-[110px] object-contain rounded-lg bg-white"
           />
           <div className="flex flex-col justify-between space-y-4">
-            <h1 class="font-medium text-[26px]" title="Công ty TNHH Tien Lam">
-              Công ty Shopee
+            <h1 class="font-medium text-[26px]" title="full_name">
+              {data?.full_name}
             </h1>
             <div className="text-slate-800 space-x-4 flex items-center">
               <div class="space-x-2 flex items-center">
@@ -76,7 +97,7 @@ function CompanyDetails() {
                     fill="currentColor"
                   ></path>
                 </svg>
-                <span>Thành phố Hồ Chí Minh</span>
+                <span>{data?.city}</span>
                 <div class="space-x-2 flex items-center">
                   <svg
                     width="17"
@@ -99,8 +120,7 @@ function CompanyDetails() {
                     ></path>
                   </svg>
                   <span>
-                    Lĩnh vực khoa học công nghệ, phần mềm, phần cứng, tự động
-                    hoá
+                    {data?.field}
                   </span>
                 </div>
               </div>
@@ -110,7 +130,7 @@ function CompanyDetails() {
                 class="py-1 px-5 bg-blue-300 opacity-100 text-blue-800 font-medium rounded-full"
                 href="#enterpriseJob"
               >
-                2 công việc
+                {data.positions?.length}  Công việc
               </a>
             </div>
           </div>
@@ -134,15 +154,7 @@ function CompanyDetails() {
                 <div className="space-y-4">
                   <h2 className="text-xl font-medium">Mô tả chi tiết</h2>
                   <p className="text-gray-700 leading-7 whitespace-pre-line">
-                    Shopee là nền tảng thương mại điện tử hàng đầu tại Đông Nam
-                    Á và Đài Loan. Ra mắt năm 2015, nền tảng thương mại Shopee
-                    được xây dựng nhằm cung cấp cho người dùng những trải nghiệm
-                    dễ dàng, an toàn và nhanh chóng khi mua sắm trực tuyến thông
-                    qua hệ thống hỗ trợ thanh toán và vận hành vững mạnh. Chúng
-                    tôi có niềm tin mạnh mẽ rằng trải nghiệm mua sắm trực tuyến
-                    phải đơn giản, dễ dàng và mang đến cảm xúc vui thích. Niềm
-                    tin này truyền cảm hứng và thúc đẩy chúng tôi mỗi ngày tại
-                    Shopee.
+                    {data?.description}
                   </p>
                   <div className="flex flex-wrap py-2"></div>
                 </div>
@@ -151,15 +163,15 @@ function CompanyDetails() {
                 <div className="bg-slate-100 p-6 space-y-4 rounded-lg">
                   <div className="grid grid-cols-2 gap-4">
                     <span className="font-semibold">Tên viết tắt:</span>
-                    <span className="text-slate-800 text-right">Shopee</span>
+                    <span className="text-slate-800 text-right">{data?.short_name}</span>
                     <span className="font-semibold">Số lượng nhân sự:</span>
                     <span className="text-slate-800 text-right">
-                      Từ 10-50 người
+                      {data?.number_of_employee}
                     </span>
                     <span className="font-semibold">Năm thành lập:</span>
-                    <span className="text-slate-800 text-right">2022</span>
+                    <span className="text-slate-800 text-right">{data?.created_time}</span>
                     <span className="font-semibold">Email:</span>
-                    <span className="text-slate-800 text-right truncate"></span>
+                    <span className="text-slate-800 text-right truncate">{data?.email}</span>
                     <span className="font-semibold">Tỉnh thành phố:</span>
                     <span className="text-slate-800 text-right">
                       Thành phố Hồ Chí Minh
@@ -169,8 +181,7 @@ function CompanyDetails() {
                 <div className="bg-slate-100 p-4 space-y-4 rounded-lg">
                   <div className="text-18 font-semibold">Địa chỉ công ty</div>
                   <p className="text-slate-800">
-                    asdasd, Phường Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố
-                    Hồ Chí Minh
+                    {data?.address}
                   </p>
                 </div>
               </div>
