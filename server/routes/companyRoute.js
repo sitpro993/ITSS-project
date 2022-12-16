@@ -157,15 +157,11 @@ companyRouter.get("/:id", async (req, res) => {
   try {
     const authResutl = await auth(req, res);
     const { id } = req.params
-    const company = await Company.findById(id)
+    var company = await Company.findById(id).populate('positions')
     if (!company) return res.status(400).json({err: "Company does not exist."});
-
-    // if (authResutl != "company" && authResutl.id != company.user_id) {
-    //   company.forEach(v => { v['positions'] = [] })
-    // }
-
+    
     res.json({
-      data: company,
+      data: company
     })
   } catch (error) {
     return res.status(500).json({ err: error.message });
