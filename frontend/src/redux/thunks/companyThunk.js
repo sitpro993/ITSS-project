@@ -8,3 +8,11 @@ export const fetchCompanys = createAsyncThunk(
     return response;
   }
 );
+
+export const fetchCompanyDetail = createAsyncThunk(
+  'companys/fetchCompanyDetail',
+  async ({id}) => {
+    const response = await CompanyApi.getCompanyDetail({id});
+    return response;
+  }
+)

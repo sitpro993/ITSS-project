@@ -13,7 +13,7 @@ import { Stack } from '@mui/system';
 export const CompanyItem = ({ company, loading }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`${ROUTE.COMPANY}/${company?.id}`);
+    navigate(`${ROUTE.COMPANY}/${company?._id}`);
   };
 
   return !loading ? (
@@ -23,19 +23,19 @@ export const CompanyItem = ({ company, loading }) => {
           component="img"
           image={company?.logo}
           alt="Company logo"
-          height="140"
+          height="350"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {company?.full_name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {company?.description || 'No description'}
+            {company?.field || 'No field'}
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          {/* <Typography variant="caption" color="text.secondary">
             {`${company?.address|| 'No address'} `}
             {company?.email || 'No email'}
-          </Typography>
+          </Typography> */}
         </CardContent>
         <CardActions>
           <Button size="small">Share</Button>
