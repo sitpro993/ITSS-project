@@ -8,22 +8,12 @@ import { ROUTE } from '../../constant/route';
 
 export default function Action() {
   const navigate = useNavigate()
+  
   return (
     <Box>
       <Tooltip title="View cv">
         <IconButton>
-          <VisibilityIcon onClick={navigate(`/student-requests/1`)}/>
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Accept">
-        <IconButton sx={{color: "green"}} >
-          <CheckCircleIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Cancel">
-        <IconButton
-        >
-          <CancelIcon sx={{color: "red"}} />
+          <VisibilityIcon />
         </IconButton>
       </Tooltip>
     </Box>

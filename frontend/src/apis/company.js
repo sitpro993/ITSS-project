@@ -22,7 +22,8 @@ export const CompanyApi = {
     const accessToken = `Bearer ${localStorage.getItem('accessToken')}`;
     const result = await getData(`company/${id}`, accessToken);
     return result
-  }
+  },
+
 };
 
 export const getCompanyDetail = async (accessToken) => {
