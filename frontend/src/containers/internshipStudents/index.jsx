@@ -3,9 +3,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { mockDataContacts } from "./mockData";
 import Action from "./action";
 
-
-export default function RegisteredStudentList() {
-
+export default function IntershipStudentList() {
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     {
@@ -36,16 +34,16 @@ export default function RegisteredStudentList() {
       flex: 1,
     },
     {
-        field: "apply_internship",
-        headerName: "Apply internship",
-        flex: 1,
-      },
+      field: "apply_internship",
+      headerName: "Apply internship",
+      flex: 1,
+    },
     {
       field: "actions",
-      headerName: "View CV",
       type: "actions",
       flex: 1,
-      renderCell: () => <Action />,
+      headerName: "Actions",
+      renderCell: () => (<Action />)
     },
   ];
 

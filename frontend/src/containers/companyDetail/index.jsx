@@ -10,7 +10,6 @@ import { selectCompanyDetail } from "../../redux/selector/companySelector.js";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchCompanyDetail } from "../../redux/thunks/companyThunk.js";
-import { positions } from "@mui/system";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
