@@ -23,7 +23,8 @@ export const CompanyItem = ({ company, loading }) => {
           component="img"
           image={company?.logo}
           alt="Company logo"
-          height="350"
+          height="200"
+          sx={{ objectFit: "contain" }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
