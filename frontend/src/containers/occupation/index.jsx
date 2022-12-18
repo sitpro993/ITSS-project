@@ -34,7 +34,6 @@ function Occupation() {
     else
   return (
     <>
-        <NavBar/>
         <Container>
             <Typography variant = "h2" gutterBottom sx ={{mt: 3}}> Occupation List </Typography>
             {
