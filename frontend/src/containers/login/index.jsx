@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useStyles } from "./index.css";
 import { apiGetUserInfo, apiLogin } from "../../apis/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { REGEX_EMAIL } from "../../constant/regex";
 import { toast } from "react-toastify";
 import {
@@ -27,10 +27,12 @@ import {
   saveUserInfo,
 } from "../../redux/slices/authSlice";
 import { setLocalStorageItem } from "../../config/localStorage";
+import { ROUTE } from "../../constant/route";
 
 function Login() {
   const classes = useStyles({});
   const [showPassword, setShowPassword] = useState(false);
+  const userInfo = useSelector((s) => s.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -63,7 +65,12 @@ function Login() {
           progress: undefined,
           theme: "light",
         });
-        navigate("/company");
+
+        if (userInfo.role === "company") {
+          navigate(ROUTE.STUDENT_REQUESTS);
+        } else {
+          navigate(ROUTE.COMPANY);
+        }
       }
     }
     if (response && response.err) {
@@ -161,7 +168,7 @@ function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link>
+                  <Link to="/register">
                     <Typography variant="body1">
                       Don't have an account? Sign Up
                     </Typography>

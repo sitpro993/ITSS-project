@@ -20,9 +20,9 @@ export default function RegisteredStudentList() {
               id: index,
               name: `${item.student.lastName} ${item.student.firstName}`,
               email: item.student.userId.email,
-              age: 15,
-              phone: "(665)121-5454",
-              address: "0912 Won Street, Alabama, SY 10001",
+              age: item.student.age,
+              phone: item.student.phone,
+              address: item.student.address,
               apply_internship: item.position.name,
             };
           });
