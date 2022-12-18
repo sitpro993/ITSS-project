@@ -52,12 +52,6 @@ export default function OccupationCard({title, description, video_link, collapse
         <a href = {video_link}>Link to introduction </a>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
