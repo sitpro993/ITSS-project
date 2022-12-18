@@ -12,7 +12,7 @@ const jobSchema = new mongoose.Schema(
     status: {
       type: String,
       require: true,
-      default: "Submitted"
+      default: "submitted"
     },
     company: {
       type: mongoose.Schema.Types.ObjectId,

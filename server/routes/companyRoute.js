@@ -191,7 +191,7 @@ companyRouter.get('/:id/registeredStudent', async (req, res) => {
   try {
     const {id} =  req.params;
 
-    const jobs =  await Job.find({company: id}).populate({
+    const jobs =  await Job.find({company: id, status: "submitted"}).populate({
         path: 'student',
         model: Student, 
         populate: {
@@ -215,6 +215,36 @@ companyRouter.get('/:id/registeredStudent', async (req, res) => {
   }
 
 })
+
+companyRouter.get('/:id/acceptedStudent', async (req, res) => {
+  try {
+    const {id} =  req.params;
+
+    const jobs =  await Job.find({company: id, status: "accepted"}).populate({
+        path: 'student',
+        model: Student, 
+        populate: {
+        path: 'userId',
+        model: User,
+      },
+      }).populate({
+        path: 'position',
+        model: Position
+      });
+    
+    if(jobs){
+      res.json({
+      data: jobs
+    })
+    }
+    
+  } catch (error) {
+    return res.status(500).json({ err: error.message });
+    
+  }
+
+})
+
 
 // api/company/:id/position
 companyRouter.post("/:id/position", async (req, res) => {

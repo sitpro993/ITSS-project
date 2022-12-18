@@ -113,29 +113,31 @@ jobRouter.post('/registerJob', async (req, res) => {
   }
 })
 
+jobRouter.post('/deny', async(req, res) =>{
+  try {
+    const id = req.body.id;
+    const data = await Job.findByIdAndUpdate(id,{status: 'deny'} , {new: true});
+    if(data){
+    return res.status(200).json({msg: "Deny"})
+    }
+  } catch (error) {
+    return res.status(500).json({err: error.message});
+    
+  }
+})
+
 // api/job/:id/accept
 jobRouter.post("/accept", async (req, res) => {
   try {
-    const authResult = await auth(req, res);
-    console.log()
-    const { id } = req.params
-    const job = await Job.findById(id)
-    if (!job) {
-      res.status(403).send({message: "Bạn không có quyền"});
+    
+    const id = req.body.id;
+    console.log(id)
+    const data = await Job.findOneAndUpdate({_id: id}, {status: 'accepted'}, {new: true});
+;
+    console.log(data)
+    if(data){
+    return res.status(200).json({msg: "Accepted"})
     }
-    const position = await Position.findById(job['position'])
-    if (authResult.role != "company" || authResult.id != position.company.ToString()){
-      return res.status(403).send({message: "Bạn không có quyền"});
-    }
-    const updateJob = await Job.findByIdAndUpdate(
-      id,
-      {
-        status: "accepted",
-      },
-      {
-        new: true,
-      }
-    )
   } catch (error) {
     return res.status(500).json({err: error.message});
   }

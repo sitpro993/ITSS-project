@@ -1,12 +1,14 @@
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { mockDataContacts } from "./mockData";
-import Action from "./action";
 import { useEffect, useState } from "react";
 import { apiGetListJobByCompany } from "../../apis/job";
 import { useSelector } from "react-redux";
+import FormAccept from "./FormAccept";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export default function RegisteredStudentList() {
+  const [open, setOpen] = useState(false);
+  const [student, setStudent] = useState({});
   const [data, setData] = useState([]);
   const userInfo = useSelector((s) => s.auth.user);
 
@@ -24,6 +26,7 @@ export default function RegisteredStudentList() {
               phone: item.student.phone,
               address: item.student.address,
               apply_internship: item.position.name,
+              _id: item._id,
             };
           });
           setData(temp);
@@ -32,8 +35,6 @@ export default function RegisteredStudentList() {
     };
     getListJob();
   }, [userInfo]);
-
-  console.log(data);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -70,25 +71,48 @@ export default function RegisteredStudentList() {
       flex: 1,
     },
     {
-      field: "actions",
+      field: "_id",
       headerName: "View CV",
       type: "actions",
       flex: 1,
-      renderCell: () => <Action />,
+      renderCell: (params) => (
+        <Box>
+          <Tooltip title="View cv">
+            <IconButton>
+              <VisibilityIcon
+                onClick={() => {
+                  setStudent(data[params.row.id]);
+                  setOpen(true);
+                }}
+              />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      ),
     },
   ];
 
   return (
-    <Box>
-      <Box m="40px 0 0 0" height="75vh">
-        {data && (
-          <DataGrid
-            rows={data}
-            columns={columns}
-            components={{ Toolbar: GridToolbar }}
-          />
-        )}
+    <>
+      <Box>
+        <Box m="40px 0 0 0" height="75vh">
+          {data && (
+            <DataGrid
+              rows={data}
+              columns={columns}
+              components={{ Toolbar: GridToolbar }}
+            />
+          )}
+        </Box>
       </Box>
-    </Box>
+
+      <FormAccept
+        open={open}
+        setOpen={setOpen}
+        student={student}
+        data={data}
+        setData={setData}
+      />
+    </>
   );
 }
