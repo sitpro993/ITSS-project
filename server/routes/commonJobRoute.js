@@ -42,7 +42,7 @@ commonJobRouter.get('/:id', async (req, res) => {
 
 commonJobRouter.post('/', async (req, res) => {
   try {
-    const authResult = await auth(req, res)
+    // const authResult = await auth(req, res)
     // if (authResult.role != 'admin') {
     //   return res.status(403).send({ message: 'Bạn không có quyền' })
     // }
@@ -59,7 +59,7 @@ commonJobRouter.post('/', async (req, res) => {
 
 commonJobRouter.delete('/:id', async (req, res) => {
   try {
-    const authResult = await auth(req, res)
+    // const authResult = await auth(req, res)
     // if (authResult.role != 'admin') {
     //   return res.status(403).send({ message: 'Bạn không có quyền' })
     // }
@@ -67,6 +67,7 @@ commonJobRouter.delete('/:id', async (req, res) => {
     const deletedJob = await commonJob.findOneAndDelete({_id: req.params.id})
     if (deletedJob)
       return res.json({success: 'Delete success'})
+    else return res.status(404).json({success: false, message: "Cannot find this occupation"})
   } catch (error) {
     return res.status(500).json({ err: error.message })
   }
