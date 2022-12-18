@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -9,8 +9,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
-import { apiStudentRequestDetail } from "../../apis/job";
 
 export default function StudentRequestDetail() {
   return (

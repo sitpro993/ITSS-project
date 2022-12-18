@@ -1,7 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { mockDataContacts } from "./mockData";
-import Action from "./action";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { apiGetAcceptedByCompany } from "../../apis/job";

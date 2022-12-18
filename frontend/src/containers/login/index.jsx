@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useStyles } from "./index.css";
 import { apiGetUserInfo, apiLogin } from "../../apis/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { REGEX_EMAIL } from "../../constant/regex";
 import { toast } from "react-toastify";
 import {
@@ -32,12 +32,12 @@ import { ROUTE } from "../../constant/route";
 function Login() {
   const classes = useStyles({});
   const [showPassword, setShowPassword] = useState(false);
-  const userInfo = useSelector((s) => s.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(clearData());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -45,7 +45,7 @@ function a11yProps(index) {
 }
 
 function CompanyDetails() {
-  const { data, loading } = useSelector(selectCompanyDetail);
+  const { data } = useSelector(selectCompanyDetail);
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
 
@@ -54,6 +54,7 @@ function CompanyDetails() {
 
   useEffect(() => {
     dispatch(fetchCompanyDetail({ id: companyID.id }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event, newValue) => {
