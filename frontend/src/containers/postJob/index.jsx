@@ -19,10 +19,12 @@ import { useForm } from "react-hook-form";
 import { registerJob } from "../../apis/position";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../constant/route";
 
 function PostJob() {
   const userInfo = useSelector((s) => s.auth.user);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -63,6 +65,7 @@ function PostJob() {
         progress: undefined,
         theme: "light",
       });
+      navigate(ROUTE.STUDENT_REQUESTS);
     }
   };
 

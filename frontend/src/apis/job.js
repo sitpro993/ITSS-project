@@ -20,6 +20,11 @@ export const apiGetAcceptedByCompany = async(id) =>{
     return result;
 }
 
+export const apiGetStudentRequest =  async(id)=>{
+    const result = await getData(`job/getByStudent/${id}`)
+    return result;
+}
+
 export const apiAcceptJob =  async (id) =>{
     const result =  await postData('job/accept', {id});
     return result;

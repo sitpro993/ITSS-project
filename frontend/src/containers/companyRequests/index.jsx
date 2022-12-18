@@ -1,16 +1,26 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Requests from "./list";
-import { selectRequestList } from "../../redux/selector/requestSelector";
-import { fetchRequests } from "../../redux/thunks/requestThunk";
+import { apiGetStudentRequest } from "../../apis/job";
 
 export const CompanyRequestsList = () => {
-  const dispatch = useDispatch();
-  const { data, loading } = useSelector(selectRequestList);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const userInfo = useSelector((s) => s.auth.user);
 
   useEffect(() => {
-    dispatch(fetchRequests());
-  }, [dispatch]);
+    const getApi = async () => {
+      if (userInfo) {
+        setLoading(true);
+        const response = await apiGetStudentRequest(userInfo._id);
+        if (response && response.data) {
+          setData(response.data);
+        }
+        setLoading(false);
+      }
+    };
+    getApi();
+  }, [userInfo]);
 
-  return <Requests requests={data} loading={loading} />;
+  return <> {data ? <Requests requests={data} loading={loading} /> : null}</>;
 };

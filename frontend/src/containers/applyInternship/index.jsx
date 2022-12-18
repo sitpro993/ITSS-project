@@ -21,6 +21,8 @@ import { apiApplyInternship } from "../../apis/job";
 import { getPositionByCompany } from "../../apis/position";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../constant/route";
 
 const useGetCompanies = () => {
   const [companies, setCompanies] = useState([]);
@@ -40,6 +42,7 @@ const useGetCompanies = () => {
 function ApplyInternship() {
   const userInfo = useSelector((s) => s.auth.user);
   const companies = useGetCompanies();
+  const navigate = useNavigate();
   const [positions, setPositions] = useState([]);
   const {
     register,
@@ -88,6 +91,7 @@ function ApplyInternship() {
         progress: undefined,
         theme: "light",
       });
+      navigate(ROUTE.COMPANY_REQUESTS);
     }
   };
 

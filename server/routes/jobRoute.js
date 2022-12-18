@@ -11,6 +11,8 @@ const auth = require("../auth.js")
 dotenv.config()
 
 
+
+
 // api/job
 jobRouter.get("", async (req, res) => {
   try {
@@ -38,7 +40,7 @@ jobRouter.get("", async (req, res) => {
         limit: limit,
       };
     }
-
+    
     result.data = await Job.find({student: studentID}).populate({
       path: 'position',
       model: Position,
@@ -50,7 +52,7 @@ jobRouter.get("", async (req, res) => {
     .skip(startIndex)
     .limit(limit)
     .exec()
-
+    
     result.rowsPerPage = limit
     return res.json({
       msg: "Success",
@@ -66,9 +68,9 @@ jobRouter.get("/:id", async (req, res) => {
   try {
     const authResult = await auth(req, res);
     const { id } = req.params
-
+    
     const studentID = await Student.findOne({userId: authResult.id}).select('_id')
-
+    
     const job = await Job.findById(id).populate({
       path: 'position',
       model: Position,
@@ -119,8 +121,8 @@ jobRouter.post('/deny', async(req, res) =>{
     const data = await Job.findByIdAndUpdate(id,{status: 'deny'} , {new: true});
     if(data){
     return res.status(200).json({msg: "Deny"})
-    }
-  } catch (error) {
+  }
+} catch (error) {
     return res.status(500).json({err: error.message});
     
   }
@@ -142,5 +144,32 @@ jobRouter.post("/accept", async (req, res) => {
     return res.status(500).json({err: error.message});
   }
 })
+// api/job/getByStudent/:id
+
+jobRouter.get("/getByStudent/:id", async (req, res) => {
+  try {
+    const {id} = req.params;
+    console.log(id)
+    const job = await Job.find({student: id}).populate({
+      path: 'position',
+      model: Position,
+      populate: {
+        path: 'company',
+        model: Company
+      },
+    }).populate({
+      path: "student",
+      model: Student
+    })
+
+    console.log(job)
+    if(job){
+      res.status(200).json({data: job})
+    }
+  } catch (error) {
+    return res.status(500).json({err: error.message});
+    
+  }
+}) 
 
 module.exports = jobRouter
