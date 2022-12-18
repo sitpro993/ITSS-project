@@ -6,10 +6,6 @@ const positionSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    field: {
-      type: String,
-      require: true,
-    },
     salary: {
       type: String,
       require: true,
@@ -18,21 +14,21 @@ const positionSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    deadline: {
-      type: Date,
-      require: true,
-    },
     benefit: {
       type: String,
       require: true,
     },
     required_skills: {
-      type: [String],
+      type: String,
       require: true,
     },
     required_employees: {
       type: Number,
       require: true,
+      default: 9999,
+    },
+    description:{
+      type: String
     },
     company: {
       type: mongoose.Schema.Types.ObjectId,

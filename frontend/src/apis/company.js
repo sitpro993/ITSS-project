@@ -26,6 +26,11 @@ export const CompanyApi = {
 
 };
 
+export const getListCompany = async() => {
+  const  result = await getData("company/getAll"); 
+  return result;
+}
+
 export const getCompanyDetail = async (accessToken) => {
   const result = await getData("company",accessToken);
   return result;

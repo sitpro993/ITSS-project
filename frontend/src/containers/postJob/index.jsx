@@ -15,54 +15,62 @@ import {
   InputAdornment,
 } from "@mui/material";
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
-// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-// import { isFuture } from "date-fns";
+import { useForm } from "react-hook-form";
+import { registerJob } from "../../apis/position";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 function PostJob() {
+  const userInfo = useSelector((s) => s.auth.user);
+
   const {
     register,
     handleSubmit,
-    control,
+
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: "",
+      name: "",
       salary: "",
       type: "",
-      working_type: "",
       required: "",
       benefit: "",
       description: "",
-      slot: "",
+      required_employees: "",
     },
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    const response = await registerJob({
+      name: data.name,
+      salary: data.salary,
+      type: data.type,
+      benefit: data.benefit,
+      required_skills: data.required,
+      required_employees: data.required_employees,
+      description: data.description,
+      company: userInfo._id,
+    });
+
+    if (response && response.msg) {
+      toast.success(response.msg, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
-  const companies = [
-    { id: 1, name: "Shoppe" },
-    { id: 2, name: "Facebook" },
-    { id: 3, name: " Google" },
-  ];
-  const positions = [
-    { id: 1, name: "Software Engineer" },
-    { id: 2, name: "IT Consultant" },
-    { id: 3, name: "Marketing Manager" },
-  ];
   const types = [
-    { id: 1, name: "Learning" },
-    { id: 2, name: "Training on Job" },
+    { id: "part time", name: "Part time" },
+    { id: "full time", name: "Full time" },
   ];
-  const working_types = [
-    { id: 1, name: "Online" },
-    { id: 2, name: "Offline" },
-    { id: 3, name: "Both" },
-  ];
+
   return (
     <>
       <Container
@@ -91,13 +99,13 @@ function PostJob() {
                 <TextField
                   label="Title Job"
                   variant="outlined"
-                  {...register("title", {
+                  {...register("name", {
                     required: "Required field",
                   })}
-                  error={!!errors["title"]}
+                  error={!!errors["name"]}
                 />
-                <FormHelperText error={!!errors["title"]}>
-                  {errors["title"] ? errors["title"].message : ""}
+                <FormHelperText error={!!errors["name"]}>
+                  {errors["name"] ? errors["name"].message : ""}
                 </FormHelperText>
               </FormControl>
             </Grid>
@@ -122,28 +130,6 @@ function PostJob() {
                 </Select>
                 <FormHelperText error={!!errors["type"]}>
                   {errors["type"] ? errors["type"].message : ""}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel id="postJob-working_type">Working type</InputLabel>
-                <Select
-                  labelId="postJob-working_type"
-                  label="Working type"
-                  {...register("working_type", {
-                    required: "Required field",
-                  })}
-                  error={!!errors["working_type"]}
-                >
-                  {working_types.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <FormHelperText error={!!errors["working_type"]}>
-                  {errors["working_type"] ? errors["working_type"].message : ""}
                 </FormHelperText>
               </FormControl>
             </Grid>
@@ -174,56 +160,24 @@ function PostJob() {
               </FormControl>
             </Grid>
 
-            {/* <Grid item xs={3}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Controller
-                  control={control}
-                  name="dateline"
-                  rules={{
-                    validate: {
-                      min: (date) =>
-                        isFuture(date) || "Please, enter a future date",
-                    },
-                  }}
-                  render={({
-                    field: { ref, onBlur, name, ...field },
-                    fieldState,
-                  }) => (
-                    <DatePicker
-                      {...field}
-                      inputRef={ref}
-                      label="Dateline"
-                      renderInput={(inputProps) => (
-                        <TextField
-                          {...inputProps}
-                          onBlur={onBlur}
-                          name={name}
-                          error={!!fieldState.error}
-                          helperText={fieldState.error?.message}
-                        />
-                      )}
-                    />
-                  )}
-                />
-              </LocalizationProvider>
-            </Grid> */}
-
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <FormControl fullWidth>
                 <TextField
                   label="Required employees"
                   variant="outlined"
-                  {...register("slot", {
+                  {...register("required_employees", {
                     required: "Required field",
                     pattern: {
                       value: /^\d*(\.\d+)?$/,
                       message: "Request is digits",
                     },
                   })}
-                  error={!!errors["slot"]}
+                  error={!!errors["required_employees"]}
                 />
-                <FormHelperText error={!!errors["slot"]}>
-                  {errors["slot"] ? errors["slot"].message : ""}
+                <FormHelperText error={!!errors["required_employees"]}>
+                  {errors["required_employees"]
+                    ? errors["required_employees"].message
+                    : ""}
                 </FormHelperText>
               </FormControl>
             </Grid>

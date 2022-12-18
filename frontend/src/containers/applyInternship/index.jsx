@@ -12,46 +12,88 @@ import {
   Box,
   Grid,
   FormHelperText,
-  InputAdornment,
 } from "@mui/material";
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { getListCompany } from "../../apis/company";
+import { apiApplyInternship } from "../../apis/job";
+import { getPositionByCompany } from "../../apis/position";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
+const useGetCompanies = () => {
+  const [companies, setCompanies] = useState([]);
+
+  useEffect(() => {
+    const getCompanies = async () => {
+      const response = await getListCompany();
+      if (response && response.data) {
+        setCompanies(response.data);
+      }
+    };
+    getCompanies();
+  }, []);
+  return companies;
+};
 
 function ApplyInternship() {
+  const userInfo = useSelector((s) => s.auth.user);
+  const companies = useGetCompanies();
+  const [positions, setPositions] = useState([]);
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: {
       company: "",
       position: "",
-      type: "",
       working_type: "",
       request: "",
     },
   });
 
+  const companyId = useWatch({ control, name: "company" });
+  useEffect(() => {
+    const getPosition = async () => {
+      if (companies && companyId) {
+        const response = await getPositionByCompany(companyId);
+        if (response && response.data) {
+          setPositions(response.data);
+        }
+      }
+    };
+    getPosition();
+  }, [companyId, companies]);
+
   const onSubmit = async (data) => {
-    console.log(data);
+    const response = await apiApplyInternship({
+      request: data.request,
+      working_type: data.working_type,
+      position: data.position,
+      student: userInfo._id,
+    });
+
+    if (response && response.msg) {
+      toast.success(response.msg, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
-  const companies = [
-    { id: 1, name: "Shoppe" },
-    { id: 2, name: "Facebook" },
-  ];
-  const positions = [
-    { id: 1, name: "Software Engineer" },
-    { id: 2, name: "TA1" },
-    { id: 3, name: "Marketing Manager" },
-  ];
-  const types = [
-    { id: 1, name: "Learning" },
-    { id: 2, name: "Training on Job" },
-  ];
+
   const working_types = [
-    { id: 1, name: "Fulltime" },
-    { id: 2, name: "Part-time" },
-    // { id: 3, name: "Both" },
+    { id: "online", name: "Online" },
+    { id: "offline", name: "Offline" },
+    { id: "both", name: "Both" },
   ];
   return (
     <>
@@ -87,63 +129,44 @@ function ApplyInternship() {
                   })}
                   error={!!errors["company"]}
                 >
-                  {companies.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
+                  {companies &&
+                    companies.map((item) => (
+                      <MenuItem key={item._id} value={item._id}>
+                        {item.short_name}
+                      </MenuItem>
+                    ))}
                 </Select>
                 <FormHelperText error={!!errors["company"]}>
                   {errors["company"] ? errors["company"].message : ""}
                 </FormHelperText>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel id="apply-position">Position</InputLabel>
-                <Select
-                  labelId="apply-position"
-                  label="Position"
-                  {...register("position", {
-                    required: "Required field",
-                  })}
-                  error={!!errors["position"]}
-                >
-                  {positions.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <FormHelperText error={!!errors["position"]}>
-                  {errors["position"] ? errors["position"].message : ""}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
+            {companyId && (
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <InputLabel id="apply-position">Position</InputLabel>
+                  <Select
+                    labelId="apply-position"
+                    label="Position"
+                    {...register("position", {
+                      required: "Required field",
+                    })}
+                    error={!!errors["position"]}
+                  >
+                    {positions.map((item) => (
+                      <MenuItem key={item._id} value={item._id}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText error={!!errors["position"]}>
+                    {errors["position"] ? errors["position"].message : ""}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+            )}
           </Grid>
           <Grid container spacing={6} mb={6}>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel id="apply-type">Type</InputLabel>
-                <Select
-                  labelId="apply-type"
-                  label="Type"
-                  {...register("type", {
-                    required: "Required field",
-                  })}
-                  error={!!errors["type"]}
-                >
-                  {types.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <FormHelperText error={!!errors["type"]}>
-                  {errors["type"] ? errors["type"].message : ""}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
             <Grid item xs={6}>
               <FormControl fullWidth>
                 <InputLabel id="apply-working_type">Working type</InputLabel>
@@ -168,28 +191,15 @@ function ApplyInternship() {
             </Grid>
           </Grid>
           <Grid container spacing={6} mb={6}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth>
                 <TextField
-                  label="Your request to company"
+                  label="Enter request"
                   variant="outlined"
-                  {...register("request", {
-                    required: "Required field",
-                    pattern: {
-                      value: /^\d*(\.\d+)?$/,
-                      message: "Request is digits",
-                    },
-                  })}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="start">VNĐ</InputAdornment>
-                    ),
-                  }}
-                  error={!!errors["request"]}
+                  {...register("request")}
+                  multiline
+                  rows={4}
                 />
-                <FormHelperText error={!!errors["request"]}>
-                  {errors["request"] ? errors["request"].message : ""}
-                </FormHelperText>
               </FormControl>
             </Grid>
           </Grid>
