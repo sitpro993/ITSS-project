@@ -55,6 +55,23 @@ companyRouter.get("", async (req, res) => {
   }
 });
 
+//api/company/getAll
+
+companyRouter.get("/getAll", async (req, res) => {
+  try {
+    const companies = await Company.find();
+  
+    if(companies){
+      return res.json({
+      msg: "Success",
+      data: companies,
+    });
+    }
+  } catch (error) {
+    return res.status(500).json({err: error.message});
+  }
+});
+
 // api/company
 // companyRouter.post("", async (req, res) => {
 //   try {

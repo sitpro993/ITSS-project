@@ -144,6 +144,37 @@ positionRouter.get("/:id/applied", async (req, res) => {
   }
 });
 
+positionRouter.post('/registerJob', async(req, res) => {
+  try {
+    const data = req.body
+    const position = new Position(data);
+  const result = await position.save();
+    if(result) {
+      res.status(200).json({msg: 'successfully registered job'})
+    }
+  }  catch (error) {
+    return res.status(500).json({ err: error.message });
+  }
+})
+
+
+positionRouter.get("/getByCompany/:id", async (req, res) => {
+  try {
+    // need login to see job
+    const companyId = req.params.id
+    const position = await Position.find({company: companyId})
+
+    
+    res.json({
+      data: position,
+    })
+  } catch (error) {
+    return res.status(500).json({ err: error.message });
+  }
+});
+
+
+
 
 
 module.exports = positionRouter

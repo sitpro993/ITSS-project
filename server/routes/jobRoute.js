@@ -95,6 +95,24 @@ jobRouter.get("/:id", async (req, res) => {
   }
 })
 
+// api/job/registerJob
+jobRouter.post('/registerJob', async (req, res) => {
+  try {
+    const data = req.body
+    console.log(data)
+    const job = new Job(data)
+
+    const result =  await job.save()
+
+    if(result){
+      res.status(200).json({msg: "apply successfully!"})
+    }
+    
+  }catch (error) {
+    return res.status(500).json({err: error.message});
+  }
+})
+
 // api/job/:id/accept
 jobRouter.post("/accept", async (req, res) => {
   try {
