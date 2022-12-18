@@ -1,10 +1,15 @@
-import { Box, Button, Container, Toolbar, Typography, IconButton, TableContainer, Paper } from '@mui/material'
-import React from 'react'
+import { Box, Button, Container, Toolbar, Typography, IconButton, TableContainer, Paper, CircularProgress } from '@mui/material'
+import React, { useEffect } from 'react'
 import Sidebar from '../../components/Sidebar'
 import { DataGrid, renderActionsCell } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { getOccupation } from '../../apis/occupation';
+import { useState } from 'react';
+import { letterSpacing } from '@mui/system';
+import FormDialog from './FormDialog';
 const drawerWidth = 240;
+
 const rows = [
     {
         id: 1, 
@@ -14,6 +19,7 @@ const rows = [
         video_link: 'wwww.youtube.com'
     }
 ]
+
 const columns = [
     {
       field: 'index',
@@ -92,6 +98,31 @@ const columns = [
 
   ];
 function ManageOccupation() {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true)
+  const [occupations, setOccupations] = useState()
+  const accessToken = localStorage.getItem('')
+
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(async() => {
+    let response = await getOccupation(accessToken)
+    console.log(response.data);
+    let temp = response.data.map((item)=>  ({...item, id: item._id}))
+    console.log(temp);
+    setOccupations(temp)
+    setLoading(false)
+  }, [])
+  if (loading)
+  return <CircularProgress/>
+  else
   return (
     <Box sx={{ display: 'flex' }}>
         <Sidebar></Sidebar>
@@ -101,7 +132,7 @@ function ManageOccupation() {
         >
             <Toolbar />
             <Typography variant = "h3" gutterBottom sx ={{mb: 3}}> Manage occupation </Typography>
-            <Button variant = "contained"> Add occupation </Button>
+            <Button variant = "contained" onClick={handleClickOpen}> Add new occupation </Button>
             
 
             <TableContainer component = {Paper} sx = {{mt: 3}} >
@@ -115,10 +146,11 @@ function ManageOccupation() {
                         },
                     }}
                     >
-                    <DataGrid rows={rows} columns={columns}  pageSize ={5} rowsPerPageOptions={[5]} disableSelectionOnClick
+                    <DataGrid rows={occupations} columns={columns}  pageSize ={5} rowsPerPageOptions={[5]} disableSelectionOnClick
                     experimentalFeatures={{ newEditingApi: true }} sx ={{padding: 2}}/>
                 </Box>
             </TableContainer>
+            <FormDialog open = {open} handleClose = {handleClose}/>
         </Box>
     </Box>
   )
