@@ -32,5 +32,10 @@ export const mainMenu = [
         link: ROUTE.COMPANY_REQUESTS,
         role: [ROLE.STUDENT]
     },
+    {
+        label: "Occupation",
+        link: ROUTE.OCCUPATION,
+        role: [ROLE.STUDENT]
+    }
     
 ]

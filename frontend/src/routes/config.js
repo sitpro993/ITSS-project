@@ -86,8 +86,8 @@ export const routes = [
     path: ROUTE.OCCUPATION,
     element: OccupationPage,
     title: "View Occupation",
-    isPrivate: false
-    // role: [ROLE.STUDENT]
+    isPrivate: true,
+    role: [ROLE.STUDENT]
   },
   // route company
   {
