@@ -5,13 +5,16 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { toast } from "react-toastify";
 import { apiAcceptJob, apiDenyJob } from "../../apis/job";
 
 export default function FormAccept({ open, setOpen, student, data, setData }) {
+  console.log(student)
   const handleAccepted = async () => {
     const response = await apiAcceptJob(student._id);
     if (response && response.msg) {
@@ -51,25 +54,111 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
   };
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>Subscribe</DialogTitle>
+      <DialogTitle>Applied Student Info</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          To subscribe to this website, please enter your email address here. We
-          will send updates occasionally.
+          Here is student information applied your company
         </DialogContentText>
+        <Stack spacing = {2}>
         <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Email Address"
-          type="email"
+          id="filled-read-only-input"
+          label="Name"
+          defaultValue={student.name}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
           fullWidth
-          variant="standard"
         />
+        <TextField
+          id="filled-read-only-input"
+          label="Age"
+          defaultValue={student.age}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+          fullWidth
+
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Email"
+          defaultValue={student.email}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+          fullWidth
+
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Address"
+          defaultValue={student.address}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+          fullWidth
+
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="CPA"
+          defaultValue={student.cpa}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+          fullWidth
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Available Time"
+          defaultValue={student.availableTime}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+          fullWidth
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Strength"
+          defaultValue={student.strength}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+          fullWidth
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Weakness"
+          defaultValue={student.weakness}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+          fullWidth
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Achievement"
+          defaultValue={student.achievement}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+          fullWidth
+        />
+        </Stack>
+
       </DialogContent>
       <DialogActions>
         <Button onClick={handleAccepted}>Accept</Button>
-        <Button onClick={handleDeny}>Deny</Button>
+        <Button color="error" onClick={handleDeny}>Deny</Button>
       </DialogActions>
     </Dialog>
   );

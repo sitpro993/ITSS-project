@@ -14,10 +14,10 @@ const studentSchema = new mongoose.Schema(
     address: { type: String, default: ''},
     phone: {type: String, default: ""},
     CPA: { type: Number, required: true, default: 0 },
-    availableTime: { type: [availableTime] },
-    achievement: { type: String },
-    strength: { type: String },
-    weakness: { type: String },
+    availableTime: { type: [availableTime], default: ''},
+    achievement: { type: String, default: '' },
+    strength: { type: String, default: '' },
+    weakness: { type: String , default: '' },
     jobs: [
       {
         type: mongoose.Schema.Types.ObjectId,
