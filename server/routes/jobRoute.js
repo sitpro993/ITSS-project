@@ -10,6 +10,7 @@ const dotenv = require("dotenv")
 const auth = require("../auth.js")
 dotenv.config()
 
+
 // api/job
 jobRouter.get("", async (req, res) => {
   try {
@@ -99,12 +100,11 @@ jobRouter.get("/:id", async (req, res) => {
 jobRouter.post('/registerJob', async (req, res) => {
   try {
     const data = req.body
-    console.log(data)
     const job = new Job(data)
-
     const result =  await job.save()
 
     if(result){
+      const position = await Position.findOneAndUpdate({_id: result.position},{$push: {jobs: result._id}})
       res.status(200).json({msg: "apply successfully!"})
     }
     

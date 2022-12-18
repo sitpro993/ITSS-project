@@ -9,3 +9,8 @@ export const apiApplyInternship = async( data ,accessToken) =>{
     const result = await postData(`job/registerJob`, data, accessToken);
     return result
 }
+
+export const apiGetListJobByCompany = async(id) =>{
+    const result =  await getData(`company/${id}/registeredStudent`);
+    return result;
+}

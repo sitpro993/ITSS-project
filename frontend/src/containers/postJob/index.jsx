@@ -47,7 +47,7 @@ function PostJob() {
       type: data.type,
       benefit: data.benefit,
       required_skills: data.required,
-      required_employees: data.required_employees,
+      // required_employees: data.required_employees,
       description: data.description,
       company: userInfo._id,
     });
@@ -160,7 +160,7 @@ function PostJob() {
               </FormControl>
             </Grid>
 
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <FormControl fullWidth>
                 <TextField
                   label="Required employees"
@@ -180,7 +180,7 @@ function PostJob() {
                     : ""}
                 </FormHelperText>
               </FormControl>
-            </Grid>
+            </Grid> */}
           </Grid>
 
           <Grid container spacing={6} mb={6}>

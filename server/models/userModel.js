@@ -12,13 +12,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     role: { type: String, required: true },
-    phone: { type: String, required: true, default: " " },
-    image: {
-      type: String,
-      default:
-        "https://res.cloudinary.com/beeyou/image/upload/v1641721299/logo/avatar7_jkzd2h.png",
-    },
-    address: { type: String, default: "" },
+    
   },
   {
     timestamps: true,

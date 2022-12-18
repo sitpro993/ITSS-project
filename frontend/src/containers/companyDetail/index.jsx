@@ -56,8 +56,6 @@ function CompanyDetails() {
     dispatch(fetchCompanyDetail({ id: companyID.id }));
   }, []);
 
-  console.log(data);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -122,12 +120,9 @@ function CompanyDetails() {
               </div>
             </div>
             <div class="flex items-center space-x-4">
-              <a
-                class="py-1 px-5 bg-blue-300 opacity-100 text-blue-800 font-medium rounded-full"
-                href="#enterpriseJob"
-              >
+              <div class="py-1 px-5 bg-blue-300 opacity-100 text-blue-800 font-medium rounded-full">
                 {data.positions?.length} Công việc
-              </a>
+              </div>
             </div>
           </div>
         </div>

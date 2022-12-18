@@ -10,11 +10,14 @@ const studentSchema = new mongoose.Schema(
       required: true,
     },
     lastName: { type: String, required: true },
+    age:{type: Number, default: 18},
+    address: { type: String, default: ''},
+    phone: {type: String, default: ""},
     CPA: { type: Number, required: true, default: 0 },
     availableTime: { type: [availableTime] },
     achievement: { type: String },
     strength: { type: String },
-    weekness: { type: String },
+    weakness: { type: String },
     jobs: [
       {
         type: mongoose.Schema.Types.ObjectId,

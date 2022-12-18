@@ -150,6 +150,7 @@ positionRouter.post('/registerJob', async(req, res) => {
     const position = new Position(data);
   const result = await position.save();
     if(result) {
+      const test = await Company.findOneAndUpdate({_id: result.company}, { $push: { positions: result._id } })  
       res.status(200).json({msg: 'successfully registered job'})
     }
   }  catch (error) {

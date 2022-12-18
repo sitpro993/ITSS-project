@@ -72,6 +72,7 @@ function ApplyInternship() {
     const response = await apiApplyInternship({
       request: data.request,
       working_type: data.working_type,
+      company: data.company,
       position: data.position,
       student: userInfo._id,
     });

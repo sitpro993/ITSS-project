@@ -3,6 +3,7 @@ const Company = require("../models/companyModel.js")
 const Position = require("../models/positionModel.js")
 const Job = require("../models/jobModel.js")
 const Student = require("../models/studentModel.js")
+const User = require("../models/userModel.js")
 const auth = require("../auth.js")
 
 const companyRouter = express.Router()
@@ -184,6 +185,36 @@ companyRouter.get("/:id", async (req, res) => {
     return res.status(500).json({ err: error.message });
   }
 });
+
+//api/company/:id/registeredStudent 
+companyRouter.get('/:id/registeredStudent', async (req, res) => {
+  try {
+    const {id} =  req.params;
+
+    const jobs =  await Job.find({company: id}).populate({
+        path: 'student',
+        model: Student, 
+        populate: {
+        path: 'userId',
+        model: User,
+      },
+      }).populate({
+        path: 'position',
+        model: Position
+      });
+    
+    if(jobs){
+      res.json({
+      data: jobs
+    })
+    }
+    
+  } catch (error) {
+    return res.status(500).json({ err: error.message });
+    
+  }
+
+})
 
 // api/company/:id/position
 companyRouter.post("/:id/position", async (req, res) => {

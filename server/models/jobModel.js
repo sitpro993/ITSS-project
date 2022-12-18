@@ -14,6 +14,10 @@ const jobSchema = new mongoose.Schema(
       require: true,
       default: "Submitted"
     },
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+    },
     position: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Position",
