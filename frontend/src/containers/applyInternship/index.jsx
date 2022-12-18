@@ -38,11 +38,10 @@ function ApplyInternship() {
   const companies = [
     { id: 1, name: "Shoppe" },
     { id: 2, name: "Facebook" },
-    { id: 3, name: " Google" },
   ];
   const positions = [
     { id: 1, name: "Software Engineer" },
-    { id: 2, name: "IT Consultant" },
+    { id: 2, name: "TA1" },
     { id: 3, name: "Marketing Manager" },
   ];
   const types = [
@@ -50,9 +49,9 @@ function ApplyInternship() {
     { id: 2, name: "Training on Job" },
   ];
   const working_types = [
-    { id: 1, name: "Online" },
-    { id: 2, name: "Offline" },
-    { id: 3, name: "Both" },
+    { id: 1, name: "Fulltime" },
+    { id: 2, name: "Part-time" },
+    // { id: 3, name: "Both" },
   ];
   return (
     <>

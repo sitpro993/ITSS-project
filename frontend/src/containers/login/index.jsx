@@ -63,7 +63,7 @@ function Login() {
           progress: undefined,
           theme: "light",
         });
-        navigate("/");
+        navigate("/company");
       }
     }
     if (response && response.err) {
