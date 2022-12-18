@@ -32,7 +32,7 @@ userRouter.get("/accessToken", async (req, res) => {
     let userInfo;
 
     if (user.role === "company") {
-      userInfo = await Company.findOne({ company_id: user._id });
+      userInfo = await Company.findOne({ user_id: user._id });
       if(userInfo){}
     }
 
