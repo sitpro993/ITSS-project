@@ -8,7 +8,7 @@ export const mainMenu = [
         role: [ROLE.COMPANY]
     },
     {
-        label: "Intership List",
+        label: "Internship List",
         link: ROUTE.INTERNSHIP_STUDENTS,
         role: [ROLE.COMPANY]
     },

@@ -13,6 +13,25 @@ dotenv.config()
 
 const userAcessToken = process.env.ACCESS_TOKEN_SECRET;
 
+//api/companyProfile
+companyRouter.get("/companyProfile", async (req,res) =>{
+  try {
+    // need login to see job
+    const authResult = await auth(req, res);
+    if (authResult.role != "company") {
+      res.status(403).send({message: "Bạn không có quyền"});
+    }
+    // const { id } = req.params
+
+    const company = await Company.findOne({user_id: authResult.id})
+      
+    res.json({
+      data: company,
+    })
+  } catch (error) {
+    return res.status(500).json({ err: error.message });
+  }
+})
 // api/company
 companyRouter.get("", async (req, res) => {
   try {

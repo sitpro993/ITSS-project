@@ -92,7 +92,7 @@ export default function FormDialog({ open, handleClose }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+          <Button type="submit">Apply </Button>
         </DialogActions>
       </Dialog>
     </div>

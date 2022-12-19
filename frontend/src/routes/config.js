@@ -40,10 +40,10 @@ export const routes = [
   },
   {
     path: ROUTE.PROFILE,
-    title: "Profile",
+    title: "Student Profile",
     element: ProfilePage,
     isPrivate: true,
-    role: [ROLE.ADMIN, ROLE.STUDENT, ROLE.COMPANY]
+    role: [ROLE.STUDENT]
     
   },
   {

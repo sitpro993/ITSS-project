@@ -188,13 +188,13 @@ function CompanyDetails() {
             {data.positions?.map((position) => (
               <div className="space-y-4 pt-4">
                 <div
-                  class="p-4 border-[1px] border-[#ECEDF2] rounded-lg shadow-sm block space-y-4"
+                  class="p-4 border-[3px] border-[#ECEDF2] rounded-lg shadow-sm block space-y-4"
                   href=""
                 >
                   <h3 class="text-18 font-semibold">{position?.name}</h3>
                   <div class="text-grey space-x-4 flex items-center">
-                    <div class="space-x-4 flex items-center">
-                      <svg
+                    <div class="space-x-4">
+                      {/* <svg
                         width="19"
                         height="18"
                         viewBox="0 0 19 18"
@@ -221,9 +221,19 @@ function CompanyDetails() {
                             ></rect>
                           </clipPath>
                         </defs>
-                      </svg>
-                      <span>28 tháng 7, 2022</span>
+                      </svg> */}
+                      <h4>Job Description: </h4>
+                      <span>{position?.description}</span>
+                      <br/>
+                      <h4>Benefit: </h4>
+                      <span>{position?.benefit}</span>
+                      <h4>Required Skill: </h4>
+                      <span>{position?.required_skills}</span>
+                      <h4>Required Employees: </h4>
+                      <span>{position?.required_employees}</span>
+                      <br/>
                     </div>
+                    
                     <div class="space-x-4 flex items-center">
                       <svg
                         width="25"
@@ -253,7 +263,7 @@ function CompanyDetails() {
                           fill="currentColor"
                         ></path>
                       </svg>
-                      <span>{position.salary}đ / tháng</span>
+                      <span>{position.salary}đ / month</span>
                     </div>
                   </div>
                   <div class="flex items-center space-x-4">

@@ -17,10 +17,28 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route";
 import { useDispatch, useSelector } from "react-redux";
 import { mainMenu } from "../../config/menu";
-
+import PersonIcon from '@mui/icons-material/Person';
+import { green, pink } from '@mui/material/colors';
+import { isAsyncThunkAction } from "@reduxjs/toolkit";
+import { removeLocalStorageItem } from "../../config/localStorage";
+import { getStudentProfile } from "../../apis/student";
+import { apiGetUserInfo } from "../../apis/auth";
+import { getCompanyProfile } from "../../apis/company";
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [name, setUserName] = React.useState('')
+  React.useEffect(async ()=> {
+    const userInfo = await apiGetUserInfo(localStorage.getItem('accessToken'));
+    if (userInfo.role == "student"){
+      const result = await getStudentProfile()
+      setUserName(result.data.firstName)
+    }
+    else if (userInfo.role == "company"){
+      const result = await getCompanyProfile()
+      setUserName(result.data.short_name);
+    }
+  },[name])
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((s) => s.auth.user);
@@ -73,12 +91,16 @@ function NavBar() {
                     {item.label}
                   </Button>
                 ))}
+                
           </Stack>
-
+          <Typography sx = {{mr: 1}}> Hi, {name}</Typography>
           <Box sx={{ flexGrow: 0 }}>
+            
             <Tooltip>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar sx={{ bgcolor: pink[500] }}>
+                  <PersonIcon/>
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -106,8 +128,9 @@ function NavBar() {
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
               <MenuItem
-                onClick={() => {
+                onClick={async() => {
                   handleCloseUserMenu();
+                  await removeLocalStorageItem("name");
                   navigate(ROUTE.LOGIN);
                 }}
               >

@@ -72,6 +72,8 @@ function PostJob() {
   const types = [
     { id: "part time", name: "Part time" },
     { id: "full time", name: "Full time" },
+    { id: "both", name: "Both" },
+
   ];
 
   return (

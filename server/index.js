@@ -7,6 +7,7 @@ const companyRouter = require("./routes/companyRoute.js");
 const positionRouter = require("./routes/positionRoute.js");
 const jobRouter = require("./routes/jobRoute.js");
 const commonJobRouter = require("./routes/commonJobRoute.js")
+const studentRouter = require("./routes/studentRoute.js")
 dotenv.config({ path: './server/.env' });
 
 
@@ -29,6 +30,8 @@ app.use("/api/company", companyRouter)
 app.use("/api/position", positionRouter)
 app.use("/api/job", jobRouter)
 app.use("/api/occupation", commonJobRouter)
+app.use("/api/student", studentRouter)
+
 
 
 app.get("/", (req, res) => {

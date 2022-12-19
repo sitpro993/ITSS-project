@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const availableTime = new mongoose.Schema({});
+// const availableTime = new mongoose.Schema({});
 
 const studentSchema = new mongoose.Schema(
   {
@@ -14,14 +14,14 @@ const studentSchema = new mongoose.Schema(
     address: { type: String, default: ''},
     phone: {type: String, default: ""},
     CPA: { type: Number, required: true, default: 0 },
-    availableTime: { type: [availableTime], default: ''},
+    availableTime: { type: String, default: ''},
     achievement: { type: String, default: '' },
     strength: { type: String, default: '' },
     weakness: { type: String , default: '' },
     jobs: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Job",
+        ref: "job",
       },
     ]
   },

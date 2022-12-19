@@ -35,3 +35,9 @@ export const getCompanyDetail = async (accessToken) => {
   const result = await getData("company",accessToken);
   return result;
 };
+
+export const getCompanyProfile = async () => {
+  const accessToken = `Bearer ${localStorage.getItem('accessToken')}`;
+  const result = await getData("company/companyProfile",accessToken);
+  return result;
+}

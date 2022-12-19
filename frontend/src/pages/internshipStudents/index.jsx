@@ -8,7 +8,7 @@ export default function InternshipStudentsPage() {
     <div>
       <Toolbar />
       <Typography variant="h1" component="h3" align="center">
-        Intership List
+        Internship List
       </Typography>
       <IntershipStudentList />
     </div>
