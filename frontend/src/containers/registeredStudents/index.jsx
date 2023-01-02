@@ -45,19 +45,19 @@ export default function RegisteredStudentList() {
     { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Họ và tên",
       flex: 1,
     },
     {
       field: "age",
-      headerName: "Age",
+      headerName: "Tuổi",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
       field: "phone",
-      headerName: "Phone Number",
+      headerName: "SĐT",
       flex: 1,
     },
     {
@@ -67,17 +67,17 @@ export default function RegisteredStudentList() {
     },
     {
       field: "address",
-      headerName: "Address",
+      headerName: "Địa chỉ",
       flex: 1,
     },
     {
       field: "apply_internship",
-      headerName: "Apply internship",
+      headerName: "Vị trí đăng ký",
       flex: 1,
     },
     {
       field: "_id",
-      headerName: "View CV",
+      headerName: "Xem CV",
       type: "actions",
       flex: 1,
       renderCell: (params) => (

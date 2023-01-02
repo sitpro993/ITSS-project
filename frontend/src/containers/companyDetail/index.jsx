@@ -188,7 +188,7 @@ function CompanyDetails() {
             {data.positions?.map((position) => (
               <div className="space-y-4 pt-4">
                 <div
-                  class="p-4 border-[3px] border-[#ECEDF2] rounded-lg shadow-sm block space-y-4"
+                  class="p-4 border-3 border-gray-200 border-solid rounded-lg shadow-lg block space-y-4"
                   href=""
                 >
                   <h3 class="text-18 font-semibold">{position?.name}</h3>
@@ -222,14 +222,14 @@ function CompanyDetails() {
                           </clipPath>
                         </defs>
                       </svg> */}
-                      <h4>Job Description: </h4>
+                      <h4>Mô tả công việc: </h4>
                       <span>{position?.description}</span>
                       <br/>
-                      <h4>Benefit: </h4>
+                      <h4>Lợi ích: </h4>
                       <span>{position?.benefit}</span>
-                      <h4>Required Skill: </h4>
+                      <h4>Yêu cầu kỹ năng: </h4>
                       <span>{position?.required_skills}</span>
-                      <h4>Required Employees: </h4>
+                      <h4>Số lượng: </h4>
                       <span>{position?.required_employees}</span>
                       <br/>
                     </div>
