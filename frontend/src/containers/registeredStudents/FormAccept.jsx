@@ -54,15 +54,16 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
   };
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>Applied Student Info</DialogTitle>
+      {/* <DialogTitle>Applied Student Info</DialogTitle> */}
+      <DialogTitle>Thông tin sinh viên ứng tuyển</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Here is student information applied your company
-        </DialogContentText>
+         {/* <DialogContentText>Here is student information applied your company</DialogContentText> */}
+         <DialogContentText>Đây là thông tin sinh viên apply công ty bạn</DialogContentText>
         <Stack spacing = {2}>
         <TextField
           id="filled-read-only-input"
-          label="Name"
+          // label="Name"
+          label="Tên"
           defaultValue={student.name}
           InputProps={{
             readOnly: true,
@@ -72,7 +73,8 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
         />
         <TextField
           id="filled-read-only-input"
-          label="Age"
+          // label="Age"
+          label="Tuổi"
           defaultValue={student.age}
           InputProps={{
             readOnly: true,
@@ -94,7 +96,8 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
         />
         <TextField
           id="filled-read-only-input"
-          label="Address"
+          // label="Address"
+          label="Địa chỉ"
           defaultValue={student.address}
           InputProps={{
             readOnly: true,
@@ -115,7 +118,8 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
         />
         <TextField
           id="filled-read-only-input"
-          label="Available Time"
+          // label="Available Time"
+          label="Thời gian có thể làm việc"
           defaultValue={student.availableTime}
           InputProps={{
             readOnly: true,
@@ -125,7 +129,8 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
         />
         <TextField
           id="filled-read-only-input"
-          label="Strength"
+          // label="Strength"
+          label="Điểm mạnh"
           defaultValue={student.strength}
           InputProps={{
             readOnly: true,
@@ -135,7 +140,8 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
         />
         <TextField
           id="filled-read-only-input"
-          label="Weakness"
+          // label="Weakness"
+          label="Điểm yếu"
           defaultValue={student.weakness}
           InputProps={{
             readOnly: true,
@@ -145,7 +151,8 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
         />
         <TextField
           id="filled-read-only-input"
-          label="Achievement"
+          // label="Achievement"
+          label="Thành tích"
           defaultValue={student.achievement}
           InputProps={{
             readOnly: true,
@@ -157,8 +164,14 @@ export default function FormAccept({ open, setOpen, student, data, setData }) {
 
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAccepted}>Accept</Button>
-        <Button color="error" onClick={handleDeny}>Deny</Button>
+        {/* <Button onClick={handleAccepted}>Accept</Button>
+        <Button color="error" onClick={handleDeny}>
+          Deny
+        </Button> */}
+        <Button onClick={handleAccepted}>Đồng Ý</Button>
+        <Button color="error" onClick={handleDeny}>
+          Từ Chối
+        </Button>
       </DialogActions>
     </Dialog>
   );
