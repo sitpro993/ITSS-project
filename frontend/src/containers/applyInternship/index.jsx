@@ -143,7 +143,7 @@ function ApplyInternship() {
           sx={{ p: 2, mb: 1, mx: 8 }}
         >
           <Typography variant="h3" align="center" justifyContent="center">
-            Apply For Internship
+            Đăng ký thực tập
           </Typography>
         </Stack>
         <Divider />
