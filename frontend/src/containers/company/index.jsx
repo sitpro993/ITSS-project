@@ -26,7 +26,10 @@ export const Company = () => {
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: "1280px", padding: "20px" }}>
-      <h1 style={{fontWeight: 'bold', fontSize: '20px'}} >Top Company</h1>
+      <h2>
+        {/* Top Company */}
+        Danh sách công ty
+      </h2>
       <br />
       <Grid
         container
@@ -34,7 +37,7 @@ export const Company = () => {
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {data?.map((company) => (
-          <Grid xs={2} sm={4} md={3} key={company._id}>
+          <Grid xs={2} sm={4} md={4} key={company._id}>
             <CompanyItem company={company} loading={loading} />
           </Grid>
         ))}

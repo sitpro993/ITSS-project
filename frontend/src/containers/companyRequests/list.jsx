@@ -31,18 +31,37 @@ export default function Requests({ requests, loading }) {
         marginTop: '30px',
       }}
     >
-      <h1 style={{fontWeight: 'bold', fontSize: '20px'}}>Your Requests</h1>
+      <h2>
+        {/* Your Requests */}
+        Yêu Cầu Của Bạn
+      </h2>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 700 }}> Company Name</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Position Name</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Request</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Working Type</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Date</TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                {/* Company Name */}
+                Tên Công Ty
+              </TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                {/* Position Name */}
+                Tên Vị Trí
+              </TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                {/* Request */}
+                Yêu Cầu
+              </TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                {/* Working Type */}
+                Loại Công Việc
+              </TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                {/* Date */}
+                Ngày Tạo
+              </TableCell>
               <TableCell sx={{ fontWeight: 700 }} align="right">
-                Status
+                {/* Status */}
+                Trạng Thái
               </TableCell>
             </TableRow>
           </TableHead>
