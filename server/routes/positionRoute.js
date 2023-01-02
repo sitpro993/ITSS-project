@@ -151,7 +151,7 @@ positionRouter.post('/registerJob', async(req, res) => {
   const result = await position.save();
     if(result) {
       const test = await Company.findOneAndUpdate({_id: result.company}, { $push: { positions: result._id } })  
-      res.status(200).json({msg: 'successfully registered job'})
+      res.status(200).json({msg: 'Đăng ký công việc thành công'})
     }
   }  catch (error) {
     return res.status(500).json({ err: error.message });

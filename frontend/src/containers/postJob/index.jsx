@@ -49,6 +49,8 @@ function PostJob() {
       type: data.type,
       benefit: data.benefit,
       required_skills: data.required,
+      working_form: data.workingForm,
+      internship_time: data.internshipTime,
       // required_employees: data.required_employees,
       description: data.description,
       company: userInfo._id,
@@ -72,8 +74,16 @@ function PostJob() {
   const types = [
     { id: "part time", name: "Part time" },
     { id: "full time", name: "Full time" },
-    { id: "both", name: "Both" },
+    { id: "both", name: "Cả hai" },
+  ];
 
+  const workingFormList = [
+    { id: "offline", name: "Offline" },
+    { id: "online", name: "Online" },
+  ];
+  const internshipTimeList = [
+    { id: "3 tháng", name: "3 tháng" },
+    { id: "6 tháng", name: "6 tháng" },
   ];
 
   return (
@@ -93,7 +103,7 @@ function PostJob() {
           sx={{ p: 2, mb: 1, mx: 8 }}
         >
           <Typography variant="h3" align="center" justifyContent="center">
-            Post Job
+            Đăng công việc
           </Typography>
         </Stack>
         <Divider />
@@ -102,10 +112,10 @@ function PostJob() {
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <TextField
-                  label="Title Job"
+                  label="Tên công việc"
                   variant="outlined"
                   {...register("name", {
-                    required: "Required field",
+                    required: "Tên công việc không được để trống",
                   })}
                   error={!!errors["name"]}
                 />
@@ -118,12 +128,12 @@ function PostJob() {
           <Grid container spacing={6} mb={6}>
             <Grid item xs={6}>
               <FormControl fullWidth>
-                <InputLabel id="postJob-type">Type</InputLabel>
+                <InputLabel id="postJob-type">Loại công việc</InputLabel>
                 <Select
                   labelId="postJob-type"
-                  label="Type"
+                  label="Loại công việc"
                   {...register("type", {
-                    required: "Required field",
+                    required: "Loại công việc không được để trống",
                   })}
                   error={!!errors["type"]}
                 >
@@ -138,15 +148,61 @@ function PostJob() {
                 </FormHelperText>
               </FormControl>
             </Grid>
+            <Grid item xs={6}>
+              <FormControl fullWidth>
+                <InputLabel id="working-form">Hình thức làm việc</InputLabel>
+                <Select
+                  labelId="working-form"
+                  label="Hình thức làm việc"
+                  {...register("workingForm", {
+                    required: "Hình thức làm việc không được để trống",
+                  })}
+                  error={!!errors["workingForm"]}
+                >
+                  {workingFormList.map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText error={!!errors["workingForm"]}>
+                  {errors["workingForm"] ? errors["workingForm"].message : ""}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
           </Grid>
           <Grid container spacing={6} mb={6}>
             <Grid item xs={6}>
               <FormControl fullWidth>
+                <InputLabel id="internship-time">Thời gian thực tâp</InputLabel>
+                <Select
+                  labelId="internship-time"
+                  label="Thời gian thực tâp"
+                  {...register("internshipTime", {
+                    required: "Thời gian thực tập không được để trống",
+                  })}
+                  error={!!errors["internshipTime"]}
+                >
+                  {internshipTimeList.map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText error={!!errors["internshipTime"]}>
+                  {errors["internshipTime"]
+                    ? errors["internshipTime"].message
+                    : ""}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl fullWidth>
                 <TextField
-                  label="Enter salary"
+                  label="Mức lương"
                   variant="outlined"
                   {...register("salary", {
-                    required: "Required field",
+                    required: "Mức lương không được để trống",
                     pattern: {
                       value: /^\d*(\.\d+)?$/,
                       message: "Request is digits",
@@ -164,38 +220,16 @@ function PostJob() {
                 </FormHelperText>
               </FormControl>
             </Grid>
-
-            {/* <Grid item xs={6}>
-              <FormControl fullWidth>
-                <TextField
-                  label="Required employees"
-                  variant="outlined"
-                  {...register("required_employees", {
-                    required: "Required field",
-                    pattern: {
-                      value: /^\d*(\.\d+)?$/,
-                      message: "Request is digits",
-                    },
-                  })}
-                  error={!!errors["required_employees"]}
-                />
-                <FormHelperText error={!!errors["required_employees"]}>
-                  {errors["required_employees"]
-                    ? errors["required_employees"].message
-                    : ""}
-                </FormHelperText>
-              </FormControl>
-            </Grid> */}
           </Grid>
 
           <Grid container spacing={6} mb={6}>
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <TextField
-                  label="Enter skill requirements"
+                  label="Kĩ năng cần có"
                   variant="outlined"
                   {...register("required", {
-                    required: "Required field",
+                    required: "Kĩ năng cần có không được để trống",
                   })}
                   error={!!errors["required"]}
                   multiline
@@ -212,10 +246,10 @@ function PostJob() {
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <TextField
-                  label="Enter the job benefit"
+                  label="Lợi ích"
                   variant="outlined"
                   {...register("benefit", {
-                    required: "Required field",
+                    required: "Lợi ích không được để trống",
                   })}
                   error={!!errors["benefit"]}
                   multiline
@@ -232,10 +266,10 @@ function PostJob() {
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <TextField
-                  label="Enter the job description"
+                  label="Mô tả công việc"
                   variant="outlined"
                   {...register("description", {
-                    required: "Required field",
+                    required: "Mô tả công việc không được để trống",
                   })}
                   error={!!errors["description"]}
                   multiline
@@ -250,7 +284,7 @@ function PostJob() {
 
           <Stack justifyContent="center" alignItems="center">
             <Button variant="contained" sx={{ pl: 4, pr: 4 }} type="submit">
-              Submit
+              Đăng công việc
             </Button>
           </Stack>
         </Box>

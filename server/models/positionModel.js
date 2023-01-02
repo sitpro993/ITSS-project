@@ -22,6 +22,12 @@ const positionSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    working_form: {
+      type: String,
+    },
+    internship_time:{
+      type: String,
+    },
     required_employees: {
       type: Number,
       require: true,

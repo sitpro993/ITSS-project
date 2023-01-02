@@ -3,17 +3,17 @@ import { ROUTE } from "../constant/route";
 
 export const mainMenu = [
     {
-        label: "Subscriber List",
+        label: "Danh sách đăng ký",
         link: ROUTE.STUDENT_REQUESTS,
         role: [ROLE.COMPANY]
     },
     {
-        label: "Internship List",
+        label: "Danh sách thực tập sinh",
         link: ROUTE.INTERNSHIP_STUDENTS,
         role: [ROLE.COMPANY]
     },
     {
-        label: "Post job",
+        label: "Đăng công việc",
         link: ROUTE.POST_JOB,
         role: [ROLE.COMPANY]
     },

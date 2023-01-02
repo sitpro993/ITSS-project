@@ -17,8 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route";
 import { useDispatch, useSelector } from "react-redux";
 import { mainMenu } from "../../config/menu";
-import PersonIcon from '@mui/icons-material/Person';
-import { green, pink } from '@mui/material/colors';
+import PersonIcon from "@mui/icons-material/Person";
+import { green, pink } from "@mui/material/colors";
 import { isAsyncThunkAction } from "@reduxjs/toolkit";
 import { removeLocalStorageItem } from "../../config/localStorage";
 import { getStudentProfile } from "../../apis/student";
@@ -27,18 +27,17 @@ import { getCompanyProfile } from "../../apis/company";
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [name, setUserName] = React.useState('')
-  React.useEffect(async ()=> {
-    const userInfo = await apiGetUserInfo(localStorage.getItem('accessToken'));
-    if (userInfo.role == "student"){
-      const result = await getStudentProfile()
-      setUserName(result.data.firstName)
-    }
-    else if (userInfo.role == "company"){
-      const result = await getCompanyProfile()
+  const [name, setUserName] = React.useState("");
+  React.useEffect(async () => {
+    const userInfo = await apiGetUserInfo(localStorage.getItem("accessToken"));
+    if (userInfo.role == "student") {
+      const result = await getStudentProfile();
+      setUserName(result.data.firstName);
+    } else if (userInfo.role == "company") {
+      const result = await getCompanyProfile();
       setUserName(result.data.short_name);
     }
-  },[name])
+  }, [name]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((s) => s.auth.user);
@@ -91,15 +90,13 @@ function NavBar() {
                     {item.label}
                   </Button>
                 ))}
-                
           </Stack>
-          <Typography sx = {{mr: 1}}> Hi, {name}</Typography>
+          <Typography sx={{ mr: 1 }}> Hi, {name}</Typography>
           <Box sx={{ flexGrow: 0 }}>
-            
             <Tooltip>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar sx={{ bgcolor: pink[500] }}>
-                  <PersonIcon/>
+                  <PersonIcon />
                 </Avatar>
               </IconButton>
             </Tooltip>
@@ -125,16 +122,16 @@ function NavBar() {
                   handleCloseUserMenu();
                 }}
               >
-                <Typography textAlign="center">Profile</Typography>
+                <Typography textAlign="center">Thông tin cá nhân</Typography>
               </MenuItem>
               <MenuItem
-                onClick={async() => {
+                onClick={async () => {
                   handleCloseUserMenu();
                   await removeLocalStorageItem("name");
                   navigate(ROUTE.LOGIN);
                 }}
               >
-                <Typography textAlign="center">Logout</Typography>
+                <Typography textAlign="center">Đăng xuất</Typography>
               </MenuItem>
             </Menu>
           </Box>
