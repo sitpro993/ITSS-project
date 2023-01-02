@@ -59,11 +59,12 @@ companyRouter.get("", async (req, res) => {
 
 
     result.data = await Company.find()
+      .populate('positions')
       .skip(startIndex)
       .limit(limit)
       .exec()
     
-    result.data.forEach(v => { v['positions'] = [] });
+    result.data.sort((a, b) => b.positions.length - a.positions.length)
 
     result.rowsPerPage = limit
     return res.json({

@@ -8,7 +8,8 @@ import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import { ROUTE } from '../../../constant/route';
 import { useNavigate } from 'react-router-dom';
-import { Stack } from '@mui/system';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 export const CompanyItem = ({ company, loading }) => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export const CompanyItem = ({ company, loading }) => {
           image={company?.logo}
           alt="Company logo"
           height="200"
-          sx={{ objectFit: "contain" }}
+          sx={{ objectFit: 'contain' }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -37,11 +38,27 @@ export const CompanyItem = ({ company, loading }) => {
             {`${company?.address|| 'No address'} `}
             {company?.email || 'No email'}
           </Typography> */}
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ maxHeight: '100%', overflow: 'auto', pt: 1 }}
+          >
+            {company?.positions?.slice(0, 2)?.map((position) => (
+              <Chip label={position?.name} color="primary" />
+            ))}
+            {company?.positions?.length > 2 && (
+              <Chip label={`+${company?.positions?.length - 2} vị trí`} />
+            )}
+          </Stack>
         </CardContent>
         <CardActions>
-          <Button size="small">Share</Button>
+          <Button size="small">
+            {/* Share */}
+            Chia sẻ
+          </Button>
           <Button size="small" onClick={handleClick}>
-            Learn More
+            {/* Learn More */}
+            Chi tiết
           </Button>
         </CardActions>
       </Stack>
