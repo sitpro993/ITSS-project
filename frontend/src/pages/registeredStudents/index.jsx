@@ -7,8 +7,8 @@ export default function RegisteredStudentsPage() {
   return (
     <div>
       <Toolbar />
-      <Typography variant="h2" component="h3" align="center">
-        Subscriber List
+      <Typography variant="h1" component="h3" align="center">
+        Danh sách đăng ký
       </Typography>
       <RegisteredStudentList />
     </div>

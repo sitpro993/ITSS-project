@@ -35,19 +35,19 @@ export default function IntershipStudentList() {
     { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Họ và tên",
       flex: 1,
     },
     {
       field: "age",
-      headerName: "Age",
+      headerName: "Tuổi",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
       field: "phone",
-      headerName: "Phone Number",
+      headerName: "SĐT",
       flex: 1,
     },
     {
@@ -57,12 +57,12 @@ export default function IntershipStudentList() {
     },
     {
       field: "address",
-      headerName: "Address",
+      headerName: "Địa chỉ",
       flex: 1,
     },
     {
       field: "apply_internship",
-      headerName: "Apply internship",
+      headerName: "Vị trí thực tập",
       flex: 1,
     },
 

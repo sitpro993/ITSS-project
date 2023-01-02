@@ -18,22 +18,22 @@ export const mainMenu = [
         role: [ROLE.COMPANY]
     },
     {
-        label: "Company information",
+        label: "Danh sách công ty",
         link: ROUTE.COMPANY,
         role: [ROLE.STUDENT]
     },
     {
-        label: "Apply internship",
+        label: "Đăng ký thực tập",
         link: ROUTE.APPLY_INTERNSHIP,
         role: [ROLE.STUDENT]
     },
     {
-        label: "Request",
+        label: "Yêu Cầu Của Bạn",
         link: ROUTE.COMPANY_REQUESTS,
         role: [ROLE.STUDENT]
     },
     {
-        label: "Occupation",
+        label: "Nghề nghiệp",
         link: ROUTE.OCCUPATION,
         role: [ROLE.STUDENT]
     }
