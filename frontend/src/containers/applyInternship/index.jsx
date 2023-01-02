@@ -18,11 +18,16 @@ import { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { getListCompany } from "../../apis/company";
 import { apiApplyInternship } from "../../apis/job";
-import { getPositionByCompany } from "../../apis/position";
+import { getPositionByCompany, getPositionDetail } from "../../apis/position";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route";
+import {
+  internshipTimeList,
+  types,
+  workingFormList,
+} from "../../constant/list";
 
 const useGetCompanies = () => {
   const [companies, setCompanies] = useState([]);
@@ -44,6 +49,7 @@ function ApplyInternship() {
   const companies = useGetCompanies();
   const navigate = useNavigate();
   const [positions, setPositions] = useState([]);
+  const [position, setPosition] = useState();
   const {
     register,
     handleSubmit,
@@ -53,14 +59,14 @@ function ApplyInternship() {
     defaultValues: {
       company: "",
       position: "",
-      working_type: "",
       request: "",
     },
   });
 
   const companyId = useWatch({ control, name: "company" });
+  const positionId = useWatch({ control, name: "position" });
   useEffect(() => {
-    const getPosition = async () => {
+    const getPositionList = async () => {
       if (companies && companyId) {
         const response = await getPositionByCompany(companyId);
         if (response && response.data) {
@@ -68,8 +74,26 @@ function ApplyInternship() {
         }
       }
     };
-    getPosition();
+    getPositionList();
   }, [companyId, companies]);
+
+  useEffect(() => {
+    if (companyId) {
+      setPosition();
+    }
+  }, [companyId]);
+
+  useEffect(() => {
+    const getPosition = async () => {
+      if (positionId) {
+        const response = await getPositionDetail(positionId);
+        if (response && response.data) {
+          setPosition(response.data);
+        }
+      }
+    };
+    getPosition();
+  }, [positionId]);
 
   const onSubmit = async (data) => {
     const response = await apiApplyInternship({
@@ -100,6 +124,8 @@ function ApplyInternship() {
     { id: "offline", name: "Offline" },
     { id: "both", name: "Both" },
   ];
+
+  console.log("position", position);
   return (
     <>
       <Container
@@ -171,30 +197,33 @@ function ApplyInternship() {
               </Grid>
             )}
           </Grid>
-          <Grid container spacing={6} mb={6}>
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel id="apply-working_type">Working type</InputLabel>
-                <Select
-                  labelId="apply-working_type"
-                  label="Working type"
-                  {...register("working_type", {
-                    required: "Required field",
-                  })}
-                  error={!!errors["working_type"]}
-                >
-                  {working_types.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-                <FormHelperText error={!!errors["working_type"]}>
-                  {errors["working_type"] ? errors["working_type"].message : ""}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-          </Grid>
+          {companyId && positionId && position && (
+            <div>
+              <p>
+                Loại công việc:{" "}
+                {types.find((item) => item.id === position.type).name}
+              </p>
+              <p>
+                Hình thức công việc:{" "}
+                {position.working_form
+                  ? workingFormList.find(
+                      (item) => item.id === position.working_form
+                    ).name
+                  : "Online"}
+              </p>
+              <p>
+                Thời gian thực tập:{" "}
+                {position.internship_time
+                  ? internshipTimeList.find(
+                      (item) => item.id === position.internship_time
+                    ).name
+                  : "6 tháng"}
+              </p>
+              <p>Lương: {position.salary}</p>
+              <p>Yêu cầu kĩ năng: {position.required_skills}</p>
+              <p>Lợi ích: {position.benefit}</p>
+            </div>
+          )}
           <Grid container spacing={6} mb={6}>
             <Grid item xs={12}>
               <FormControl fullWidth>

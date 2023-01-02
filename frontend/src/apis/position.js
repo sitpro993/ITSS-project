@@ -5,6 +5,11 @@ export const getPositionByCompany =  async(id) => {
     return result;
 }
 
+export const getPositionDetail = async(id) => {
+    const result = getData(`position/${id}`)
+    return result;
+}
+
 export const registerJob = async(data) => {
      const result = postData(`position/registerJob`, data)
     return result;

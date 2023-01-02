@@ -56,8 +56,6 @@ positionRouter.get("", async (req, res) => {
 // api/position/:id
 positionRouter.get("/:id", async (req, res) => {
   try {
-    // need login to see job
-    const authResult = await auth(req, res);
     const { id } = req.params
 
     const position = await Position.findById(id)
