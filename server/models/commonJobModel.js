@@ -12,6 +12,17 @@ const commonJobSchema = new mongoose.Schema(
     video_link: {
       type: String,
     },
+    image: {
+      type: String,
+    },
+    skills: [
+      {
+        type: String
+      }
+    ],
+    salary: {
+      type: String,
+    }
   },
   {
     timestamps: true,
