@@ -1,36 +1,60 @@
-import { useEffect, useMemo } from "react";
-import { CompanyItem } from "./companyItem";
-import Pagination from "@mui/material/Pagination";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
-import { useSelector, useDispatch } from "react-redux";
-import { selectCompanyList } from "../../redux/selector/companySelector";
-import { fetchCompanys } from "../../redux/thunks/companyThunk";
+import { useEffect, useMemo } from 'react';
+import { CompanyItem } from './companyItem';
+import Pagination from '@mui/material/Pagination';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Unstable_Grid2';
+import TextField from '@mui/material/TextField';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCompanyList } from '../../redux/selector/companySelector';
+import { fetchCompanys } from '../../redux/thunks/companyThunk';
 import { PAGINATION_SIZE } from './const';
+import { useState } from 'react';
+import { debounce } from 'lodash';
 
 export const Company = () => {
   const dispatch = useDispatch();
   const { data, loading, total } = useSelector(selectCompanyList);
+  const [searchKey, setSearchKey] = useState('');
+  const debouncedSearch = debounce(setSearchKey, 500);
 
   const totalPage = useMemo(() => {
     return Math.ceil(total / PAGINATION_SIZE);
-  }, [total])
+  }, [total]);
 
   const handleChangePage = (_, value) => {
-    dispatch(fetchCompanys({ page: value, size: PAGINATION_SIZE }));
+    dispatch(
+      fetchCompanys({
+        page: value,
+        size: PAGINATION_SIZE,
+        searchKey: searchKey,
+      })
+    );
+  };
+
+  const handleSearch = (e) => {
+    debouncedSearch(e.target.value);
   };
 
   useEffect(() => {
-    dispatch(fetchCompanys({ page: 1, size: PAGINATION_SIZE }));
-  }, [dispatch]);
+    dispatch(
+      fetchCompanys({ page: 1, size: PAGINATION_SIZE, searchKey: searchKey })
+    );
+  }, [dispatch, searchKey]);
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: "1280px", padding: "20px" }}>
-      <h2>
-        {/* Top Company */}
-        Danh sách công ty
-      </h2>
-      <br />
+    <Box sx={{ flexGrow: 1, maxWidth: '1280px', padding: '20px' }}>
+      <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h2>
+          {/* Top Company */}
+          Danh sách công ty
+        </h2>
+        <TextField
+          id="search"
+          label="Search"
+          onChange={handleSearch}
+          sx={{ width: '300px' }}
+        />
+      </Box>
       <Grid
         container
         spacing={{ xs: 1, md: 2 }}
@@ -43,9 +67,13 @@ export const Company = () => {
         ))}
       </Grid>
       <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}
+        style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}
       >
-        <Pagination count={totalPage} color="primary" onChange={handleChangePage} />
+        <Pagination
+          count={totalPage}
+          color="primary"
+          onChange={handleChangePage}
+        />
       </div>
     </Box>
   );
