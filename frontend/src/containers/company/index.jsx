@@ -10,6 +10,7 @@ import { fetchCompanys } from '../../redux/thunks/companyThunk';
 import { PAGINATION_SIZE } from './const';
 import { useState } from 'react';
 import { debounce } from 'lodash';
+import { Typography } from '@mui/material';
 
 export const Company = () => {
   const dispatch = useDispatch();
@@ -43,8 +44,8 @@ export const Company = () => {
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: '1280px', padding: '20px' }}>
-      <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h2" style={{ color: '#7ABACC' }}>
+      <Box style={{ display: 'flex', justifyContent: 'space-between' }} sx = {{mb: 2}}>
+        <Typography variant="h2" style={{ color: '#7ABACC' }} gutterBottom>
         {/* Top Company */}
           Danh sách công ty
         </Typography>

@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { Paper, TableContainer } from '@mui/material';
+import { Paper, TableContainer, Typography } from '@mui/material';
 import { convertDateToFormat } from './helper';
 
 export default function Requests({ requests, loading }) {
