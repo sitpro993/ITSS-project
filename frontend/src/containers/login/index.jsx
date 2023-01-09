@@ -68,8 +68,10 @@ function Login() {
 
         if (userInfo.role === "company") {
           navigate(ROUTE.STUDENT_REQUESTS);
-        } else {
+        } else if (userInfo.role === "student") {
           navigate(ROUTE.COMPANY);
+        } else {
+          navigate(ROUTE.MANAGE_OCCUPATION);
         }
       }
     }

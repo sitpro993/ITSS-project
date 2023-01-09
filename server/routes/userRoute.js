@@ -30,10 +30,10 @@ userRouter.get("/accessToken", async (req, res) => {
 
     
     let userInfo;
+    
 
     if (user.role === "company") {
       userInfo = await Company.findOne({ user_id: user._id });
-      if(userInfo){}
     }
 
     if (user.role === "student") {
@@ -42,7 +42,7 @@ userRouter.get("/accessToken", async (req, res) => {
 
     res.json({
     
-      ...userInfo._doc, email: user.email, role: user.role,
+      ...userInfo, email: user.email, role: user.role,
     });
   } catch (error) {
     return res.status(500).json({ err: error.message });

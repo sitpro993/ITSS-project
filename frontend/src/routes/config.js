@@ -12,7 +12,6 @@ import { CompanyDetailsPage } from "../pages/companyDetails";
 import PostJobPage from "../pages/postJob";
 import { ROLE } from "../constant/role";
 import { CompanyRequestsListPage } from "../pages/companyRequests";
-import StudentRequestPage from "../pages/studentRequests";
 import StudentRequestDetailPage from "../pages/studentRequestDetail";
 import RegisteredStudentsPage from "../pages/registeredStudents";
 import ManageOccupationPage from "../pages/manageOccupation";
@@ -130,7 +129,8 @@ export const routes = [
     path: ROUTE.MANAGE_OCCUPATION,
     element: ManageOccupationPage,
     title: "Manage occupation",
-    isPrivate: false
+    isPrivate: true,
+    role: [ROLE.ADMIN]
   }
 ].map((route) => {
   if (route.isPrivate) {

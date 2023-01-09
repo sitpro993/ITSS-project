@@ -135,12 +135,10 @@ function ManageOccupation() {
         >
           <Toolbar />
           <Typography variant="h3" gutterBottom sx={{ mb: 3 }}>
-            {" "}
-            Manage occupation{" "}
+            Manage occupation
           </Typography>
           <Button variant="contained" onClick={handleClickOpen}>
-            {" "}
-            Add new occupation{" "}
+            Add new occupation
           </Button>
 
           <TableContainer component={Paper} sx={{ mt: 3 }}>

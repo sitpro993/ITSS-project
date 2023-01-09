@@ -15,11 +15,9 @@ const commonJobSchema = new mongoose.Schema(
     image: {
       type: String,
     },
-    skills: [
-      {
+    skills: {
         type: String
-      }
-    ],
+    },
     salary: {
       type: String,
     }

@@ -9,35 +9,48 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { createOccupation } from "../../../apis/occupation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { imageUpload } from "../../../utils/uploadImage";
 
 export default function FormDialog({ open, handleClose }) {
-  const { register, handleSubmit } = useForm({
+  const { register, watch, handleSubmit } = useForm({
     defaultValues: {
       title: "",
       description: "",
+      image: "",
       video_link: "",
+      skills: "",
+      salary: "",
     },
   });
 
-  const onSubmit = async (data) => {
-    const response = await createOccupation({
-      title: data.title,
-      description: data.description,
-      video_link: data.video_link,
-    });
+  const imgWatch = watch("image");
+  console.log(imgWatch);
 
-    if (response && response.msg) {
-      window.location.reload();
-      toast.success(response.msg, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+  const onSubmit = async (data) => {
+    const img = await imageUpload(data.image[0]);
+    if (img.url) {
+      const response = await createOccupation({
+        title: data.title,
+        description: data.description,
+        video_link: data.video_link,
+        image: img.url,
+        skills: data.skills,
+        salary: data.salary,
       });
+
+      if (response && response.msg) {
+        window.location.reload();
+        toast.success(response.msg, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     }
   };
 
@@ -58,37 +71,81 @@ export default function FormDialog({ open, handleClose }) {
           <TextField
             autoFocus
             margin="dense"
-            label="Title"
+            label="Tiêu đề"
             type="text"
             fullWidth
             required
-            variant="standard"
-            {...register("title")}
+            {...register("title", { required: "Tiêu đề không được để trống" })}
+            sx={{ mb: 3 }}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Mức lương"
+            type="text"
+            fullWidth
+            required
+            {...register("salary", { required: "Tiêu đề không được để trống" })}
             sx={{ mb: 3 }}
           />
 
           <TextField
             id="outlined-multiline-static"
-            label="Description"
+            label="Kĩ năng cần có"
             multiline
             rows={4}
             required
             type="text"
             fullWidth
-            {...register("description")}
+            {...register("skills", { required: "Tiêu đề không được để trống" })}
+            sx={{ mb: 3 }}
+          />
+          <TextField
+            id="outlined-multiline-static"
+            label="Mô tả"
+            multiline
+            rows={4}
+            required
+            type="text"
+            fullWidth
+            {...register("description", {
+              required: "Tiêu đề không được để trống",
+            })}
+            sx={{ mb: 3 }}
           />
 
           <TextField
             margin="dense"
             id="link"
-            label="Video Link"
+            label="Đường link video"
             type="text"
             fullWidth
             required
-            variant="standard"
-            {...register("video_link")}
+            {...register("video_link", {
+              required: "Tiêu đề không được để trống",
+            })}
             sx={{ mb: 3 }}
           />
+          {imgWatch && (
+            <img
+              src={URL.createObjectURL(imgWatch[0])}
+              width={300}
+              height={300}
+              alt=""
+              style={{ display: "block" }}
+            />
+          )}
+          <Button variant="contained" component="label" sx={{ mt: 3 }}>
+            Tải ảnh lên
+            <input
+              hidden
+              accept="image/*"
+              type="file"
+              {...register("image", {
+                required: "Tiêu đề không được để trống",
+              })}
+            />
+          </Button>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
