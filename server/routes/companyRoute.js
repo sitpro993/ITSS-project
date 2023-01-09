@@ -39,6 +39,8 @@ companyRouter.get("", async (req, res) => {
 
     const pageNumber = parseInt(req.query.pageNumber) || 0;
     const limit = parseInt(req.query.limit) || 12;
+    const searchKey = req.query.searchKey || "";
+
     const result = {};
     const totalCompanys = await Company.countDocuments().exec(); 
     let startIndex = pageNumber * limit;
@@ -57,8 +59,7 @@ companyRouter.get("", async (req, res) => {
       };
     }
 
-
-    result.data = await Company.find()
+    result.data = await Company.find({full_name: {$regex: searchKey, $options: 'i'}})
       .populate('positions')
       .skip(startIndex)
       .limit(limit)

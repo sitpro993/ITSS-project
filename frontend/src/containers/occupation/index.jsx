@@ -46,6 +46,9 @@ function Occupation() {
               description={item.description.substring(0, 100) + "..."}
               video_link={item.video_link}
               collapse_content={item.description}
+              image={item.image}
+              skills={item.skills}
+              salary={item.salary}
             />
           ))}
           <Pagination count={10} page={page} 

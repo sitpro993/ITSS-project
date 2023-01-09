@@ -3,8 +3,8 @@ import { CompanyApi } from '../../apis/company';
 
 export const fetchCompanys = createAsyncThunk(
   'companys/fetchCompanys',
-  async ({ page, size }) => {
-    const response = await CompanyApi.getCompanys({ page, size });
+  async ({ page, size, searchKey }) => {
+    const response = await CompanyApi.getCompanys({ page, size, searchKey });
     return response;
   }
 );

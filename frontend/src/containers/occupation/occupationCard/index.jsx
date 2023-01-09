@@ -7,14 +7,16 @@ import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Button from '@mui/material/Button';
+import CardMedia from '@mui/material/CardMedia';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  // transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
   marginLeft: "auto",
   transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
@@ -26,6 +28,9 @@ export default function OccupationCard({
   description,
   video_link,
   collapse_content,
+  image,
+  skills,
+  salary
 }) {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -42,6 +47,10 @@ export default function OccupationCard({
           </IconButton>
         }
         title={title}
+        subheader={<>
+        <p><b>Skill: </b>{skills}</p>
+        <p><b>Average salary: </b>{salary}</p>
+        </>}
         // subheader="September 14, 2016"
       />
       <CardContent>
@@ -57,13 +66,24 @@ export default function OccupationCard({
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          {/* <ExpandMoreIcon /> */}
+          <Button variant="contained" color="success">
+            Learn more
+          </Button>
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>{collapse_content}</Typography>
-        </CardContent>
+        <Card sx={{ display: 'flex', justifyContent: 'space-between', padding: '2%', 'text-align': 'justify'}}>
+          <CardContent>
+            <Typography paragraph>{collapse_content}</Typography>
+          </CardContent>
+          <CardMedia
+            component="img"
+            sx={{ width:'40%'}}
+            image={image}
+            alt="Live from space album cover"
+          />
+        </Card>
       </Collapse>
     </Card>
   );

@@ -10,6 +10,7 @@ import { ROUTE } from '../../../constant/route';
 import { useNavigate } from 'react-router-dom';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import { Box } from '@mui/material';
 
 export const CompanyItem = ({ company, loading }) => {
   const navigate = useNavigate();
@@ -38,18 +39,21 @@ export const CompanyItem = ({ company, loading }) => {
             {`${company?.address|| 'No address'} `}
             {company?.email || 'No email'}
           </Typography> */}
-          <Stack
-            direction="row"
-            spacing={1}
-            sx={{ maxHeight: '100%', overflow: 'auto', pt: 1 }}
-          >
+          <Box>
             {company?.positions?.slice(0, 2)?.map((position) => (
-              <Chip label={position?.name} color="primary" />
+              <Chip
+                label={position?.name}
+                color="primary"
+                sx={{ mt: 1, mr: 1 }}
+              />
             ))}
             {company?.positions?.length > 2 && (
-              <Chip label={`+${company?.positions?.length - 2} vị trí`} />
+              <Chip
+                label={`+${company?.positions?.length - 2} vị trí`}
+                sx={{ mt: 1, mr: 1 }}
+              />
             )}
-          </Stack>
+          </Box>
         </CardContent>
         <CardActions>
           <Button size="small">
