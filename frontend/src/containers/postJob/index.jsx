@@ -92,7 +92,7 @@ function PostJob() {
           spacing={4}
           sx={{ p: 2, mb: 1, mx: 8 }}
         >
-          <Typography variant="h3" align="center" justifyContent="center">
+          <Typography variant="h3" align="center" justifyContent="center" sx={{color: '#7ABACC'}}>
             Đăng công việc
           </Typography>
         </Stack>

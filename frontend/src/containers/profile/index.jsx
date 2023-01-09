@@ -41,7 +41,7 @@ export default function Profile() {
   else
   return (<Paper elevation={3} sx = {{mb : 2, mt: 2}}>
     <Container component = "form"  onSubmit = {handleSubmit}>
-      <Typography  variant = "h2" sx = {{ p : 3}} align="center">
+      <Typography  variant = "h2" sx = {{ p : 3, color: '#7ABACC'}} align="center">
         {/* Student Profile */}
         Hồ sơ sinh viên 
         </Typography>

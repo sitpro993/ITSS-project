@@ -26,10 +26,9 @@ export const Company = () => {
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: "1280px", padding: "20px" }}>
-      <h2>
-        {/* Top Company */}
+      <Typography variant="h2" style={{ color: '#7ABACC' }}>
         Danh sách công ty
-      </h2>
+      </Typography>
       <br />
       <Grid
         container

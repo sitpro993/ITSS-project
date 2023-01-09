@@ -31,10 +31,9 @@ export default function Requests({ requests, loading }) {
         marginTop: '30px',
       }}
     >
-      <h2>
-        {/* Your Requests */}
+      <Typography variant="h2" style={{ color: '#7ABACC' }}>
         Yêu Cầu Của Bạn
-      </h2>
+      </Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

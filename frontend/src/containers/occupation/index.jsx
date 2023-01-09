@@ -36,7 +36,7 @@ function Occupation() {
       <>
         <Container sx = {{m: "auto", p: 2}}>
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          <Typography variant="h2" gutterBottom sx={{ mt: 3 }}>
+          <Typography variant="h2" gutterBottom sx={{ mt: 3 , color: '#7ABACC'}}>
             {" "}
             Occupation List{" "}
           </Typography>
