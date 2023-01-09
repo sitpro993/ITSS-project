@@ -44,10 +44,10 @@ export const Company = () => {
   return (
     <Box sx={{ flexGrow: 1, maxWidth: '1280px', padding: '20px' }}>
       <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h2>
-          {/* Top Company */}
+        <Typography variant="h2" style={{ color: '#7ABACC' }}>
+        {/* Top Company */}
           Danh sách công ty
-        </h2>
+        </Typography>
         <TextField
           id="search"
           label="Search"
