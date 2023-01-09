@@ -28,7 +28,9 @@ export default function OccupationCard({
   description,
   video_link,
   collapse_content,
-  image
+  image,
+  skills,
+  salary
 }) {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -45,6 +47,10 @@ export default function OccupationCard({
           </IconButton>
         }
         title={title}
+        subheader={<>
+        <p><b>Skill: </b>{skills}</p>
+        <p><b>Average salary: </b>{salary}</p>
+        </>}
         // subheader="September 14, 2016"
       />
       <CardContent>
@@ -67,7 +73,7 @@ export default function OccupationCard({
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <Card sx={{ display: 'flex', justifyContent: 'space-between', padding: '2%' }}>
+        <Card sx={{ display: 'flex', justifyContent: 'space-between', padding: '2%', 'text-align': 'justify'}}>
           <CardContent>
             <Typography paragraph>{collapse_content}</Typography>
           </CardContent>

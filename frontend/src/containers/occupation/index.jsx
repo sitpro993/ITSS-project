@@ -47,6 +47,8 @@ function Occupation() {
               video_link={item.video_link}
               collapse_content={item.description}
               image={item.image}
+              skills={item.skills}
+              salary={item.salary}
             />
           ))}
           <Pagination count={10} page={page} 
