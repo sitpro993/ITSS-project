@@ -4,9 +4,9 @@ import { getData } from '../config/api';
 //   'https://icons.iconarchive.com/icons/paomedia/small-n-flat/512/social-facebook-icon.png';
 
 export const CompanyApi = {
-  getCompanys: async ({ page, size }) => {
+  getCompanys: async ({ page, size, searchKey }) => {
     const accessToken = `Bearer ${localStorage.getItem('accessToken')}`;
-    const result = await getData(`company?pageNumber=${page-1}&limit=${size}`, accessToken);
+    const result = await getData(`company?pageNumber=${page-1}&limit=${size}&searchKey=${searchKey}`, accessToken);
 
     return {
       total: result?.data?.totalCompanys || 0,
