@@ -1,6 +1,6 @@
 const express = require('express')
 const commonJob = require('../models/commonJobModel.js')
-
+const Position = require("../models/positionModel.js")
 const commonJobRouter = express.Router()
 
 const dotenv = require('dotenv')
@@ -14,6 +14,38 @@ commonJobRouter.get('/', async (req, res) => {
     if (!result) {
       return res.status(404).send({ message: 'Không tìm thấy công việc' })
     }
+
+    return res.json({
+      msg: 'Success',
+      data: result,
+    })
+  } catch (error) {
+    return res.status(500).json({ err: error.message })
+  }
+})
+
+commonJobRouter.get('/list', async (req, res) => {
+  try {
+    const commonJobs = await commonJob.find()
+    if (!commonJobs) {
+      return res.status(404).send({ message: 'Không tìm thấy công việc thông thường' })
+    }
+
+    const positions = await Position.find().select('jobs name')
+
+    var result = commonJobs.map(function(commonjob) {
+      var tempJob = commonjob.toObject();
+      tempJob.count = 0
+
+      for (var i = 0; i < positions.length; i++) {
+        if (positions[i].name == commonjob.title && typeof(positions[i].jobs) != 'undefined') {
+          tempJob.count += positions[i].jobs.length
+        }
+      }
+      return tempJob
+    })
+
+    result.sort((a, b) => (a.count < b.count) ? 1 : -1)
 
     return res.json({
       msg: 'Success',
