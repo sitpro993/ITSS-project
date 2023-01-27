@@ -4,6 +4,7 @@ import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import TextField from '@mui/material/TextField';
+import { Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCompanyList } from '../../redux/selector/companySelector';
 import { fetchCompanys } from '../../redux/thunks/companyThunk';

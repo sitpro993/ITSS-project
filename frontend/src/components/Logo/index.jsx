@@ -22,7 +22,7 @@ function Logo() {
             fill="#1967D2"
           ></path>
         </svg>
-        <span>InternShip</span>
+        <span style={{fontWeight: "bolder"}}>InternShip</span>
       </Link>
     </div>
   );
