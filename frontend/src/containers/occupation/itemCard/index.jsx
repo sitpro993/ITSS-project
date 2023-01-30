@@ -1,26 +1,27 @@
-import * as React from 'react'
-import { styled } from '@mui/material/styles'
-import Card from '@mui/material/Card'
-import CardMedia from '@mui/material/CardMedia'
-import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
-import Collapse from '@mui/material/Collapse'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import ShareIcon from '@mui/icons-material/Share'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Button } from "@mui/material";
 
 const ExpandMore = styled((props) => {
-  const { expand, ...other } = props
-  return <IconButton {...other} />
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
+  //transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
   }),
-}))
+}));
 
 export default function ItemCard({
   title,
@@ -31,14 +32,14 @@ export default function ItemCard({
   skills,
   salary,
 }) {
-  const [expanded, setExpanded] = React.useState(false)
+  const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
+    setExpanded(!expanded);
+  };
 
   return (
-    <Card sx={{ maxWidth: 350, height: '100%' }}>
+    <Card sx={{ maxWidth: 350, height: "100%" }}>
       <CardMedia
         component="img"
         height="150"
@@ -46,7 +47,7 @@ export default function ItemCard({
         alt="Paella dish"
       />
       <CardContent>
-        <h2 className="whitespace-nowrap">Title {title}</h2>
+        <h2 className="whitespace-nowrap">{title}</h2>
         <Typography variant="body2" color="text.secondary">
           <div>
             <b>Skill: </b>
@@ -58,7 +59,9 @@ export default function ItemCard({
           </div>
           <div>
             <div>
-              <b>Description: </b>
+              <a href={video_link} style={{ fontWeight: "bold" }}>
+                Intro video link
+              </a>
               <span>
                 {description?.length < 30 ? (
                   description
@@ -88,7 +91,9 @@ export default function ItemCard({
             aria-expanded={expanded}
             aria-label="show more"
           >
-            <ExpandMoreIcon />
+            <Button variant="contained" color="success">
+              Learn more
+            </Button>
           </ExpandMore>
         )}
       </CardActions>
@@ -98,5 +103,5 @@ export default function ItemCard({
         </CardContent>
       </Collapse>
     </Card>
-  )
+  );
 }
