@@ -20,6 +20,9 @@ const commonJobSchema = new mongoose.Schema(
     },
     salary: {
       type: String,
+    },
+    post: {
+      type: String,
     }
   },
   {

@@ -16,6 +16,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { getOccupation } from "../../apis/occupation";
 import { useState } from "react";
 import FormDialog from "./FormDialog";
+// import ReactHtmlParser, {
+//   processNodes,
+//   convertNodeToElement,
+//   htmlparser2,
+// } from "react-html-parser";
+
 const drawerWidth = 240;
 
 const columns = [
@@ -120,52 +126,57 @@ function ManageOccupation() {
     getApi();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const html = "<strong>Example HTML string</strong>";
+
   if (loading) return <CircularProgress />;
   else
     return (
-      <Box sx={{ display: "flex" }}>
-        <Sidebar></Sidebar>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-          }}
-        >
-          <Toolbar />
-          <Typography variant="h3" gutterBottom sx={{ mb: 3 }}>
-            Manage occupation
-          </Typography>
-          <Button variant="contained" onClick={handleClickOpen}>
-            Add new occupation
-          </Button>
-
-          <TableContainer component={Paper} sx={{ mt: 3 }}>
-            <Box
-              sx={{
-                height: 500,
-                width: "100%",
-                backgroundColor: "white",
-                "& .super-app-theme--header": {
-                  // backgroundColor: '#a4cde0',
-                },
-              }}
-            >
-              <DataGrid
-                rows={occupations}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                disableSelectionOnClick
-                experimentalFeatures={{ newEditingApi: true }}
-                sx={{ padding: 2 }}
-              />
-            </Box>
-          </TableContainer>
-          <FormDialog open={open} handleClose={handleClose} />
+      <>
+        <Box sx={{ display: "flex" }}>
+          <Sidebar></Sidebar>
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              p: 3,
+              width: { sm: `calc(100% - ${drawerWidth}px)` },
+            }}
+          >
+            <Toolbar />
+            <Typography variant="h3" gutterBottom sx={{ mb: 3 }}>
+              Manage occupation
+            </Typography>
+            <Button variant="contained" onClick={handleClickOpen}>
+              Add new occupation
+            </Button>
+            <TableContainer component={Paper} sx={{ mt: 3 }}>
+              <Box
+                sx={{
+                  height: 500,
+                  width: "100%",
+                  backgroundColor: "white",
+                  "& .super-app-theme--header": {
+                    // backgroundColor: '#a4cde0',
+                  },
+                }}
+              >
+                <DataGrid
+                  rows={occupations}
+                  columns={columns}
+                  pageSize={5}
+                  rowsPerPageOptions={[5]}
+                  disableSelectionOnClick
+                  experimentalFeatures={{ newEditingApi: true }}
+                  sx={{ padding: 2 }}
+                />
+              </Box>
+            </TableContainer>
+            <FormDialog open={open} handleClose={handleClose} />
+          </Box>
         </Box>
-      </Box>
+        <div dangerouslySetInnerHTML={{ __html: html }} />
+      </>
     );
 }
 

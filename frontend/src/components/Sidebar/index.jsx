@@ -50,18 +50,17 @@ function Sidebar(props) {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton
+            onClick={async () => {
+              await removeLocalStorageItem("name");
+              navigate(ROUTE.LOGIN);
+            }}
+          >
             <ListItemIcon>
               {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
               <LogoutIcon />
             </ListItemIcon>
-            <ListItemText
-              onClick={async () => {
-                await removeLocalStorageItem("name");
-                navigate(ROUTE.LOGIN);
-              }}
-              primary="Đăng xuất"
-            />
+            <ListItemText primary="Đăng xuất" />
           </ListItemButton>
         </ListItem>
       </List>

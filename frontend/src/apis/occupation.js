@@ -5,6 +5,11 @@ export const getOccupation = async (accessToken, searchQuery) => {
   return result
 }
 
+export const getOccupationDetail = async (id) => {
+  const result = await getData(`occupation/${id}`);
+  return result
+}
+
 export const createOccupation = async (data) => {
   const result = await postData('occupation', data)
   return result

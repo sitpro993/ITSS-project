@@ -17,6 +17,7 @@ import RegisteredStudentsPage from "../pages/registeredStudents";
 import ManageOccupationPage from "../pages/manageOccupation";
 import OccupationPage from "../pages/occupations";
 import InternshipStudentsPage from "../pages/internshipStudents";
+import OccupationDetailPage from "../pages/OccupationDetailPage";
 
 export const routes = [
   // route chung
@@ -87,6 +88,15 @@ export const routes = [
     title: "View Occupation",
     isPrivate: true,
     role: [ROLE.STUDENT]
+
+  },
+  {
+    path: ROUTE.OCCUPATION_DETAIL,
+    element: OccupationDetailPage,
+    title: "Occupation Detail",
+    isPrivate: true,
+    role: [ROLE.STUDENT]
+    
   },
   // route company
   {

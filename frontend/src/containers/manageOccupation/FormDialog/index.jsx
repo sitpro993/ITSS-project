@@ -10,6 +10,7 @@ import { createOccupation } from "../../../apis/occupation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { imageUpload } from "../../../utils/uploadImage";
+import TextEditor from "../../../components/TextEditor";
 
 export default function FormDialog({ open, handleClose }) {
   const { register, watch, handleSubmit } = useForm({
@@ -24,11 +25,11 @@ export default function FormDialog({ open, handleClose }) {
   });
 
   const imgWatch = watch("image");
-  console.log(imgWatch);
+  const [value, setValue] = React.useState();
 
   const onSubmit = async (data) => {
     const img = await imageUpload(data.image[0]);
-    if (img.url) {
+    if (img.url && value) {
       const response = await createOccupation({
         title: data.title,
         description: data.description,
@@ -36,6 +37,7 @@ export default function FormDialog({ open, handleClose }) {
         image: img.url,
         skills: data.skills,
         salary: data.salary,
+        post: value,
       });
 
       if (response && response.msg) {
@@ -100,6 +102,26 @@ export default function FormDialog({ open, handleClose }) {
             {...register("skills", { required: "Tiêu đề không được để trống" })}
             sx={{ mb: 3 }}
           />
+          {imgWatch && (
+            <img
+              src={URL.createObjectURL(imgWatch[0])}
+              width={300}
+              height={300}
+              alt=""
+              style={{ display: "block" }}
+            />
+          )}
+          <Button variant="contained" component="label" sx={{ mb: 3, mt: 3 }}>
+            Tải ảnh lên
+            <input
+              hidden
+              accept="image/*"
+              type="file"
+              {...register("image", {
+                required: "Tiêu đề không được để trống",
+              })}
+            />
+          </Button>
           <TextField
             id="outlined-multiline-static"
             label="Mô tả"
@@ -122,30 +144,12 @@ export default function FormDialog({ open, handleClose }) {
             fullWidth
             required
             {...register("video_link", {
-              required: "Tiêu đề không được để trống",
+              required: "Link video không được để trống",
             })}
             sx={{ mb: 3 }}
           />
-          {imgWatch && (
-            <img
-              src={URL.createObjectURL(imgWatch[0])}
-              width={300}
-              height={300}
-              alt=""
-              style={{ display: "block" }}
-            />
-          )}
-          <Button variant="contained" component="label" sx={{ mt: 3 }}>
-            Tải ảnh lên
-            <input
-              hidden
-              accept="image/*"
-              type="file"
-              {...register("image", {
-                required: "Tiêu đề không được để trống",
-              })}
-            />
-          </Button>
+          <p>Bài viết mô tả</p>
+          <TextEditor value={value} setValue={setValue} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
