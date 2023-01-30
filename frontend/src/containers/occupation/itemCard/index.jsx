@@ -58,10 +58,12 @@ export default function ItemCard({
             {salary}
           </div>
           <div>
+            <a href={video_link} style={{ fontWeight: "bold" }}>
+              Intro video link
+            </a>
+          </div>
+          <div>
             <div>
-              <a href={video_link} style={{ fontWeight: "bold" }}>
-                Intro video link
-              </a>
               <span>
                 {description?.length < 30 ? (
                   description
