@@ -6,7 +6,12 @@ export const getOccupation = async (accessToken, searchQuery) => {
 }
 
 export const getOccupationDetail = async (id) => {
-  const result = await getData(`occupation/${id}`);
+  const result = await getData(`occupation/${id}`)
+  return result
+}
+
+export const getRegistration = async (accessToken, searchQuery) => {
+  const result = await getData('occupation/list', accessToken, searchQuery)
   return result
 }
 
