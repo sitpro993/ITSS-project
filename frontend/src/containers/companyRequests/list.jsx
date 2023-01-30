@@ -1,14 +1,13 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import { Typography } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import { Paper, TableContainer, Typography } from '@mui/material';
-import { convertDateToFormat } from './helper';
+import * as React from 'react'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
+import { Paper, TableContainer, Typography } from '@mui/material'
+import { convertDateToFormat } from './helper'
 
 export default function Requests({ requests, loading }) {
   return loading ? (
@@ -80,5 +79,5 @@ export default function Requests({ requests, loading }) {
         </Table>
       </TableContainer>
     </div>
-  );
+  )
 }
