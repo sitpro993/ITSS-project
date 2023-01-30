@@ -84,14 +84,14 @@ function NavBar() {
                   <Button
                     key={i}
                     variant="text"
-                    style={{ color: "#fff", fontSize: "17px" }}
+                    style={{ color: "black", fontSize: "17px", fontWeight: "bold"}}
                     onClick={() => navigate(item.link)}
                   >
                     {item.label}
                   </Button>
                 ))}
           </Stack>
-          <Typography sx={{ mr: 1 }}> Hi, {name}</Typography>
+          <Typography sx={{ mr: 1, color: "black", fontWeight: "bold" }}> Hi, {name}</Typography>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
