@@ -2,21 +2,38 @@
   padding-bottom: 20px;
 }
 .decorative-line {
-    background-image: linear-gradient(var(--line-color), var(--line-color));
-    background-repeat: no-repeat;
-    background-size: 100% var(--line-height);
-    background-position: 0 center;
+  background-image: linear-gradient(var(--line-color), var(--line-color));
+  background-repeat: no-repeat;
+  background-size: 100% var(--line-height);
+  background-position: 0 center;
 }
 .my-element {
-    --line-color: pink;
-    --line-height: 2px;
+  --line-color: pink;
+  --line-height: 2px;
 }
 .title {
-    display: inline-block;
-    background-color: #AEE2FF;
-    padding: 5px 15px;
-    margin-left: 20px;
-    border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: inline-block;
+  background-color: #aee2ff;
+  padding: 5px 15px;
+  margin-left: 20px;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+.three-dots {
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}

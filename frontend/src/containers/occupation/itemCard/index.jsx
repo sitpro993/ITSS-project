@@ -1,30 +1,26 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import * as React from 'react'
+import { styled } from '@mui/material/styles'
+import Card from '@mui/material/Card'
+import CardMedia from '@mui/material/CardMedia'
+import CardContent from '@mui/material/CardContent'
+import CardActions from '@mui/material/CardActions'
+import Collapse from '@mui/material/Collapse'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import ShareIcon from '@mui/icons-material/Share'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
+  const { expand, ...other } = props
+  return <IconButton {...other} />
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
   marginLeft: 'auto',
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
   }),
-}));
+}))
 
 export default function ItemCard({
   title,
@@ -33,16 +29,16 @@ export default function ItemCard({
   collapse_content,
   image,
   skills,
-  salary
+  salary,
 }) {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+    setExpanded(!expanded)
+  }
 
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card sx={{ maxWidth: 350, height: '100%' }}>
       <CardMedia
         component="img"
         height="150"
@@ -50,11 +46,32 @@ export default function ItemCard({
         alt="Paella dish"
       />
       <CardContent>
-        <h2>Title {title}</h2>
+        <h2 className="whitespace-nowrap">Title {title}</h2>
         <Typography variant="body2" color="text.secondary">
-          <p><b>Skill: </b>{skills}</p>
-          <p><b>Average salary: </b>{salary}</p>
-          <p><b>Description: </b>{description}</p>
+          <div>
+            <b>Skill: </b>
+            {skills}
+          </div>
+          <div>
+            <b>Average salary: </b>
+            {salary}
+          </div>
+          <div>
+            <div>
+              <b>Description: </b>
+              <span>
+                {description?.length < 30 ? (
+                  description
+                ) : (
+                  <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>{description}</Typography>
+                    </CardContent>
+                  </Collapse>
+                )}
+              </span>
+            </div>
+          </div>
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -64,22 +81,22 @@ export default function ItemCard({
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
+        {description?.length > 30 && (
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        )}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>
-            {collapse_content}
-          </Typography>
+          <Typography paragraph>{collapse_content}</Typography>
         </CardContent>
       </Collapse>
     </Card>
-  );
+  )
 }

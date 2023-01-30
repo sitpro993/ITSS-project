@@ -1,15 +1,13 @@
-import { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import TextField from "@mui/material/TextField";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from '@mui/icons-material/Search'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
 
-export const SearchBar = ({ setSearchQuery }) => (
+export const SearchBar = ({ debounceSearch }) => (
   <form
     style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     }}
   >
     <TextField
@@ -18,7 +16,7 @@ export const SearchBar = ({ setSearchQuery }) => (
       }}
       className="search-bar"
       onInput={(e) => {
-        setSearchQuery(e.target.value);
+        debounceSearch(e.target.value)
       }}
       label="Enter occupation"
       variant="outlined"
@@ -32,4 +30,4 @@ export const SearchBar = ({ setSearchQuery }) => (
       }}
     />
   </form>
-);
+)
