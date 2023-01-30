@@ -7,14 +7,28 @@ const dotenv = require('dotenv')
 const auth = require('../auth.js')
 dotenv.config()
 
+const SORTBY = {
+  CREATEDAT: 1,
+  MOSTVIEWED: 2,
+  MOSTAPPLIED: 3,
+}
 
 commonJobRouter.get('/', async (req, res) => {
   try {
-    const result = await commonJob.find()
+    const searchKey = req.query.searchKey || "";
+    const sortBy = req.query.sortBy || SORTBY.CREATEDAT;
+
+    let result = null;
+
+    if (sortBy == SORTBY.CREATEDAT) {
+      result = await commonJob.find({title: {$regex: searchKey, $options: 'i'}}).sort({createdAt: -1})
+    } else if (sortBy == SORTBY.MOSTVIEWED) {
+      result = await commonJob.find({title: {$regex: searchKey, $options: 'i'}}).sort({viewed: -1})
+    }
+
     if (!result) {
       return res.status(404).send({ message: 'Không tìm thấy công việc' })
     }
-
     return res.json({
       msg: 'Success',
       data: result,
@@ -59,9 +73,13 @@ commonJobRouter.get('/list', async (req, res) => {
 commonJobRouter.get('/:id', async (req, res) => {
   try {
     const result = await commonJob.findOne({ _id: req.params.id })
+
     if (!result) {
       return res.status(404).send({ message: 'Không tìm thấy công việc' })
     }
+    
+    // update viewed
+    await commonJob.updateOne({ _id: req.params.id }, { $inc: { viewed: 1 } })
 
     return res.json({
       msg: 'Success',
