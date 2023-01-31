@@ -9,8 +9,10 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
+import InfoIcon from "@mui/icons-material/Info";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,7 +33,9 @@ export default function ItemCard({
   image,
   skills,
   salary,
+  _id,
 }) {
+  const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -85,6 +89,14 @@ export default function ItemCard({
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
+        </IconButton>
+        <IconButton
+          aria-label="share"
+          onClick={() => {
+            navigate(`/occupation/${_id}`);
+          }}
+        >
+          <InfoIcon />
         </IconButton>
         {description?.length > 30 && (
           <ExpandMore

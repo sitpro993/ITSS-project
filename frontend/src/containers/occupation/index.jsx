@@ -1,43 +1,43 @@
-import { CircularProgress } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { getOccupation, getRegistration } from '../../apis/occupation'
-import { SearchBar } from './searchBar'
-import './index.css'
-import { useCallback } from 'react'
-import Carousel from 'react-multi-carousel'
-import 'react-multi-carousel/lib/styles.css'
-import ItemCard from './itemCard'
-import { debounce } from 'lodash'
+import { CircularProgress } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { getOccupation, getRegistration } from "../../apis/occupation";
+import { SearchBar } from "./searchBar";
+import "./index.css";
+import { useCallback } from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import ItemCard from "./itemCard";
+import { debounce } from "lodash";
 
 function Occupation() {
-  const [loading, setLoading] = useState(true)
-  const [occupations, setOccupations] = useState()
-  const [registrations, setRegistration] = useState()
-  const accessToken = localStorage.getItem('')
+  const [loading, setLoading] = useState(true);
+  const [occupations, setOccupations] = useState();
+  const [registrations, setRegistration] = useState();
+  const accessToken = localStorage.getItem("");
 
   const getOccupations = async (searchQuery) => {
-    const response = await getOccupation(accessToken, searchQuery)
-    setOccupations(response.data)
-  }
+    const response = await getOccupation(accessToken, searchQuery);
+    setOccupations(response.data);
+  };
 
   const getRegistrations = async (searchQuery) => {
-    const response = await getRegistration(accessToken, searchQuery)
-    setRegistration(response.data)
-  }
+    const response = await getRegistration(accessToken, searchQuery);
+    setRegistration(response.data);
+  };
 
   const debounceSearch = useCallback(
     debounce((nextValue) => {
-      getOccupations(nextValue)
-      getRegistrations(nextValue)
+      getOccupations(nextValue);
+      getRegistrations(nextValue);
     }, 1000),
     []
-  )
+  );
 
   useEffect(() => {
     Promise.all([getOccupations(), getRegistrations()]).then(() => {
-      setLoading(false)
-    })
-  }, [])
+      setLoading(false);
+    });
+  }, []);
 
   const responsive = {
     superLargeDesktop: {
@@ -57,12 +57,13 @@ function Occupation() {
       breakpoint: { max: 464, min: 0 },
       items: 1,
     },
-  }
+  };
+  console.log(occupations);
 
   return loading ? (
     <CircularProgress />
   ) : (
-    <div style={{ marginTop: '30px' }}>
+    <div style={{ marginTop: "30px" }}>
       <SearchBar debounceSearch={debounceSearch} />
       <div className="my-element decorative-line">
         <h2 className="title">Công việc được tìm kiếm nhiều nhất</h2>
@@ -89,7 +90,7 @@ function Occupation() {
     </Carousel>
     <OccupationCard /> */}
     </div>
-  )
+  );
 }
 
-export default Occupation
+export default Occupation;
