@@ -24,6 +24,7 @@ import { removeLocalStorageItem } from "../../config/localStorage";
 import { getStudentProfile } from "../../apis/student";
 import { apiGetUserInfo } from "../../apis/auth";
 import { getCompanyProfile } from "../../apis/company";
+import GoogleTranslate from "../../utils/googleTranslate";
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -91,6 +92,7 @@ function NavBar() {
                   </Button>
                 ))}
           </Stack>
+          <Typography sx={{p: 2}}><GoogleTranslate /></Typography>
           <Typography sx={{ mr: 1, color: "black", fontWeight: "bold" }}> Hi, {name}</Typography>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip>
