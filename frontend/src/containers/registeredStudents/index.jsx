@@ -11,33 +11,36 @@ export default function RegisteredStudentList() {
   const [student, setStudent] = useState({});
   const [data, setData] = useState([]);
   const userInfo = useSelector((s) => s.auth.user);
-
-  useEffect(() => {
-    const getListJob = async () => {
-      if (userInfo) {
-        const response = await apiGetListJobByCompany(userInfo._id);
-        if (response && response.data) {
-          const temp = response.data.map((item, index) => {
-            return {
-              id: index,
-              name: `${item.student.lastName} ${item.student.firstName}`,
-              email: item.student.userId.email,
-              age: item.student.age,
-              cpa: item.student.CPA,
-              phone: item.student.phone,
-              achievement: item.student.achievement,
-              strength: item.student.strength,
-              availableTime: item.student.availableTime,
-              weakness: item.student.weakness,
-              address: item.student.address,
-              apply_internship: item.position.name,
-              _id: item._id,
-            };
-          });
-          setData(temp);
+  const getListJob = async () => {
+    console.log(userInfo._doc._id);
+    if (userInfo) {
+      const response = await apiGetListJobByCompany(userInfo._doc._id);
+      var temp = []
+      for (let item of response.data){
+        if (item.student){
+          var obj = 
+          {
+            id: temp.length,
+            name: `${item.student.lastName} ${item.student.firstName}`,
+            email: item.student.userId.email,
+            age: item.student.age,
+            cpa: item.student.CPA,
+            phone: item.student.phone,
+            achievement: item.student.achievement,
+            strength: item.student.strength,
+            availableTime: item.student.availableTime,
+            weakness: item.student.weakness,
+            address: item.student.address,
+            apply_internship: item.position.name,
+            _id: item._id,
+          }
+        temp.push(obj)
         }
       }
-    };
+      setData(temp);
+    }
+  };
+  useEffect(() => {
     getListJob();
   }, [userInfo]);
 
