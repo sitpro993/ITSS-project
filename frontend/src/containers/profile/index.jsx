@@ -57,7 +57,7 @@ export default function Profile() {
           <TextField label="First Name" variant="outlined" required defaultValue= {data.firstName} onChange={(event)=> handleChange(event, 'firstName')} fullWidth/>
         </Grid>
         <Grid item xs = {12} md = {2}>
-          <Typography variant = "h6">
+          <Typography variant = "h6" style={{textAlign: "right"}}>
             {/* Last Name  */}
             Họ
             </Typography>

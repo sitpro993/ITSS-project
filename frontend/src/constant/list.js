@@ -9,6 +9,6 @@
     { id: "online", name: "Online" },
   ];
   export const internshipTimeList = [
-    { id: "3 tháng", name: "3 tháng" },
-    { id: "6 tháng", name: "6 tháng" },
+    { id: "3 tuần", name: "3 tuần" },
+    { id: "6 tuần", name: "6 tuần" },
   ];

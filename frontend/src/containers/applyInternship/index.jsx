@@ -217,7 +217,7 @@ function ApplyInternship() {
                   ? internshipTimeList.find(
                       (item) => item.id === position.internship_time
                     ).name
-                  : "6 tháng"}
+                  : "6 tuần"}
               </p>
               <p>Lương: {position.salary}</p>
               <p>Yêu cầu kĩ năng: {position.required_skills}</p>

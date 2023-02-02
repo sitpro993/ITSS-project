@@ -74,7 +74,7 @@ export default function ItemCard({
                 ) : (
                   <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                      <Typography paragraph>{description}</Typography>
+                      <Typography paragraph style={{textAlign: "justify"}}>{description}</Typography>
                     </CardContent>
                   </Collapse>
                 )}

@@ -145,7 +145,7 @@ function CompanyDetails() {
               <div className="w-[850px] space-y-4">
                 <div className="space-y-4">
                   <h2 className="text-xl font-medium">Mô tả chi tiết</h2>
-                  <p className="text-gray-700 leading-7 whitespace-pre-line">
+                  <p className="text-gray-700 leading-7 whitespace-pre-line text-justify">
                     {data?.description}
                   </p>
                   <div className="flex flex-wrap py-2"></div>
@@ -158,10 +158,10 @@ function CompanyDetails() {
                     <span className="text-slate-800 text-right">
                       {data?.short_name}
                     </span>
-                    <span className="font-semibold">Số lượng nhân sự:</span>
+                    {/* <span className="font-semibold">Số lượng nhân sự:</span>
                     <span className="text-slate-800 text-right">
-                      {data?.number_of_employee}
-                    </span>
+                      {data?.required_employees}
+                    </span> */}
                     <span className="font-semibold">Năm thành lập:</span>
                     <span className="text-slate-800 text-right">
                       {data?.created_time}
