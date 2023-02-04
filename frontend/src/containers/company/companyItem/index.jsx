@@ -56,11 +56,11 @@ export const CompanyItem = ({ company, loading }) => {
           </Box>
         </CardContent>
         <CardActions>
-          <Button size="small">
+          <Button size="small" style={{fontSize: '15px'}}>
             {/* Share */}
             Chia sẻ
           </Button>
-          <Button size="small" onClick={handleClick}>
+          <Button size="small" style={{fontSize: '15px'}} onClick={handleClick}>
             {/* Learn More */}
             Chi tiết
           </Button>
