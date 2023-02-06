@@ -54,11 +54,11 @@ export default function ItemCard({
         <h2 className="whitespace-nowrap">{title}</h2>
         <Typography variant="body2" color="text.secondary">
           <div>
-            <b>Skill: </b>
+            <b>Kỹ năng: </b>
             {skills}
           </div>
           <div>
-            <b>Average salary: </b>
+            <b>Mức lương trung bình: </b>
             {salary}
           </div>
           <div>
@@ -74,7 +74,9 @@ export default function ItemCard({
                 ) : (
                   <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                      <Typography paragraph style={{textAlign: "justify"}}>{description}</Typography>
+                      <Typography paragraph style={{ textAlign: "justify" }}>
+                        {description}
+                      </Typography>
                     </CardContent>
                   </Collapse>
                 )}
