@@ -21,7 +21,7 @@ export default function OccupationDetail() {
     <>
       {data && (
         <>
-          <h1>{data.title}</h1>
+          <h1 style={{textAlign: "center"}}>{data.title}</h1>
           <div dangerouslySetInnerHTML={{ __html: data.post }} />
         </>
       )}

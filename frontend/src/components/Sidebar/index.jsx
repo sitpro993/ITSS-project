@@ -21,6 +21,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route";
 import { removeLocalStorageItem } from "../../config/localStorage";
+import GoogleTranslate from "../../utils/googleTranslate";
 const drawerWidth = 240;
 
 function Sidebar(props) {
