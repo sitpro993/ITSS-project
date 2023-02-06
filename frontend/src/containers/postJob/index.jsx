@@ -58,7 +58,7 @@ function PostJob() {
       internship_time: data.internshipTime,
       // required_employees: data.required_employees,
       description: data.description,
-      company: userInfo._id,
+      company: userInfo._doc._id,
     });
 
     if (response && response.msg) {
