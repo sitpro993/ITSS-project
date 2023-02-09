@@ -10,9 +10,10 @@ export const CompanyRequestsList = () => {
 
   useEffect(() => {
     const getApi = async () => {
+      console.log(userInfo)
       if (userInfo) {
         setLoading(true);
-        const response = await apiGetStudentRequest(userInfo._id);
+        const response = await apiGetStudentRequest(userInfo._doc._id);
         if (response && response.data) {
           setData(response.data);
         }
