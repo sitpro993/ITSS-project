@@ -186,7 +186,7 @@ function ApplyInternship() {
                   >
                     {positions.map((item) => (
                       <MenuItem key={item._id} value={item._id}>
-                        {item.name}
+                        {item.name} ({item.working_form == null ? "Online" : "Offine"})
                       </MenuItem>
                     ))}
                   </Select>

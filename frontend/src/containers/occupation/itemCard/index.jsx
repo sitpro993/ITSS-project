@@ -47,7 +47,7 @@ export default function ItemCard({
       <CardMedia
         component="img"
         height="150"
-        image="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/8a/f7f459f9674408947edb8e594a5da3/1200x600_PgM.png?auto=format%2Ccompress%2C%20enhance&dpr=2&w=600&h=216&fit=fill&q=50"
+        image={image == null ? "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://d15cw65ipctsrr.cloudfront.net/8a/f7f459f9674408947edb8e594a5da3/1200x600_PgM.png?auto=format%2Ccompress%2C%20enhance&dpr=2&w=600&h=216&fit=fill&q=50" : image}
         alt="Paella dish"
       />
       <CardContent>
