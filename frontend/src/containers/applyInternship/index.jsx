@@ -96,12 +96,13 @@ function ApplyInternship() {
   }, [positionId]);
 
   const onSubmit = async (data) => {
+    console.log(userInfo._doc._id)
     const response = await apiApplyInternship({
       request: data.request,
-      working_type: data.working_type,
+      working_type: position.type,
       company: data.company,
       position: data.position,
-      student: userInfo._id,
+      student: userInfo._doc._id,
     });
 
     if (response && response.msg) {
